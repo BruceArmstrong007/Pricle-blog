@@ -30,9 +30,9 @@ export const routes: Routes = [
       import('./routes/user/user.routes').then((m) => m.routes),
     providers: [provideEffects([userEffects, contactEffects])],
   },
-  {
-    path: '**',
-    pathMatch: 'full',
-    redirectTo: ClientRoutes.User.Contacts.Root, // need to change after we create blog timeline
-  },
+  // {
+  //   path: '**',
+  //   pathMatch: 'full',
+  //   redirectTo: ClientRoutes.Home, // need to change after we create blog timeline
+  // },
 ];
