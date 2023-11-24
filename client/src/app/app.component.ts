@@ -1,4 +1,9 @@
-import { Component, HostBinding, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  inject,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ModeService } from './shared/services/mode/mode.service';
 
@@ -10,6 +15,7 @@ import { ModeService } from './shared/services/mode/mode.service';
     <router-outlet />
   </div> `,
   styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   readonly modeService = inject(ModeService);

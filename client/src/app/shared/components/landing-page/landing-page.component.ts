@@ -1,3 +1,4 @@
+import { App } from './../../utils/app.const';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -7,6 +8,8 @@ import {
   ViewChild,
   inject,
   NgZone,
+  signal,
+  Signal,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ClientRoutes, RoutesInterface } from '../../utils/client.routes';
@@ -37,8 +40,10 @@ export class LandingPageComponent implements AfterViewInit, OnDestroy {
   readonly earth = inject(EarthService);
   routePath = this.store.selectSignal(selectUrl);
   @ViewChild('cmp') container!: ElementRef<HTMLCanvasElement>;
-  Routes: RoutesInterface = ClientRoutes;
+  readonly Routes: Signal<RoutesInterface> = signal(ClientRoutes);
   private readonly ngZone = inject(NgZone);
+  readonly appName: Signal<string> = signal(App.NAME);
+  readonly slogan: Signal<string> = signal(App.SLOGAN);
 
   ngAfterViewInit() {
     this.ngZone.runOutsideAngular(() => {

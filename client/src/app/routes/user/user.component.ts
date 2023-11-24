@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NotificationSocketService } from '../../shared/sockets/notification-socket.service';
 
 @Component({
@@ -7,6 +7,7 @@ import { NotificationSocketService } from '../../shared/sockets/notification-soc
   imports: [],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserComponent {
   private readonly notificationSocket = inject(NotificationSocketService);
