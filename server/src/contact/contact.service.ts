@@ -8,7 +8,7 @@ import { ContactStatus, ContactType } from '@app/common';
 import { ContactRepository } from './database/repository/contact.repository';
 import { Contact } from './database/schema/contact.schema';
 import { UserService } from '../user/user.service';
-// import { ChatRepository } from '../chat/database/repository/chat.repository';
+import { NotificationGateway } from 'src/notification/notification.gateway';
 
 @Injectable()
 export class ContactService {
@@ -16,7 +16,7 @@ export class ContactService {
     private readonly contactRepository: ContactRepository,
     @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
-    // private readonly chatRepository: ChatRepository,
+    private readonly notificationService: NotificationGateway,
   ) {}
 
   async sendRequest(userID: string, contactID: string) {
@@ -35,7 +35,7 @@ export class ContactService {
     );
 
     // Notify Users
-    // await this.notifyUsers('send-request', userID, contactID);
+    await this.notifyUsers('send-request', userID, contactID);
 
     return { message: 'Friend request sent.' };
   }
@@ -69,13 +69,13 @@ export class ContactService {
     await this.contactRepository.deleteContact(contactID, userID);
 
     // Notify users
-    // let status;
-    // if (command === 'cancelled') {
-    //   status = 'cancel-request';
-    // } else {
-    //   status = 'decline-request';
-    // }
-    // await this.notifyUsers(status, userID, contactID);
+    let status;
+    if (command === 'cancelled') {
+      status = 'cancel-request';
+    } else {
+      status = 'decline-request';
+    }
+    await this.notifyUsers(status, userID, contactID);
 
     return { message: `Friend request ${command}.` };
   }
@@ -108,7 +108,7 @@ export class ContactService {
     );
 
     // Notify Users
-    // await this.notifyUsers('accept-request', userID, contactID);
+    await this.notifyUsers('accept-request', userID, contactID);
 
     return { message: 'Friend request accepted.' };
   }
@@ -178,7 +178,7 @@ export class ContactService {
     // await this.chatRepository.jsonDel(`rooms:${roomID}`);
 
     // Notify Users
-    // await this.notifyUsers('remove-request', userID, contactID);
+    await this.notifyUsers('remove-request', userID, contactID);
 
     return { message: 'Removed contact successfully.' };
   }
@@ -225,21 +225,23 @@ export class ContactService {
 
   async deleteUserContact(userID: string) {
     await this.checkUserExist(userID);
-    // const contactIDs = (
-    //   await this.contactRepository.getContacts(userID)
-    // )?.flatMap((contact) => {
-    //   if (contact?.sender.toJSON() === userID) {
-    //     return contact?.receiver.toJSON();
-    //   } else {
-    //     return contact?.sender.toJSON();
-    //   }
-    // });
-    // for (let i = 0; i < contactIDs.length; i++) {
-    // notify contact
-    // await this.notifyUsers('account-deleted', userID, contactIDs[i]);
-    // const roomID = this.chatRepository.generateRoomIDs(userID, contactIDs[i]);
-    // await this.chatRepository.jsonDel(`rooms:${roomID}`);
-    // }
+    const contactIDs = (
+      await this.contactRepository.getContacts(userID)
+    )?.flatMap((contact) => {
+      if (contact?.sender.toJSON() === userID) {
+        return contact?.receiver.toJSON();
+      } else {
+        return contact?.sender.toJSON();
+      }
+    });
+    for (let i = 0; i < contactIDs.length; i++) {
+      // Notify contact
+      await this.notifyUsers('account-deleted', userID, contactIDs[i]);
+
+      // Delete contact messages
+      // const roomID = this.chatRepository.generateRoomIDs(userID, contactIDs[i]);
+      // await this.chatRepository.jsonDel(`rooms:${roomID}`);
+    }
     await this.contactRepository.deleteUserContact(userID);
     return { message: 'Contact successfully deleted.' };
   }
@@ -251,17 +253,11 @@ export class ContactService {
     }
   }
 
-  // private async notifyUsers(status: string, userID: string, contactID: string) {
-  // await this.chatRepository.publish(
-  //   'contact',
-  //   JSON.stringify({
-  //     type: 'contact',
-  //     data: {
-  //       status,
-  //       userID,
-  //       contactID,
-  //     },
-  //   }),
-  // );
-  // }
+  private async notifyUsers(status: string, userID: string, contactID: string) {
+    await this.notificationService.setContactNotification({
+      status,
+      userID,
+      contactID,
+    });
+  }
 }
