@@ -1,5 +1,6 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ModeService } from './shared/services/mode/mode.service';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'client';
-  // @HostBinding('class.dark') get mode() => {
-  //   return
-  // }
+   readonly modeService = inject(ModeService);
+  @HostBinding('class.dark') get mode() {
+    return this.modeService.darkMode();
+  }
+  
 }
