@@ -9,8 +9,6 @@ import { authActions } from '../auth/auth.action';
 import { contactsActions } from '../contacts/contacts.action';
 import { Router } from '@angular/router';
 import { ClientRoutes } from '../../shared/utils/client.routes';
-import { MessageSocketService } from '../../shared/sockets/message-socket/message-socket.service';
-import { UserSocketService } from '../../shared/sockets/user-socket/user-socket.service';
 import { CookieService } from 'ngx-cookie-service';
 
 export const profile = createEffect(
@@ -99,8 +97,8 @@ export const logout = createEffect(
     actions$ = inject(Actions),
     store = inject(Store),
     router = inject(Router),
-    messageSocket = inject(MessageSocketService),
-    userSocket = inject(UserSocketService),
+    // messageSocket = inject(MessageSocketService),
+    // userSocket = inject(UserSocketService),
     apiService = inject(ApiService),
   ) => {
     return actions$.pipe(
@@ -108,8 +106,8 @@ export const logout = createEffect(
       exhaustMap(() => {
         return apiService.request(API.LOGOUT).pipe(
           map(() => {
-            messageSocket.disconnect();
-            userSocket.disconnect();
+            // messageSocket.disconnect();
+            // userSocket.disconnect();
             store.dispatch(authActions.resetState());
             store.dispatch(contactsActions.resetState());
            // store.dispatch(channelsActions.resetState());
