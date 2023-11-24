@@ -18,6 +18,7 @@ import { MailService } from './mail/mail.service';
 import { CurrentUserType, TokenType } from '@app/common';
 import { Inject } from '@nestjs/common';
 import { Response } from 'express';
+import { NotificationGateway } from 'src/notification/notification.gateway';
 
 @Injectable()
 export class AuthService {
@@ -26,6 +27,7 @@ export class AuthService {
     @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
     private readonly mailService: MailService,
+    private readonly notificationService: NotificationGateway,
   ) {}
 
   async login(user: User, response: Response) {
@@ -132,6 +134,14 @@ export class AuthService {
       },
       unVerifiedUser?._id,
     );
+
+    // Welcome notification
+    this.notificationService.setUserNotification(
+      unVerifiedUser?._id,
+      'Welcome to Pricle Blog',
+      'Create posts, add friends and have fun!',
+    );
+
     return { message: 'User successfully verified.' };
   }
 

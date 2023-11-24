@@ -6,11 +6,13 @@ import { Contact } from './dto/contact.request';
 import { ContactSchema } from './database/schema/contact.schema';
 import { UserModule } from '../user/user.module';
 import { ContactRepository } from './database/repository/contact.repository';
+import { NotificationModule } from 'src/notification/notification.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Contact.name, schema: ContactSchema }]),
     forwardRef(() => UserModule),
+    NotificationModule,
   ],
   controllers: [ContactController],
   providers: [ContactService, ContactRepository],

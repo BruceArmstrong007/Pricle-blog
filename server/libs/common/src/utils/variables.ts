@@ -27,3 +27,9 @@ export type UploadProfile = {
   filename: string;
   url: string;
 };
+
+export interface ContactNotification {
+  status: string;
+  userID: string;
+  contactID: string;
+}

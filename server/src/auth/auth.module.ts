@@ -11,11 +11,13 @@ import { MailModule } from './mail/mail.module';
 import { Token, TokenSchema } from './database/schema/token.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthRepository } from './database/repository/auth.repository';
+import { NotificationModule } from 'src/notification/notification.module';
 
 @Module({
   controllers: [AuthController],
   imports: [
     forwardRef(() => UserModule),
+    NotificationModule,
     JwtModule.registerAsync({
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET'),
