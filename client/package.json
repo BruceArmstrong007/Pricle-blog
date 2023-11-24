@@ -28,6 +28,7 @@
     "@ngrx/router-store": "^17.0.0",
     "@ngrx/signals": "^17.0.0",
     "@ngrx/store": "^17.0.0",
+    "@ngrx/store-devtools": "^17.0.0",
     "material-icons": "^1.13.12",
     "ngx-cookie-service": "^17.0.0",
     "ngx-image-cropper": "^7.1.2",
