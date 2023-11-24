@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { Routes } from '../utils/client.routes';
+import { ClientRoutes } from '../utils/client.routes';
 
 export const userGuard: CanActivateFn = () => {
   const router = inject(Router);
@@ -8,6 +8,6 @@ export const userGuard: CanActivateFn = () => {
   if (isLoggedIn === 'true') {
     return true;
   }
-  router.navigateByUrl(Routes.Auth.Root);
+  router.navigateByUrl(ClientRoutes.Auth.Root);
   return false;
 };

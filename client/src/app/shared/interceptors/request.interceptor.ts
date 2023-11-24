@@ -13,7 +13,7 @@ import { ApiService } from '../services/api/api.service';
 import { API } from '../utils/api.endpoints';
 import { authActions } from '../../stores/auth/auth.action';
 import { Router } from '@angular/router';
-import { Routes } from '../utils/client.routes';
+import { ClientRoutes } from '../utils/client.routes';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -80,7 +80,7 @@ export class RequestInterceptor implements HttpInterceptor {
 
   private logout(request: HttpRequest<unknown>) {
     if (request.url.includes('user')) {
-      this.router.navigateByUrl(Routes.Auth.Root);
+      this.router.navigateByUrl(ClientRoutes.Auth.Root);
       return;
     }
     this.store.dispatch(authActions.logout());

@@ -4,10 +4,10 @@ import { API } from '../utils/api.endpoints';
 import { inject } from '@angular/core';
 import { ApiService } from '../services/api/api.service';
 import { Store } from '@ngrx/store';
-import { userActions } from 'src/app/stores/user/user.action';
-import { authActions } from 'src/app/stores/auth/auth.action';
+import { userActions } from '../../stores/user/user.action';
+import { authActions } from '../../stores/auth/auth.action';
 import { authFeature } from '../../stores/auth/auth.reducer';
-import { contactsActions } from 'src/app/stores/contacts/contacts.action';
+import { contactsActions } from '../../stores/contacts/contacts.action';
 
 export const tokenResolver: ResolveFn<boolean> = () => {
   const apiService = inject(ApiService);

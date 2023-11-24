@@ -1,4 +1,4 @@
-export const Routes: RoutesInterface = {
+export const ClientRoutes: RoutesInterface = {
   Auth: {
     Root: '/auth',
     Login: '/auth/login',
@@ -16,9 +16,6 @@ export const Routes: RoutesInterface = {
     },
     SearchUsers: {
       Root: '/user/search-users',
-    },
-    Chats: {
-      Root: '/user/chats',
     },
     Settings: {
       Root: '/user/settings',
@@ -47,9 +44,6 @@ export interface RoutesInterface {
       Friends: string;
       SentRequests: string;
       ReceivedRequests: string;
-    };
-    Chats: {
-      Root: string;
     };
     SearchUsers: {
       Root: string;
