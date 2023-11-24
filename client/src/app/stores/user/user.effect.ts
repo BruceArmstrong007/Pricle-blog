@@ -1,21 +1,16 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ApiService } from 'src/app/shared/services/api/api.service';
+import { ApiService } from '../../shared/services/api/api.service';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
-import { API } from 'src/app/shared/utils/api.endpoints';
+import { API } from '../../shared/utils/api.endpoints';
 import { userActions } from './user.action';
-import { EditProfileStore } from 'src/app/sections/user/components/profile/components/profile-edit/store/edit-profile.store';
 import { Store } from '@ngrx/store';
 import { authActions } from '../auth/auth.action';
 import { contactsActions } from '../contacts/contacts.action';
-import { channelsActions } from '../channels/channels.action';
-import { onlineFriendsActions } from '../online-friends/online-friends.action';
 import { Router } from '@angular/router';
-import { Routes } from 'src/app/shared/utils/client.routes';
-import { ChangePasswordStore } from 'src/app/sections/user/components/settings/components/account/components/change-password/store/change-password.store';
-import { ChangeEmailStore } from 'src/app/sections/user/components/settings/components/account/components/change-email/store/change-email.store';
-import { MessageSocketService } from 'src/app/shared/sockets/message-socket/message-socket.service';
-import { UserSocketService } from 'src/app/shared/sockets/user-socket/user-socket.service';
+import { ClientRoutes } from '../../shared/utils/client.routes';
+import { MessageSocketService } from '../../shared/sockets/message-socket/message-socket.service';
+import { UserSocketService } from '../../shared/sockets/user-socket/user-socket.service';
 import { CookieService } from 'ngx-cookie-service';
 
 export const profile = createEffect(
@@ -44,20 +39,20 @@ export const updateUser = createEffect(
     actions$ = inject(Actions),
     apiService = inject(ApiService),
     store = inject(Store),
-    editStore = inject(EditProfileStore)
+    // editStore = inject(EditProfileStore)
   ) => {
     return actions$.pipe(
       ofType(userActions.updateUser),
       exhaustMap((request) => {
-        editStore.EditProfile();
+    //    editStore.EditProfile();
         return apiService.request(API.UPDATEUSER, request).pipe(
           map((response: any) => {
-            editStore.EditProfileSuccess(response);
+      //      editStore.EditProfileSuccess(response);
             store.dispatch(userActions.profile());
             return userActions.updateUserSuccess();
           }),
           catchError(({ error }) => {
-            editStore.EditProfileFailure(error);
+        //    editStore.EditProfileFailure(error);
             return of(userActions.updateUserFailure());
           })
         );
@@ -74,20 +69,20 @@ export const uploadProfile = createEffect(
     actions$ = inject(Actions),
     apiService = inject(ApiService),
     store = inject(Store),
-    editStore = inject(EditProfileStore)
+   // editStore = inject(EditProfileStore)
   ) => {
     return actions$.pipe(
       ofType(userActions.uploadProfile),
       exhaustMap((request) => {
-        editStore.EditProfile();
+     //   editStore.EditProfile();
         return apiService.uploadProfile(API.UPLOADPROFILE, request).pipe(
           map((response: any) => {
-            editStore.EditProfileSuccess(response);
+       //     editStore.EditProfileSuccess(response);
             store.dispatch(userActions.profile());
             return userActions.uploadProfileSuccess();
           }),
           catchError(({ error }) => {
-            editStore.EditProfileFailure(error);
+         //   editStore.EditProfileFailure(error);
             return of(userActions.uploadProfileFailure());
           })
         );
@@ -117,11 +112,11 @@ export const logout = createEffect(
             userSocket.disconnect();
             store.dispatch(authActions.resetState());
             store.dispatch(contactsActions.resetState());
-            store.dispatch(channelsActions.resetState());
-            store.dispatch(onlineFriendsActions.resetState());
+           // store.dispatch(channelsActions.resetState());
+           // store.dispatch(onlineFriendsActions.resetState());
             store.dispatch(userActions.resetState());
             localStorage.removeItem('isLoggedIn');
-            router.navigateByUrl(Routes.Home);
+           // router.navigateByUrl(Routes.Home);
             return userActions.logoutSuccess();
           }),
           catchError(({ error }) => {
@@ -167,19 +162,19 @@ export const changePassword = createEffect(
   (
     actions$ = inject(Actions),
     apiService = inject(ApiService),
-    changePasswordStore = inject(ChangePasswordStore)
+  //  changePasswordStore = inject(ChangePasswordStore)
   ) => {
     return actions$.pipe(
       ofType(userActions.resetPassword),
       exhaustMap((request) => {
-        changePasswordStore.ChangePassword();
+      //  changePasswordStore.ChangePassword();
         return apiService.request(API.CHANGEPASSWORD, request).pipe(
           map((response: any) => {
-            changePasswordStore.ChangePasswordSuccess(response);
+        //    changePasswordStore.ChangePasswordSuccess(response);
             return userActions.resetPasswordSuccess();
           }),
           catchError(({ error }) => {
-            changePasswordStore.ChangePasswordFailure(error);
+          //  changePasswordStore.ChangePasswordFailure(error);
             return of(userActions.resetPasswordFailure());
           })
         );
@@ -195,19 +190,19 @@ export const changeEmailLink = createEffect(
   (
     actions$ = inject(Actions),
     apiService = inject(ApiService),
-    changeEmailStore = inject(ChangeEmailStore)
+   // changeEmailStore = inject(ChangeEmailStore)
   ) => {
     return actions$.pipe(
       ofType(userActions.changeEmailLink),
       exhaustMap((request) => {
-        changeEmailStore.ChangeEmailLink();
+      //  changeEmailStore.ChangeEmailLink();
         return apiService.request(API.CHANGEEMAILLINK, request).pipe(
           map((response: any) => {
-            changeEmailStore.ChangeEmailLinkSuccess(response);
+          //  changeEmailStore.ChangeEmailLinkSuccess(response);
             return userActions.changeEmailLinkSuccess();
           }),
           catchError(({ error }) => {
-            changeEmailStore.ChangeEmailLinkFailure(error);
+          //  changeEmailStore.ChangeEmailLinkFailure(error);
             return of(userActions.changeEmailLinkFailure());
           })
         );
@@ -223,19 +218,19 @@ export const changeEmailVerification = createEffect(
   (
     actions$ = inject(Actions),
     apiService = inject(ApiService),
-    changeEmailStore = inject(ChangeEmailStore)
+    // changeEmailStore = inject(ChangeEmailStore)
   ) => {
     return actions$.pipe(
       ofType(userActions.changeEmail),
       exhaustMap((request) => {
-        changeEmailStore.ChangeEmail();
+        // changeEmailStore.ChangeEmail();
         return apiService.request(API.CHANGEEMAIL, request).pipe(
           map((response: any) => {
-            changeEmailStore.ChangeEmailSuccess(response);
+            // changeEmailStore.ChangeEmailSuccess(response);
             return userActions.changeEmailSuccess();
           }),
           catchError(({ error }) => {
-            changeEmailStore.ChangeEmailFailure(error);
+            // changeEmailStore.ChangeEmailFailure(error);
             return of(userActions.changeEmailFailure());
           })
         );

@@ -1,19 +1,13 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ApiService } from 'src/app/shared/services/api/api.service';
+import { ApiService } from '../../shared/services/api/api.service';
 import { authActions } from './auth.action';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
-import { API } from 'src/app/shared/utils/api.endpoints';
-import { LoginStore } from 'src/app/sections/auth/components/login/store/login.store';
-import { RegisterStore } from 'src/app/sections/auth/components/register/store/register.store';
+import { API } from '../../shared/utils/api.endpoints';
 import { Router } from '@angular/router';
-import { VerifyAccountStore } from 'src/app/sections/auth/components/verify-account/store/verify-account.store';
-import { ResetPasswordStore } from 'src/app/sections/auth/components/reset-password/store/reset-password.store';
-import { Routes } from 'src/app/shared/utils/client.routes';
+import { ClientRoutes } from '../../shared/utils/client.routes';
 import { Store } from '@ngrx/store';
 import { contactsActions } from '../contacts/contacts.action';
-import { channelsActions } from '../channels/channels.action';
-import { onlineFriendsActions } from '../online-friends/online-friends.action';
 import { userActions } from '../user/user.action';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -21,25 +15,25 @@ export const login = createEffect(
   (
     actions$ = inject(Actions),
     apiService = inject(ApiService),
-    loginStore = inject(LoginStore),
+    // loginStore = inject(LoginStore),
     router = inject(Router),
     cookieService = inject(CookieService)
   ) => {
     return actions$.pipe(
       ofType(authActions.login),
       exhaustMap((request) => {
-        loginStore.Login();
+   //     loginStore.Login();
         return apiService.request(API.LOGIN, request).pipe(
           map((response: any) => {
             const refreshtoken = cookieService.get('refreshToken');
             response = { ...response, refreshtoken };
             localStorage.setItem('isLoggedIn', 'true');
-            loginStore.LoginSuccess(response);
-            router.navigateByUrl(Routes.User.Root);
+     //       loginStore.LoginSuccess(response);
+            router.navigateByUrl(ClientRoutes.User.Root);
             return authActions.loginSuccess(response);
           }),
           catchError(({ error }) => {
-            loginStore.LoginFailure(error);
+          //  loginStore.LoginFailure(error);
             return of(authActions.loginFailure());
           })
         );
@@ -55,16 +49,16 @@ export const register = createEffect(
   (
     actions$ = inject(Actions),
     apiService = inject(ApiService),
-    registerStore = inject(RegisterStore),
+   // registerStore = inject(RegisterStore),
     router = inject(Router)
   ) => {
     return actions$.pipe(
       ofType(authActions.register),
       exhaustMap((request: any) => {
-        registerStore.Register();
+      //  registerStore.Register();
         return apiService.request(API.REGISTER, request).pipe(
           map((response: any) => {
-            registerStore.RegisterSuccess(response);
+        //    registerStore.RegisterSuccess(response);
             const encoded = btoa(
               JSON.stringify({ email: request.email, token: null })
             );
@@ -72,7 +66,7 @@ export const register = createEffect(
             return authActions.registerSuccess();
           }),
           catchError(({ error }) => {
-            registerStore.RegisterFailure(error);
+          //  registerStore.RegisterFailure(error);
             return of(authActions.registerFailure());
           })
         );
@@ -88,20 +82,20 @@ export const verifyEmailLink = createEffect(
   (
     actions$ = inject(Actions),
     apiService = inject(ApiService),
-    verifyAccountStore = inject(VerifyAccountStore)
+    // verifyAccountStore = inject(VerifyAccountStore)
   ) => {
     return actions$.pipe(
       ofType(authActions.verifyEmailLink),
       exhaustMap((request) => {
-        verifyAccountStore.VerifyAccountLink();
+      //  verifyAccountStore.VerifyAccountLink();
         return apiService.request(API.VERIFY_EMAIL_LINK, request).pipe(
           map((response: any) => {
             const res: any = { request, response };
-            verifyAccountStore.VerifyAccountLinkSuccess(res);
+          //  verifyAccountStore.VerifyAccountLinkSuccess(res);
             return authActions.verifyEmailLinkSuccess();
           }),
           catchError(({ error }) => {
-            verifyAccountStore.VerifyAccountLinkFailure(error);
+          //  verifyAccountStore.VerifyAccountLinkFailure(error);
             return of(authActions.verifyEmailLinkFailure());
           })
         );
@@ -118,20 +112,20 @@ export const verifyEmail = createEffect(
     actions$ = inject(Actions),
     apiService = inject(ApiService),
     router = inject(Router),
-    verifyAccountStore = inject(VerifyAccountStore)
+   // verifyAccountStore = inject(VerifyAccountStore)
   ) => {
     return actions$.pipe(
       ofType(authActions.verifyEmail),
       exhaustMap((request) => {
-        verifyAccountStore.VerifyAccount();
+      //  verifyAccountStore.VerifyAccount();
         return apiService.request(API.VERIFY_EMAIL, request).pipe(
           map((response: any) => {
-            verifyAccountStore.VerifyAccountSuccess(response);
-            router.navigateByUrl(Routes.Auth.Login);
+        //    verifyAccountStore.VerifyAccountSuccess(response);
+            router.navigateByUrl(ClientRoutes.Auth.Login);
             return authActions.verifyEmailSuccess();
           }),
           catchError(({ error }) => {
-            verifyAccountStore.VerifyAccountFailure(error);
+          //  verifyAccountStore.VerifyAccountFailure(error);
             return of(authActions.verifyEmailFailure());
           })
         );
@@ -147,19 +141,19 @@ export const resetPasswordLink = createEffect(
   (
     actions$ = inject(Actions),
     apiService = inject(ApiService),
-    resetPasswordStore = inject(ResetPasswordStore)
+    // resetPasswordStore = inject(ResetPasswordStore)
   ) => {
     return actions$.pipe(
       ofType(authActions.resetPasswordLink),
       exhaustMap((request) => {
-        resetPasswordStore.ResetPasswordLink();
+       // resetPasswordStore.ResetPasswordLink();
         return apiService.request(API.RESET_PASSWORD_LINK, request).pipe(
           map((response: any) => {
-            resetPasswordStore.ResetPasswordLinkSuccess(response);
+         //   resetPasswordStore.ResetPasswordLinkSuccess(response);
             return authActions.resetPasswordLinkSuccess();
           }),
           catchError(({ error }) => {
-            resetPasswordStore.ResetPasswordLinkFailure(error);
+          //  resetPasswordStore.ResetPasswordLinkFailure(error);
             return of(authActions.resetPasswordLinkFailure());
           })
         );
@@ -175,21 +169,21 @@ export const resetPassword = createEffect(
   (
     actions$ = inject(Actions),
     apiService = inject(ApiService),
-    resetPasswordStore = inject(ResetPasswordStore),
+    // resetPasswordStore = inject(ResetPasswordStore),
     router = inject(Router)
   ) => {
     return actions$.pipe(
       ofType(authActions.resetPassword),
       exhaustMap((request) => {
-        resetPasswordStore.ResetPassword();
+       // resetPasswordStore.ResetPassword();
         return apiService.request(API.RESET_PASSWORD, request).pipe(
           map((response: any) => {
-            resetPasswordStore.ResetPasswordSuccess(response);
-            router.navigateByUrl(Routes.Auth.Login);
+         //   resetPasswordStore.ResetPasswordSuccess(response);
+            router.navigateByUrl(ClientRoutes.Auth.Login);
             return authActions.resetPasswordSuccess();
           }),
           catchError((error) => {
-            resetPasswordStore.ResetPasswordFailure(error);
+           // resetPasswordStore.ResetPasswordFailure(error);
             return of(authActions.resetPasswordFailure());
           })
         );
@@ -212,11 +206,11 @@ export const logout = createEffect(
       tap(() => {
         store.dispatch(authActions.resetState());
         store.dispatch(contactsActions.resetState());
-        store.dispatch(channelsActions.resetState());
-        store.dispatch(onlineFriendsActions.resetState());
+        // store.dispatch(channelsActions.resetState());
+        // store.dispatch(onlineFriendsActions.resetState());
         store.dispatch(userActions.resetState());
         localStorage.removeItem('isLoggedIn');
-        router.navigateByUrl(Routes.Home);
+        router.navigateByUrl(ClientRoutes.Home);
       })
     );
   },
