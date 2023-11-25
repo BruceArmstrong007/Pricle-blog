@@ -34,7 +34,7 @@ import { EarthService } from './services/earth.service';
     }
     `,
 })
-export class LandingPageComponent implements AfterViewInit, OnDestroy {
+class LandingPageComponent implements AfterViewInit, OnDestroy {
   private readonly store = inject(Store);
   readonly mode = inject(ModeService);
   readonly earth = inject(EarthService);
@@ -58,3 +58,5 @@ export class LandingPageComponent implements AfterViewInit, OnDestroy {
     });
   }
 }
+
+export default LandingPageComponent;

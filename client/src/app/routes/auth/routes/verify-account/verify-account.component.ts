@@ -8,4 +8,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './verify-account.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VerifyAccountComponent {}
+class VerifyAccountComponent {}
+
+export default VerifyAccountComponent;

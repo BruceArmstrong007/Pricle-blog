@@ -7,8 +7,10 @@ import { NotificationSocketService } from '../../shared/sockets/notification-soc
   imports: [],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserComponent {
+class UserComponent {
   private readonly notificationSocket = inject(NotificationSocketService);
 }
+
+export default UserComponent;

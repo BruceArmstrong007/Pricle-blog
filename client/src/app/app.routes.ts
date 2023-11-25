@@ -11,24 +11,20 @@ export const routes: Routes = [
   {
     path: 'auth',
     resolve: [authGuard],
-    loadChildren: () =>
-      import('./routes/auth/auth.routes').then((m) => m.routes),
+    loadChildren: () => import('./routes/auth/auth.routes'),
     providers: [],
   },
   {
     path: 'user',
     canActivate: [userGuard],
     resolve: [tokenResolver],
-    loadChildren: () =>
-      import('./routes/user/user.routes').then((m) => m.routes),
+    loadChildren: () => import('./routes/user/user.routes'),
     providers: [provideEffects([userEffects, contactEffects])],
   },
   {
     path: 'home',
     loadComponent: () =>
-      import('./shared/components/landing-page/landing-page.component').then(
-        (m) => m.LandingPageComponent
-      ),
+      import('./shared/components/landing-page/landing-page.component'),
   },
   {
     path: '**',

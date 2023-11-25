@@ -8,6 +8,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './register.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegisterComponent {
+class RegisterComponent {
 
 }
+
+export default RegisterComponent;

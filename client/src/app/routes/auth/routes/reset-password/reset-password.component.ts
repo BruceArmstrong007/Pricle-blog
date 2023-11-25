@@ -8,6 +8,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './reset-password.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResetPasswordComponent {
+class ResetPasswordComponent {
 
 }
+
+export default ResetPasswordComponent;
