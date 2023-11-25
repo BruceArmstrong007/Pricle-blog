@@ -9,13 +9,6 @@ import * as contactEffects from './stores/contacts/contacts.effect';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () =>
-      import('./shared/components/landing-page/landing-page.component').then(
-        (m) => m.LandingPageComponent
-      ),
-  },
-  {
     path: 'auth',
     resolve: [authGuard],
     loadChildren: () =>
@@ -30,9 +23,16 @@ export const routes: Routes = [
       import('./routes/user/user.routes').then((m) => m.routes),
     providers: [provideEffects([userEffects, contactEffects])],
   },
-  // {
-  //   path: '**',
-  //   pathMatch: 'full',
-  //   redirectTo: ClientRoutes.Home, // need to change after we create blog timeline
-  // },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./shared/components/landing-page/landing-page.component').then(
+        (m) => m.LandingPageComponent
+      ),
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: ClientRoutes.Home, // need to change after we create blog timeline
+  },
 ];
