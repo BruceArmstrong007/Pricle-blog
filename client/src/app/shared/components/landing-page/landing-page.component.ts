@@ -17,8 +17,8 @@ import { selectUrl } from '../../router-store/router-selector';
 import { Store } from '@ngrx/store';
 import { NgIf } from '@angular/common';
 import { ModeService } from '../../services/mode/mode.service';
-import { ButtonComponent } from '../button/button.component';
-import { LoaderComponent } from '../loader/loader.component';
+import ButtonComponent from '../button/button.component';
+import LoaderComponent from '../loader/loader.component';
 import { EarthService } from './services/earth.service';
 
 @Component({

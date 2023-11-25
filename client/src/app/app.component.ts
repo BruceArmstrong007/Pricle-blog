@@ -17,9 +17,11 @@ import { ModeService } from './shared/services/mode/mode.service';
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+class AppComponent {
   readonly modeService = inject(ModeService);
   @HostBinding('class.dark') get mode() {
     return this.modeService.darkMode();
   }
 }
+
+export default AppComponent;

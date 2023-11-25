@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './verify-account.component.html',
-  styleUrl: './verify-account.component.css',
+  styles: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class VerifyAccountComponent {}

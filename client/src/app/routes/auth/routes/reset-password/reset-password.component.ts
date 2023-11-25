@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.css',
+  styles: '',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 class ResetPasswordComponent {

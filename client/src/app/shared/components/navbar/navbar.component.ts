@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css',
+  styles: '',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavbarComponent {
+class NavbarComponent {
 
 }
+
+export default NavbarComponent;

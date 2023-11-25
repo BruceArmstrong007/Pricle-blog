@@ -6,7 +6,7 @@ import { NotificationSocketService } from '../../shared/sockets/notification-soc
   standalone: true,
   imports: [],
   templateUrl: './user.component.html',
-  styleUrl: './user.component.css',
+  styles: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class UserComponent {
