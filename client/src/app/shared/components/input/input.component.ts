@@ -29,7 +29,7 @@ type InputType = 'text' | 'number' | 'email' | 'password';
 class InputComponent<T> extends ControlValueAccessorDirective<T> {
   @Input() inputID!: string;
   @Input() label!: string;
-  @Input() type: InputType = 'text';
+  @Input({required: true}) type!: InputType;
   @Input() customErrorMessages!: Record<string, string>;
   
 }

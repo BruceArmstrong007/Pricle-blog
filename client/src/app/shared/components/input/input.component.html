@@ -2,10 +2,10 @@
   @if (label) {
   <label [for]="inputID">{{ label }}</label>
   }
-  <div class="flex justify-between">
+  <div class="flex justify-between items-center">
     <ng-content select="input-prefix"></ng-content>
     <input
-      class="text-black min-w-full"
+      class="text-black grow"
       [type]="type"
       [required]="isRequired"
       [id]="inputID"
@@ -13,8 +13,8 @@
     />
     <ng-content select="input-suffix"></ng-content>
   </div>
-  <app-validation-errors
-    [customErrorMessages]="customErrorMessages"
-    [validationErrors]="control.errors"
-  />
+    <app-validation-errors
+      [customErrorMessages]="customErrorMessages"
+      [validationErrors]="control.errors"
+    />
 </div>
