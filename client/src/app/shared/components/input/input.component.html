@@ -1,0 +1,20 @@
+<div class="flex flex-col gap-1">
+  @if (label) {
+  <label [for]="inputID">{{ label }}</label>
+  }
+  <div class="flex justify-between">
+    <ng-content select="input-prefix"></ng-content>
+    <input
+      class="text-black min-w-full"
+      [type]="type"
+      [required]="isRequired"
+      [id]="inputID"
+      [formControl]="control"
+    />
+    <ng-content select="input-suffix"></ng-content>
+  </div>
+  <app-validation-errors
+    [customErrorMessages]="customErrorMessages"
+    [validationErrors]="control.errors"
+  />
+</div>
