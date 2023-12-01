@@ -41,25 +41,25 @@ class ValidationErrorsComponent implements OnChanges {
           case 'minlength':
             return (
               customErrorValue ??
-              `This field should have atleast ${value.requiedLength} characters.`
+              `This field should have atleast ${value.requiredLength} characters.`
             );
             break;
           case 'maxlength':
             return (
               customErrorValue ??
-              `This field should not exceed ${value.requiedLength} characters.`
+              `This field should not exceed ${value.requiredLength} characters.`
             );
             break;
           case 'min':
             return (
               customErrorValue ??
-              `This field should atleast have ${value.requiedLength} digits.`
+              `This field should atleast have ${value.requiredLength} digits.`
             );
             break;
           case 'max':
             return (
               customErrorValue ??
-              `This field should not exceed ${value.requiedLength} digits.`
+              `This field should not exceed ${value.requiredLength} digits.`
             );
             break;
           case 'required':
