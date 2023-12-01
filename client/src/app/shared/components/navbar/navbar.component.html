@@ -1,1 +1,24 @@
-<p>navbar works!</p>
+<div class="flex justify-between items-center w-full px-2 sm:px-8 py-2">
+  <a [routerLink]="Routes().Home" class="no-underline">
+    <div class="flex gap-2 justify-evenly items-center">
+      <img [ngSrc]="AppIcon()" alt="Pricle Icon" width="40" height="40" />
+      <div class="text-xl">Pricle</div>
+    </div>
+  </a>
+  <div class="m-auto"></div>
+  <div class="flex justify-between items-center gap-2">
+    <ng-content select="navbar-right"></ng-content>
+    <app-button
+      (click)="mode.switchMode()"
+      [class]="
+        mode.darkMode() ? 'rounded text-white' : 'rounded text-yellow-500'
+      "
+    >
+      <ng-container ngProjectAs="btn-name">
+        <i class="material-icons">{{
+          mode.darkMode() ? "dark_mode" : "light_mode"
+        }}</i>
+      </ng-container>
+    </app-button>
+  </div>
+</div>
