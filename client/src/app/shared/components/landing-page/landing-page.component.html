@@ -10,7 +10,7 @@
           @if (routePath() !== Routes().Auth.Login) {
           <app-button
             [routerLink]="[Routes().Auth.Login]"
-            class="bg-blue-600 rounded"
+            class="bg-blue-600 rounded text-white"
           >
             <ng-container ngProjectAs="btn-prefix">
               <i class="material-icons">login</i>
@@ -22,7 +22,7 @@
           } @if (routePath() !== Routes().Auth.Register) {
           <app-button
             [routerLink]="[Routes().Auth.Register]"
-            class="bg-green-600 rounded"
+            class="bg-green-600 rounded text-white"
           >
             <ng-container ngProjectAs="btn-prefix">
               <i class="material-icons">app_registration</i>
