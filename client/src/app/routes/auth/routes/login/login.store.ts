@@ -7,20 +7,12 @@ import {
   setLoading,
   withCallState,
 } from '../../../../shared/component-store-features/api-call.feature';
-import {
-  catchError,
-  debounceTime,
-  exhaustMap,
-  map,
-  of,
-  tap,
-  throwError,
-} from 'rxjs';
+import { catchError, switchMap, tap, throwError } from 'rxjs';
 import { inject } from '@angular/core';
 import { ApiService } from '../../../../shared/services/api/api.service';
 import { API } from '../../../../shared/utils/api.endpoints';
 import { Store } from '@ngrx/store';
-import { Router, Routes } from '@angular/router';
+import { Router } from '@angular/router';
 import { ClientRoutes } from '../../../../shared/utils/client.routes';
 import { AccessToken, Login } from '../../../../stores/auth/auth.model';
 
@@ -41,19 +33,9 @@ export const LoginStore = signalStore(
         }),
       login: rxMethod<Login>((c$) =>
         c$.pipe(
-          debounceTime(300),
           tap(() => patchState(state, setLoading())),
-          exhaustMap((c) =>
+          switchMap((c) =>
             apiService.request(API.LOGIN, c).pipe(
-              map((response: any) => {
-                patchState(state, setLoaded());
-                const token: AccessToken = {
-                  accessToken: response?.accessToken,
-                };
-                localStorage.setItem('isLoggedIn', 'true');
-                store.dispatch(authActions.setToken(token));
-                router.navigateByUrl(ClientRoutes.User.Root);
-              }),
               catchError((error) => {
                 patchState(
                   state,
@@ -62,7 +44,16 @@ export const LoginStore = signalStore(
                 return throwError(() => error);
               })
             )
-          )
+          ),
+          tap((response: any) => {
+            patchState(state, setLoaded());
+            const token: AccessToken = {
+              accessToken: response?.accessToken,
+            };
+            localStorage.setItem('isLoggedIn', 'true');
+            store.dispatch(authActions.setToken(token));
+            router.navigateByUrl(ClientRoutes.User.Root);
+          })
         )
       ),
     };

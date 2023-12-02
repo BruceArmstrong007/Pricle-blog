@@ -5,7 +5,6 @@ import {
 } from '../../../../shared/utils/client.routes';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -16,6 +15,7 @@ import ButtonComponent from '../../../../shared/components/button/button.compone
 import { RouterLink } from '@angular/router';
 import InputComponent from '../../../../shared/components/input/input.component';
 import { LoginStore } from './login.store';
+import LoaderComponent from '../../../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +27,7 @@ import { LoginStore } from './login.store';
     CardComponent,
     ButtonComponent,
     InputComponent,
+    LoaderComponent,
   ],
   templateUrl: './login.component.html',
   styles: '',
@@ -35,37 +36,25 @@ import { LoginStore } from './login.store';
 class LoginComponent {
   private readonly fb: FormBuilder = inject(FormBuilder);
   readonly state = inject(LoginStore);
-  readonly form: FormGroup;
   readonly Routes: RoutesInterface = ClientRoutes;
   readonly passwordValidation = {
     pattern: `Password should be alphanumberic and should have atleast one
     number.`,
   };
-
-  constructor() {
-    this.form = this.fb.group({
-      username: [
-        '',
-        Validators.compose([Validators.required, Validators.maxLength(25)]),
-      ],
-      password: [
-        's',
-        Validators.compose([
-          Validators.required,
-          Validators.maxLength(8),
-          Validators.pattern(/^[A-Za-z][A-Za-z\d]*\d[A-Za-z\d]*$/),
-        ]),
-      ],
-    });
-  }
-
-  get f() {
-    return this.form.controls;
-  }
-
-  get passControl() {
-    return this.form.get('password') as FormControl;
-  }
+  readonly form: FormGroup = this.fb.group({
+    username: [
+      '',
+      Validators.compose([Validators.required, Validators.maxLength(25)]),
+    ],
+    password: [
+      '',
+      Validators.compose([
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/^[A-Za-z][A-Za-z\d]*\d[A-Za-z\d]*$/),
+      ]),
+    ],
+  });
 
   submit() {
     if (this.form.invalid) return;
@@ -73,12 +62,7 @@ class LoginComponent {
     this.state.login(this.form.value);
   }
 
-  changeVisibility() {
-    // this.loginStore.passwordVisibilityState(!this.state().passwordVisibility);
-  }
-
   clear() {
-    console.log('asdsa', this.form.value);
     this.form.reset();
   }
 
