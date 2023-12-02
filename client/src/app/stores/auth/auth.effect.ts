@@ -11,39 +11,39 @@ import { contactsActions } from '../contacts/contacts.action';
 import { userActions } from '../user/user.action';
 import { CookieService } from 'ngx-cookie-service';
 
-export const login = createEffect(
-  (
-    actions$ = inject(Actions),
-    apiService = inject(ApiService),
-    // loginStore = inject(LoginStore),
-    router = inject(Router),
-    cookieService = inject(CookieService)
-  ) => {
-    return actions$.pipe(
-      ofType(authActions.login),
-      exhaustMap((request) => {
-   //     loginStore.Login();
-        return apiService.request(API.LOGIN, request).pipe(
-          map((response: any) => {
-            const refreshtoken = cookieService.get('refreshToken');
-            response = { ...response, refreshtoken };
-            localStorage.setItem('isLoggedIn', 'true');
-     //       loginStore.LoginSuccess(response);
-            router.navigateByUrl(ClientRoutes.User.Root);
-            return authActions.loginSuccess(response);
-          }),
-          catchError(({ error }) => {
-          //  loginStore.LoginFailure(error);
-            return of(authActions.loginFailure());
-          })
-        );
-      })
-    );
-  },
-  {
-    functional: true,
-  }
-);
+// export const login = createEffect(
+//   (
+//     actions$ = inject(Actions),
+//     apiService = inject(ApiService),
+//     // loginStore = inject(LoginStore),
+//     router = inject(Router),
+//     cookieService = inject(CookieService)
+//   ) => {
+//     return actions$.pipe(
+//       ofType(authActions.login),
+//       exhaustMap((request) => {
+//    //     loginStore.Login();
+//         return apiService.request(API.LOGIN, request).pipe(
+//           map((response: any) => {
+//             const refreshtoken = cookieService.get('refreshToken');
+//             response = { ...response, refreshtoken };
+//             localStorage.setItem('isLoggedIn', 'true');
+//      //       loginStore.LoginSuccess(response);
+//             router.navigateByUrl(ClientRoutes.User.Root);
+//             return authActions.loginSuccess(response);
+//           }),
+//           catchError(({ error }) => {
+//           //  loginStore.LoginFailure(error);
+//             return of(authActions.loginFailure());
+//           })
+//         );
+//       })
+//     );
+//   },
+//   {
+//     functional: true,
+//   }
+// );
 
 export const register = createEffect(
   (

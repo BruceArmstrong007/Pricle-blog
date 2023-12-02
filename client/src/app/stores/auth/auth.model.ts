@@ -1,16 +1,11 @@
 export interface AuthState {
-  isLoading: boolean;
   accessToken: string | null;
 }
 
-export interface AuthSuccess {
-  message: string;
+export interface AccessToken {
+  accessToken: string;
 }
 
-export interface AuthFailure {
-  message: string;
-  statusCode: number;
-}
 
 export interface Register {
   username: string;
@@ -21,15 +16,6 @@ export interface Register {
 export interface Login {
   username: string;
   password: string;
-}
-
-export interface LoginSuccess {
-  accessToken: string;
-  refreshToken: string;
-}
-
-export interface RefreshToken {
-  accessToken: string;
 }
 
 export interface VerifyEmailLink {
