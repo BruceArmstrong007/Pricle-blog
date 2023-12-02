@@ -12,6 +12,7 @@ import { authFeature } from '../../stores/auth/auth.reducer';
 import { ApiService } from '../services/api/api.service';
 import { API } from '../utils/api.endpoints';
 import { authActions } from '../../stores/auth/auth.action';
+import { userActions } from '../../stores/user/user.action';
 import { Router } from '@angular/router';
 import { ClientRoutes } from '../utils/client.routes';
 
@@ -41,27 +42,24 @@ export class RequestInterceptor implements HttpInterceptor {
     response: HttpErrorResponse
   ) {
     if (response.status === 0) {
-      this.logout(request);
+      this.store.dispatch(userActions.logout());
     }
 
     if (response.status === 401 && this.token()) {
-      return this.apiService
-        .request(API.REFRESH)
-        .pipe(
-          tap((res: any) => {
-            this.store.dispatch(
-              authActions.refreshToken({ accessToken: res?.accessToken })
-            );
-          }),
-          switchMap(() => {
-
-            return next.handle(this.addAuthHeader(request));
-          }),
-          catchError((error) => {
-            this.logout(request);
-            return throwError(() => error);
-          })
-        );
+      return this.apiService.request(API.REFRESH).pipe(
+        tap((res: any) => {
+          this.store.dispatch(
+            authActions.refreshToken({ accessToken: res?.accessToken })
+          );
+        }),
+        switchMap(() => {
+          return next.handle(this.addAuthHeader(request));
+        }),
+        catchError((error) => {
+          this.store.dispatch(userActions.logout());
+          return throwError(() => error);
+        })
+      );
     }
     return throwError(() => response);
   }
@@ -76,14 +74,5 @@ export class RequestInterceptor implements HttpInterceptor {
       });
     }
     return request;
-  }
-
-  private logout(request: HttpRequest<unknown>) {
-    if (request.url.includes('user')) {
-      this.router.navigateByUrl(ClientRoutes.Auth.Root);
-      return;
-    }
-    this.store.dispatch(authActions.logout());
-    return;
   }
 }
