@@ -55,19 +55,19 @@ export class ControlValueAccessorDirective<T>
   }
 
   writeValue(value: T): void {
+    if(!value) return;
     this.control
       ? this.control.setValue(value)
       : (this.control = new FormControl(value));
   }
 
   registerOnChange(fn: (val: T | null) => T): void {
-    this.control?.valueChanges
-      .pipe(
-        takeUntil(this._destroy$),
-        startWith(this.control.value),
-        distinctUntilChanged(),
-        tap((val) => fn(val))
-      )
+    this.control?.valueChanges.pipe(
+      takeUntil(this._destroy$),
+      startWith(this.control.value),
+      distinctUntilChanged(),
+      tap((val) => fn(val))
+    );
   }
 
   registerOnTouched(fn: () => T): void {
