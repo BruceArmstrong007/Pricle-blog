@@ -58,7 +58,7 @@ class LoginComponent {
 
   submit() {
     if (this.form.invalid) return;
-    console.log(this.form.value);
+    // console.log(this.form.value);
     this.state.login(this.form.value);
   }
 

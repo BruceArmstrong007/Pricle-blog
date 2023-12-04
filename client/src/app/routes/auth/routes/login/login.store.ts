@@ -7,7 +7,7 @@ import {
   setLoading,
   withCallState,
 } from '../../../../shared/component-store-features/api-call.feature';
-import { catchError, switchMap, tap, throwError } from 'rxjs';
+import { catchError, of, switchMap, tap } from 'rxjs';
 import { inject } from '@angular/core';
 import { ApiService } from '../../../../shared/services/api/api.service';
 import { API } from '../../../../shared/utils/api.endpoints';
@@ -33,27 +33,28 @@ export const LoginStore = signalStore(
         }),
       login: rxMethod<Login>((c$) =>
         c$.pipe(
-          tap(() => patchState(state, setLoading())),
+          tap(() => {
+            console.log('sadas');
+            patchState(state, setLoading());
+          }),
           switchMap((c) =>
             apiService.request(API.LOGIN, c).pipe(
+              tap((response: any) => {
+                patchState(state, setLoaded());
+                const token: AccessToken = {
+                  accessToken: response?.accessToken,
+                };
+                localStorage.setItem('isLoggedIn', 'true');
+                store.dispatch(authActions.setToken(token));
+                router.navigateByUrl(ClientRoutes.User.Root);
+              }),
               catchError((error) => {
-                patchState(
-                  state,
-                  setError(error?.statusText ?? error?.message)
-                );
-                return throwError(() => error);
+                let errorMsg = error?.statusText ?? error?.message;
+                patchState(state, setError(errorMsg));
+                return of(errorMsg);
               })
             )
-          ),
-          tap((response: any) => {
-            patchState(state, setLoaded());
-            const token: AccessToken = {
-              accessToken: response?.accessToken,
-            };
-            localStorage.setItem('isLoggedIn', 'true');
-            store.dispatch(authActions.setToken(token));
-            router.navigateByUrl(ClientRoutes.User.Root);
-          })
+          )
         )
       ),
     };
