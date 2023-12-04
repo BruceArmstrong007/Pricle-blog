@@ -34,7 +34,6 @@ export const LoginStore = signalStore(
       login: rxMethod<Login>((c$) =>
         c$.pipe(
           tap(() => {
-            console.log('sadas');
             patchState(state, setLoading());
           }),
           switchMap((c) =>
