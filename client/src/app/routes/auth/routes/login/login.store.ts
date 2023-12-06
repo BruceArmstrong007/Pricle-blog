@@ -2,7 +2,6 @@ import { authActions } from './../../../../stores/auth/auth.action';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import {
-  setError,
   setLoaded,
   setLoading,
   withCallState,
@@ -49,7 +48,7 @@ export const LoginStore = signalStore(
               }),
               catchError((error) => {
                 let errorMsg = error?.statusText ?? error?.message;
-                patchState(state, setError(errorMsg));
+                state.setError(errorMsg);
                 return of(errorMsg);
               })
             )

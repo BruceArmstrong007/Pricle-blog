@@ -13,6 +13,7 @@ import { contactsFeature } from './stores/contacts/contacts.reducer';
 import { CustomRouterStateSerializer } from './shared/router-store/router-serializer';
 import { RequestInterceptor } from './shared/interceptors/request.interceptor';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { alertFeature } from './stores/alert/alert.reducer';
 // import * as authEffects from './stores/auth/auth.effect';
 
 export const appConfig: ApplicationConfig = {
@@ -27,6 +28,7 @@ export const appConfig: ApplicationConfig = {
       auth: authFeature.reducer,
       user: userFeature.reducer,
       contacts: contactsFeature.reducer,
+      alerts: alertFeature.reducer
     }),
     // provideEffects([authEffects]),
     provideRouterStore({ serializer: CustomRouterStateSerializer }),

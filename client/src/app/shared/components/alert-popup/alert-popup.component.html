@@ -1,0 +1,23 @@
+<div class="fixed bottom-0 right-0 p-7 flex flex-col gap-2">
+  @for (alert of alerts(); track alert.id) {
+  <div
+    [ngClass]="{
+      'bg-red-500': alert.type === 'ERROR',
+      'bg-green-500': alert.type === 'SUCCESS',
+      'bg-blue-500': alert.type === 'INFO',
+      'bg-orange-500': alert.type === 'WARN'
+    }"
+    class="w-56 min-h-20 text-white rounded"
+  >
+    <div class="px-4 py-2 flex justify-between items-center">
+      <div class="text-lg">{{ alert.title }}</div>
+      <app-button (click)="removePopup(alert.id)" class="rounded text-white">
+        <ng-container ngProjectAs="btn-name">
+          <i class="material-icons text-sm">close</i>
+        </ng-container>
+      </app-button>
+    </div>
+    <p class="px-4 py-4 text-md">{{ alert.message }}</p>
+  </div>
+  }
+</div>
