@@ -1,4 +1,3 @@
-import { authActions } from './../../../../stores/auth/auth.action';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import {
@@ -13,9 +12,9 @@ import { API } from '../../../../shared/utils/api.endpoints';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { ClientRoutes } from '../../../../shared/utils/client.routes';
-import { AccessToken, Login } from '../../../../stores/auth/auth.model';
 import { alertActions } from '../../../../stores/alert/alert.action';
 import { generateAlertID } from '../../../../shared/utils/variables';
+import { Register } from '../../../../stores/auth/auth.model';
 
 export const RegisterStore = signalStore(
   { providedIn: 'root' },
@@ -37,7 +36,7 @@ export const RegisterStore = signalStore(
         patchState(state, {
           confirmPasswordVisibility: !state.confirmPasswordVisibility(),
         }),
-      login: rxMethod<Login>((c$) =>
+      register: rxMethod<Register>((c$) =>
         c$.pipe(
           tap(() => {
             patchState(state, setLoading());
@@ -46,15 +45,22 @@ export const RegisterStore = signalStore(
             apiService.request(API.REGISTER, c).pipe(
               tap((response: any) => {
                 patchState(state, setLoaded());
-                store.dispatch(alertActions.addAlert({
+                const encoded = btoa(
+                  JSON.stringify({ email: response.email, token: null })
+                );
+                store.dispatch(
+                  alertActions.addAlert({
                     alert: {
-                        type: 'SUCCESS',
-                        message: response?.message ?? "Please verify your email account!.",
-                        id: generateAlertID(),
-                        title: 'Registeration Successful'
-                    }
-                }));
-                router.navigateByUrl(ClientRoutes.User.Root);
+                      type: 'SUCCESS',
+                      message:
+                        response?.message ??
+                        'Please verify your email account!.',
+                      id: generateAlertID(),
+                      title: 'Registeration Successful',
+                    },
+                  })
+                );
+                router.navigateByUrl(`/auth/verify-account?token=${encoded}`);
               }),
               catchError((error) => {
                 let errorMsg = error?.statusText ?? error?.message;

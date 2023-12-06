@@ -80,7 +80,7 @@ class RegisterComponent {
 
   submit() {
     if (this.form.invalid) return;
-    this.state.login(this.form.value);
+    this.state.register(this.form.value);
   }
 
   clear() {
