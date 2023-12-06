@@ -74,7 +74,8 @@ class ValidationErrorsComponent implements OnChanges {
           case 'email':
             return customErrorValue ?? `This field should be in email format.`;
             break;
-          default: // Need to check for custom validations eg: password
+          default:
+            if (key && customErrorValue) return customErrorValue;
             break;
         }
         return error;
