@@ -42,7 +42,7 @@ class RegisterComponent {
   readonly passwordValidation = {
     pattern: `Password should be alphanumberic and should have atleast one
     number.`,
-    mismatch: `Both Passwords should be same.`
+    mismatch: `Both Passwords should be same.`,
   };
   private readonly passwordValidator = inject(CustomValidationService);
   readonly form: FormGroup = this.fb.group(
@@ -50,6 +50,16 @@ class RegisterComponent {
       username: [
         '',
         Validators.compose([Validators.required, Validators.maxLength(25)]),
+      ],
+      email: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(320),
+          Validators.pattern(
+            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+          ),
+        ]),
       ],
       password: [
         '',

@@ -8,64 +8,80 @@
       (ngSubmit)="submit()"
       class="flex flex-col justify-center items-center gap-4"
     >
-      <app-input
-        inputID="register-username"
-        label="Username"
-        type="text"
-        formControlName="username"
-      >
-        <ng-container ngProjectAs="input-suffix">
-          <span class="cursor-pointer pl-2">
-            <i class="material-icons text-sm">person</i>
-          </span>
-        </ng-container>
-      </app-input>
-      <app-input
-        (cut)="preventDefault($event)"
-        (copy)="preventDefault($event)"
-        (paste)="preventDefault($event)"
-        inputID="register-password"
-        [type]="state.passwordVisibility() ? 'text' : 'password'"
-        label="Password"
-        formControlName="password"
-        [customErrorMessages]="passwordValidation"
-      >
-        <ng-container ngProjectAs="input-suffix">
-          <span (click)="state.togglePassword()" class="cursor-pointer pl-2">
-            <i class="material-icons text-sm">
-              {{ state.passwordVisibility() ? "visibility" : "visibility_off" }}
-            </i>
-          </span>
-        </ng-container>
-        <ng-container ngProjectAs="input-suffux"></ng-container>
-      </app-input>
+      <div class="w-full flex flex-col justify-between items-center">
+        <app-input
+          inputID="register-email"
+          label="Email"
+          type="email"
+          formControlName="email"
+        >
+          <ng-container ngProjectAs="input-suffix">
+            <span class="cursor-pointer pl-2">
+              <i class="material-icons text-sm">email</i>
+            </span>
+          </ng-container>
+        </app-input>
+        <app-input
+          inputID="register-username"
+          label="Username"
+          type="text"
+          formControlName="username"
+        >
+          <ng-container ngProjectAs="input-suffix">
+            <span class="cursor-pointer pl-2">
+              <i class="material-icons text-sm">person</i>
+            </span>
+          </ng-container>
+        </app-input>
+        <app-input
+          (cut)="preventDefault($event)"
+          (copy)="preventDefault($event)"
+          (paste)="preventDefault($event)"
+          inputID="register-password"
+          [type]="state.passwordVisibility() ? 'text' : 'password'"
+          label="Password"
+          formControlName="password"
+          [customErrorMessages]="passwordValidation"
+        >
+          <ng-container ngProjectAs="input-suffix">
+            <span (click)="state.togglePassword()" class="cursor-pointer pl-2">
+              <i class="material-icons text-sm">
+                {{
+                  state.passwordVisibility() ? "visibility" : "visibility_off"
+                }}
+              </i>
+            </span>
+          </ng-container>
+          <ng-container ngProjectAs="input-suffux"></ng-container>
+        </app-input>
+        <app-input
+          (cut)="preventDefault($event)"
+          (copy)="preventDefault($event)"
+          (paste)="preventDefault($event)"
+          inputID="register-confirm-password"
+          [type]="state.confirmPasswordVisibility() ? 'text' : 'password'"
+          label="Confirm Password"
+          formControlName="confirmPassword"
+          [customErrorMessages]="passwordValidation"
+        >
+          <ng-container ngProjectAs="input-suffix">
+            <span
+              (click)="state.toggleConfirmPassword()"
+              class="cursor-pointer pl-2"
+            >
+              <i class="material-icons text-sm">
+                {{
+                  state.confirmPasswordVisibility()
+                    ? "visibility"
+                    : "visibility_off"
+                }}
+              </i>
+            </span>
+          </ng-container>
+          <ng-container ngProjectAs="input-suffux"></ng-container>
+        </app-input>
+      </div>
 
-      <app-input
-        (cut)="preventDefault($event)"
-        (copy)="preventDefault($event)"
-        (paste)="preventDefault($event)"
-        inputID="register-confirm-password"
-        [type]="state.confirmPasswordVisibility() ? 'text' : 'password'"
-        label="Confirm Password"
-        formControlName="confirmPassword"
-        [customErrorMessages]="passwordValidation"
-      >
-        <ng-container ngProjectAs="input-suffix">
-          <span
-            (click)="state.toggleConfirmPassword()"
-            class="cursor-pointer pl-2"
-          >
-            <i class="material-icons text-sm">
-              {{
-                state.confirmPasswordVisibility()
-                  ? "visibility"
-                  : "visibility_off"
-              }}
-            </i>
-          </span>
-        </ng-container>
-        <ng-container ngProjectAs="input-suffux"></ng-container>
-      </app-input>
       <div class="w-full flex justify-between items-center">
         <app-button (click)="clear()" class="rounded outline sm">
           <ng-container ngProjectAs="btn-name"
