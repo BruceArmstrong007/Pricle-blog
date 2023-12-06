@@ -14,6 +14,8 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { ClientRoutes } from '../../../../shared/utils/client.routes';
 import { AccessToken, Login } from '../../../../stores/auth/auth.model';
+import { generateAlertID } from '../../../../shared/utils/variables';
+import { alertActions } from '../../../../stores/alert/alert.action';
 
 export const LoginStore = signalStore(
   { providedIn: 'root' },
@@ -45,6 +47,16 @@ export const LoginStore = signalStore(
                 localStorage.setItem('isLoggedIn', 'true');
                 store.dispatch(authActions.setToken(token));
                 router.navigateByUrl(ClientRoutes.User.Root);
+                store.dispatch(
+                  alertActions.addAlert({
+                    alert: {
+                      type: 'SUCCESS',
+                      message: response?.message ?? 'Successfully logged in!.',
+                      id: generateAlertID(),
+                      title: 'Login Successful',
+                    },
+                  })
+                );
               }),
               catchError((error) => {
                 let errorMsg = error?.statusText ?? error?.message;
