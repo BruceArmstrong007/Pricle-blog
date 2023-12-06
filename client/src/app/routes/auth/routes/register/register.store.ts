@@ -11,7 +11,6 @@ import { ApiService } from '../../../../shared/services/api/api.service';
 import { API } from '../../../../shared/utils/api.endpoints';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { ClientRoutes } from '../../../../shared/utils/client.routes';
 import { alertActions } from '../../../../stores/alert/alert.action';
 import { generateAlertID } from '../../../../shared/utils/variables';
 import { Register } from '../../../../stores/auth/auth.model';
