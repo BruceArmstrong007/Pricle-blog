@@ -62,7 +62,7 @@ export const RegisterStore = signalStore(
                 router.navigateByUrl(`/auth/verify-account?token=${encoded}`);
               }),
               catchError((error) => {
-                let errorMsg = error?.statusText ?? error?.message;
+                let errorMsg = error?.error?.message ?? error?.statusText ?? error?.message;
                 state.setError(errorMsg);
                 return of(errorMsg);
               })
