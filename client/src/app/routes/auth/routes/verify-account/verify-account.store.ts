@@ -43,15 +43,10 @@ export const VerifyAccountStore = signalStore(
             apiService.request(API.VERIFY_EMAIL, c).pipe(
               tap((response: any) => {
                 patchState(state, setLoaded());
-                store.dispatch(
-                  alertActions.addAlert({
-                    alert: {
-                      type: 'SUCCESS',
-                      message: response?.message ?? 'Your email is verified!.',
-                      id: generateAlertID(),
-                      title: 'Verification Successful',
-                    },
-                  })
+                state.openAlert(
+                  'Verification Successful',
+                  response?.message ?? 'Your email is verified!.',
+                  'SUCCESS'
                 );
                 router.navigateByUrl(ClientRoutes.Auth.Login);
               }),
@@ -59,6 +54,7 @@ export const VerifyAccountStore = signalStore(
                 let errorMsg =
                   error?.error?.message ?? error?.statusText ?? error?.message;
                 state.setError(errorMsg);
+                state.openAlert('API Error', errorMsg, 'ERROR');
                 return of(errorMsg);
               })
             )
@@ -75,17 +71,10 @@ export const VerifyAccountStore = signalStore(
               tap((response: any) => {
                 patchState(state, { tokenApiLoading: false });
                 patchState(state, { disableEmail: true });
-                store.dispatch(
-                  alertActions.addAlert({
-                    alert: {
-                      type: 'SUCCESS',
-                      message:
-                        response?.message ??
-                        'Verification Token is sent to your email!.',
-                      id: generateAlertID(),
-                      title: 'Emailing Token Successful',
-                    },
-                  })
+                state.openAlert(
+                  'Emailing Token Successful',
+                  response?.message ?? 'Verification Token is sent to your email!.',
+                  'SUCCESS'
                 );
               }),
               catchError((error) => {
@@ -93,6 +82,7 @@ export const VerifyAccountStore = signalStore(
                 let errorMsg =
                   error?.error?.message ?? error?.statusText ?? error?.message;
                 state.setError(errorMsg);
+                state.openAlert('API Error', errorMsg, 'ERROR');
                 return of(errorMsg);
               })
             )

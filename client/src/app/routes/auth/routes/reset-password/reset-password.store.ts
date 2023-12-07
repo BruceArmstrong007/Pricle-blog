@@ -34,9 +34,9 @@ export const ResetPasswordStore = signalStore(
     const router = inject(Router);
     return {
       setToken: () =>
-      patchState(state, {
-        tokenPresent: true,
-      }),
+        patchState(state, {
+          tokenPresent: true,
+        }),
       togglePassword: () =>
         patchState(state, {
           passwordVisibility: !state.passwordVisibility(),
@@ -59,16 +59,10 @@ export const ResetPasswordStore = signalStore(
             apiService.request(API.RESET_PASSWORD, c).pipe(
               tap((response: any) => {
                 patchState(state, setLoaded());
-                store.dispatch(
-                  alertActions.addAlert({
-                    alert: {
-                      type: 'SUCCESS',
-                      message:
-                        response?.message ?? 'Your password has been reset!.',
-                      id: generateAlertID(),
-                      title: 'Reset Password Successful',
-                    },
-                  })
+                state.openAlert(
+                  'Reset Password Successful',
+                  response?.message ?? 'Your password has been reset!.',
+                  'SUCCESS'
                 );
                 router.navigateByUrl(ClientRoutes.Auth.Login);
               }),
@@ -76,6 +70,7 @@ export const ResetPasswordStore = signalStore(
                 let errorMsg =
                   error?.error?.message ?? error?.statusText ?? error?.message;
                 state.setError(errorMsg);
+                state.openAlert('API Error', errorMsg, 'ERROR');
                 return of(errorMsg);
               })
             )
@@ -92,17 +87,11 @@ export const ResetPasswordStore = signalStore(
               tap((response: any) => {
                 patchState(state, { emailApiLoading: false });
                 patchState(state, { disableEmail: true });
-                store.dispatch(
-                  alertActions.addAlert({
-                    alert: {
-                      type: 'SUCCESS',
-                      message:
-                        response?.message ??
-                        'Verification Link is sent to your email!.',
-                      id: generateAlertID(),
-                      title: 'Emailing Link Successful',
-                    },
-                  })
+                state.openAlert(
+                  'Emailing Link Successful',
+                  response?.message ??
+                    'Verification Link is sent to your email!.',
+                  'SUCCESS'
                 );
               }),
               catchError((error) => {
@@ -110,6 +99,7 @@ export const ResetPasswordStore = signalStore(
                 let errorMsg =
                   error?.error?.message ?? error?.statusText ?? error?.message;
                 state.setError(errorMsg);
+                state.openAlert('API Error', errorMsg, 'ERROR');
                 return of(errorMsg);
               })
             )

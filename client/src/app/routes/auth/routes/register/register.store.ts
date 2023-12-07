@@ -46,17 +46,10 @@ export const RegisterStore = signalStore(
                 const encoded = btoa(
                   JSON.stringify({ email: response.email, token: null })
                 );
-                store.dispatch(
-                  alertActions.addAlert({
-                    alert: {
-                      type: 'SUCCESS',
-                      message:
-                        response?.message ??
-                        'Please verify your email account!.',
-                      id: generateAlertID(),
-                      title: 'Registeration Successful',
-                    },
-                  })
+                state.openAlert(
+                  'Registeration Successful',
+                  response?.message ?? 'Please verify your email account!.',
+                  'SUCCESS'
                 );
                 router.navigateByUrl(`/auth/verify-account?token=${encoded}`);
               }),
@@ -64,6 +57,7 @@ export const RegisterStore = signalStore(
                 let errorMsg =
                   error?.error?.message ?? error?.statusText ?? error?.message;
                 state.setError(errorMsg);
+                state.openAlert('API Error', errorMsg, 'ERROR');
                 return of(errorMsg);
               })
             )
