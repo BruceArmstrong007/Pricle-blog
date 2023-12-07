@@ -42,9 +42,6 @@ export function withCallState() {
               },
             })
           );
-          setTimeout(() => {
-            store.dispatch(alertActions.removeAlert({ alertID: id }));
-          }, 4000);
         },
       };
     })

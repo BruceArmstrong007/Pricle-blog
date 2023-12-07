@@ -13,6 +13,8 @@ import { CustomRouterStateSerializer } from './shared/router-store/router-serial
 import { RequestInterceptor } from './shared/interceptors/request.interceptor';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { alertFeature } from './stores/alert/alert.reducer';
+import { provideEffects } from '@ngrx/effects';
+import * as alertEffect from './stores/alert/alert.effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,8 +29,9 @@ export const appConfig: ApplicationConfig = {
       auth: authFeature.reducer,
       user: userFeature.reducer,
       contacts: contactsFeature.reducer,
-      alerts: alertFeature.reducer
+      alerts: alertFeature.reducer,
     }),
+    provideEffects([alertEffect]),
     provideRouterStore({ serializer: CustomRouterStateSerializer }),
     provideHttpClient(),
     provideAnimations(),
