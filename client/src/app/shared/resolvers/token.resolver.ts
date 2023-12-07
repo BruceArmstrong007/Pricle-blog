@@ -1,4 +1,4 @@
-import { ResolveFn, Router } from '@angular/router';
+import { ResolveFn } from '@angular/router';
 import { map, catchError, throwError } from 'rxjs';
 import { API } from '../utils/api.endpoints';
 import { inject } from '@angular/core';

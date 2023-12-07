@@ -13,13 +13,10 @@ import { ApiService } from '../services/api/api.service';
 import { API } from '../utils/api.endpoints';
 import { authActions } from '../../stores/auth/auth.action';
 import { userActions } from '../../stores/user/user.action';
-import { Router } from '@angular/router';
-import { ClientRoutes } from '../utils/client.routes';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
   private readonly store = inject(Store);
-  private readonly router = inject(Router);
   private readonly token = this.store.selectSignal(
     authFeature.selectAccessToken
   );
