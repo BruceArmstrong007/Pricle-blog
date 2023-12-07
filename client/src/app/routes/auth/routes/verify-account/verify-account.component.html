@@ -1,0 +1,84 @@
+<app-card class="block md:w-96">
+  <ng-container ngProjectAs="header">
+    <div class="w-full text-center text-2xl pt-4 font-bold">
+      Email Verification
+    </div>
+  </ng-container>
+  <ng-container ngProjectAs="body">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      class="flex flex-col justify-center items-center gap-4"
+    >
+      <app-input
+        inputID="verify-email"
+        label="Email"
+        type="email"
+        formControlName="email"
+      >
+        <ng-container ngProjectAs="input-prefix">
+          <span class="cursor-pointer pr-2">
+            <i class="material-icons text-sm">email</i>
+          </span>
+        </ng-container>
+
+        <ng-container ngProjectAs="input-suffix">
+          <app-button
+            (click)="sendToken()"
+            [disabled]="state.tokenApiLoading()"
+            class="ml-2 rounded bg-gradient-to-r from-indigo-500 to-pink-500 text-white sm"
+          >
+            <ng-container ngProjectAs="btn-name">
+              @if(state.tokenApiLoading()) {
+              <loader />
+              } @else {
+              <span class="text-sm">Send</span>
+
+              }
+            </ng-container>
+          </app-button>
+        </ng-container>
+      </app-input>
+
+      <app-input
+        inputID="register-token"
+        label="Token"
+        type="text"
+        formControlName="token"
+      >
+        <ng-container ngProjectAs="input-prefix">
+          <span class="cursor-pointer pr-2">
+            <i class="material-icons text-sm">token</i>
+          </span>
+        </ng-container>
+
+        <ng-container ngProjectAs="input-suffix">
+          <app-button
+            btnType="submit"
+            (click)="submit()"
+            [disabled]="state.loading() || !state.disableEmail()"
+            class="ml-2 rounded bg-green-600 text-white sm"
+          >
+            <ng-container ngProjectAs="btn-name">
+              @if(state.loading()) {
+              <loader />
+              } @else {
+              <span class="text-sm">Submit</span>
+
+              }
+            </ng-container>
+          </app-button>
+        </ng-container>
+      </app-input>
+
+      <div class="w-full flex justify-center items-center">
+        <i>
+          <small class="font-bold">Verified already? </small>
+          <small class="text-blue-600 dark:text-blue-300 underline">
+            <a [routerLink]="Routes.Auth.Login">login here !</a></small
+          >
+        </i>
+      </div>
+    </form>
+  </ng-container>
+</app-card>

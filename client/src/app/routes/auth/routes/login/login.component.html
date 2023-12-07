@@ -1,0 +1,73 @@
+<app-card class="block md:w-96">
+  <ng-container ngProjectAs="header">
+    <div class="w-full text-center text-2xl pt-4 font-bold">Login</div>
+  </ng-container>
+  <ng-container ngProjectAs="body">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      class="flex flex-col justify-center items-center gap-4"
+    >
+      <app-input
+        inputID="login-username"
+        label="Username"
+        type="text"
+        formControlName="username"
+      >
+        <ng-container ngProjectAs="input-suffix">
+          <span class="cursor-pointer pl-2">
+            <i class="material-icons text-sm">person</i>
+          </span>
+        </ng-container>
+      </app-input>
+      <app-input
+        (cut)="preventDefault($event)"
+        (copy)="preventDefault($event)"
+        (paste)="preventDefault($event)"
+        inputID="login-password"
+        [type]="state.passwordVisibility() ? 'text' : 'password'"
+        label="Password"
+        formControlName="password"
+        [customErrorMessages]="passwordValidation"
+      >
+        <ng-container ngProjectAs="input-suffix">
+          <span (click)="state.togglePassword()" class="cursor-pointer pl-2">
+            <i class="material-icons text-sm">
+              {{ state.passwordVisibility() ? "visibility" : "visibility_off" }}
+            </i>
+          </span>
+        </ng-container>
+        <ng-container ngProjectAs="input-suffux"></ng-container>
+      </app-input>
+      <div class="w-full flex justify-between items-center">
+        <app-button (click)="clear()" class="rounded outline sm">
+          <ng-container ngProjectAs="btn-name"
+            ><span class="text-sm">Clear</span></ng-container
+          >
+        </app-button>
+        <app-button
+          btnType="submit"
+          [disabled]="state.loading()"
+          class="rounded bg-green-600 text-white sm"
+        >
+          <ng-container ngProjectAs="btn-name">
+            @if(state.loading()) {
+            <loader />
+            } @else {
+            <span class="text-sm">Submit</span>
+
+            }
+          </ng-container>
+        </app-button>
+      </div>
+      <div class="w-full flex justify-center items-center">
+        <i>
+          <small class="font-bold">Forgot password? </small
+          ><small class="text-blue-600 dark:text-blue-300 underline">
+            <a [routerLink]="Routes.Auth.ResetPassword">Click here</a></small
+          >
+        </i>
+      </div>
+    </form>
+  </ng-container>
+</app-card>

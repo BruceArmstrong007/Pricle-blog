@@ -1,0 +1,58 @@
+<div class="w-full h-full absolute top-0 left-0" #cmp>
+  <div class="absolute w-full h-full flex flex-col justify-center">
+    <div class="flex justify-start items-center p-9">
+      <div class="flex flex-col gap-9">
+        <div class="text-8xl">{{ appName() }}</div>
+        <div class="text-2xl leading-10">
+          {{ slogan() }}
+        </div>
+        <div class="flex justify-evenly items-center">
+          @if (routePath() !== Routes().Auth.Login) {
+          <app-button
+            [routerLink]="[Routes().Auth.Login]"
+            class="bg-blue-600 rounded text-white"
+          >
+            <ng-container ngProjectAs="btn-prefix">
+              <i class="material-icons">login</i>
+            </ng-container>
+            <ng-container ngProjectAs="btn-name">
+              <div class="text-xl">Login</div>
+            </ng-container>
+          </app-button>
+          } @if (routePath() !== Routes().Auth.Register) {
+          <app-button
+            [routerLink]="[Routes().Auth.Register]"
+            class="bg-green-600 rounded text-white"
+          >
+            <ng-container ngProjectAs="btn-prefix">
+              <i class="material-icons">app_registration</i>
+            </ng-container>
+            <ng-container ngProjectAs="btn-name">
+              <div class="text-xl">Register</div>
+            </ng-container>
+          </app-button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute top-0 right-0 p-4">
+    <app-button
+      [class]="
+        mode.darkMode() ? 'rounded text-white' : 'rounded text-yellow-500'
+      "
+    >
+      <ng-container ngProjectAs="btn-name">
+        <i (click)="mode.switchMode()" class="material-icons">{{
+          mode.darkMode() ? "dark_mode" : "light_mode"
+        }}</i>
+      </ng-container>
+    </app-button>
+  </div>
+</div>
+@if (earth.isLoading() < 100) {
+<div class="fixed w-full h-full flex justify-center items-center">
+  <loader />
+</div>
+}
