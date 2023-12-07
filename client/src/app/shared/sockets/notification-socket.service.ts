@@ -2,10 +2,12 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Socket, io } from 'socket.io-client';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs';
+import { filter, take } from 'rxjs';
 import { authFeature } from '../../stores/auth/auth.reducer';
 import { contactsFeature } from '../../stores/contacts/contacts.reducer';
 import { contactsActions } from '../../stores/contacts/contacts.action';
+import { alertActions } from '../../stores/alert/alert.action';
+import { generateAlertID } from '../utils/variables';
 
 interface ContactNotification {
   type: string;
@@ -35,17 +37,16 @@ export class NotificationSocketService {
   private readonly contactEntities = this.store.selectSignal(
     contactsFeature?.selectEntities
   );
-  // private readonly toastService = inject(MessageService);
 
   constructor() {
     this.accesssToken$
       .pipe(
-        filter((res) => (res ? true : false))
-        // take(1)
+        filter((res) => (res ? true : false)),
+        take(1)
       )
       .subscribe((accessToken) => {
         if (this.socket) this.disconnect();
-        this.socket = io(environment.wsURL + '/user', {
+        this.socket = io(environment.wsURL + '/notification', {
           forceNew: true,
           reconnection: true,
           reconnectionAttempts: 5,
@@ -80,18 +81,26 @@ export class NotificationSocketService {
     const contactName = this.contactEntities()[event?.data?.contactID]?.name;
     switch (event?.data?.status) {
       case 'accept-request':
-        // this.toastService.add({
-        //   severity: 'success',
-        //   summary: 'You got a new friend!',
-        //   detail: contactName + ' accepted your friend request',
-        // });
+        this.store.dispatch(
+          alertActions.addAlert({
+            alert: {
+              id: generateAlertID(),
+              type: 'INFO',
+              title: 'You got a new friend!',
+              message: contactName + ' accepted your friend request',
+            },
+          })
+        );
         break;
       case 'send-request':
-        // this.toastService.add({
-        //   severity: 'success',
-        //   summary: 'You got a new friend request!',
-        //   detail: 'Someone sent you friend request',
-        // });
+        alertActions.addAlert({
+          alert: {
+            id: generateAlertID(),
+            type: 'INFO',
+            title: 'You got a new friend request!',
+            message: 'Someone sent you friend request',
+          },
+        });
         break;
       case 'cancel-request':
         break;
