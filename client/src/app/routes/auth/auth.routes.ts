@@ -22,7 +22,7 @@ const routes: Routes = [
         loadComponent: () => import('./routes/verify-account/verify-account.component'),
       },
       {
-        path: 'login',
+        path: '**',
         loadComponent: () => import('./routes/login/login.component'),
       },
     ],
