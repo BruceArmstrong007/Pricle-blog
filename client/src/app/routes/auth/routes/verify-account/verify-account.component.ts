@@ -46,7 +46,6 @@ class VerifyAccountComponent {
   readonly state = inject(VerifyAccountStore);
   readonly store = inject(Store);
   readonly Routes: RoutesInterface = ClientRoutes;
-
   readonly form: FormGroup = this.fb.group({
     email: [
       '',
@@ -67,7 +66,6 @@ class VerifyAccountComponent {
     if (param()['token']) {
       this.form.patchValue({...(JSON.parse(atob(param()['token'])))});
       this.state.disableEmailField();
-      console.log(this.form.valid, this.form.value)
     }
 
     // disabled state is set from store to reactive forms
