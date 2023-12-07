@@ -9,6 +9,7 @@ import {
 import { Store } from '@ngrx/store';
 import { alertActions } from '../../stores/alert/alert.action';
 import { generateAlertID } from '../utils/variables';
+import { AlertType } from '../../stores/alert/alert.model';
 
 export type CallState = 'init' | 'loading' | 'loaded' | { error: string };
 
@@ -28,19 +29,21 @@ export function withCallState() {
       return {
         setError: (error: string) => {
           patchState(state, setError(error));
-          let alertID = generateAlertID();
+        },
+        openAlert: (title: string, message: string, type: AlertType) => {
+          let id = generateAlertID();
           store.dispatch(
             alertActions.addAlert({
               alert: {
-                id: alertID,
-                title: 'API Error',
-                message: error,
-                type: 'ERROR',
+                id,
+                title,
+                message,
+                type,
               },
             })
           );
           setTimeout(() => {
-            store.dispatch(alertActions.removeAlert({ alertID }));
+            store.dispatch(alertActions.removeAlert({ alertID: id }));
           }, 4000);
         },
       };
