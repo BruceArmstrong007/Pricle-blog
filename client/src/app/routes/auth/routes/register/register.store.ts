@@ -16,7 +16,6 @@ import { generateAlertID } from '../../../../shared/utils/variables';
 import { Register } from '../../../../stores/auth/auth.model';
 
 export const RegisterStore = signalStore(
-  { providedIn: 'root' },
   withState({
     passwordVisibility: false,
     confirmPasswordVisibility: false,
@@ -62,7 +61,8 @@ export const RegisterStore = signalStore(
                 router.navigateByUrl(`/auth/verify-account?token=${encoded}`);
               }),
               catchError((error) => {
-                let errorMsg = error?.error?.message ?? error?.statusText ?? error?.message;
+                let errorMsg =
+                  error?.error?.message ?? error?.statusText ?? error?.message;
                 state.setError(errorMsg);
                 return of(errorMsg);
               })

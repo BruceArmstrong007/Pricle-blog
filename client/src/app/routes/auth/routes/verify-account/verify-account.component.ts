@@ -40,6 +40,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './verify-account.component.html',
   styles: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [VerifyAccountStore]
 })
 class VerifyAccountComponent {
   private readonly fb: FormBuilder = inject(FormBuilder);

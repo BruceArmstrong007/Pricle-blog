@@ -18,7 +18,6 @@ import { generateAlertID } from '../../../../shared/utils/variables';
 import { alertActions } from '../../../../stores/alert/alert.action';
 
 export const LoginStore = signalStore(
-  { providedIn: 'root' },
   withState({
     passwordVisibility: false,
   }),

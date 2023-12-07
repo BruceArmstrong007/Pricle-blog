@@ -34,6 +34,7 @@ import { CustomValidationService } from '../../../../shared/services/validator/c
   templateUrl: './register.component.html',
   styles: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [RegisterStore]
 })
 class RegisterComponent {
   private readonly fb: FormBuilder = inject(FormBuilder);

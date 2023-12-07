@@ -20,7 +20,6 @@ import {
 } from '../../../../stores/auth/auth.model';
 
 export const VerifyAccountStore = signalStore(
-  { providedIn: 'root' },
   withState({
     disableEmail: false,
     tokenApiLoading: false,

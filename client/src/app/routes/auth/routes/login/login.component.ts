@@ -32,6 +32,7 @@ import LoaderComponent from '../../../../shared/components/loader/loader.compone
   templateUrl: './login.component.html',
   styles: '',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [LoginStore]
 })
 class LoginComponent {
   private readonly fb: FormBuilder = inject(FormBuilder);
