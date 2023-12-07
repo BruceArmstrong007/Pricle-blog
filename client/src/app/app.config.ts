@@ -4,7 +4,6 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideStore } from '@ngrx/store';
-import { provideEffects } from '@ngrx/effects';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { authFeature } from './stores/auth/auth.reducer';
@@ -14,10 +13,10 @@ import { CustomRouterStateSerializer } from './shared/router-store/router-serial
 import { RequestInterceptor } from './shared/interceptors/request.interceptor';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { alertFeature } from './stores/alert/alert.reducer';
-// import * as authEffects from './stores/auth/auth.effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     provideRouter(routes),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
@@ -30,11 +29,9 @@ export const appConfig: ApplicationConfig = {
       contacts: contactsFeature.reducer,
       alerts: alertFeature.reducer
     }),
-    // provideEffects([authEffects]),
     provideRouterStore({ serializer: CustomRouterStateSerializer }),
     provideHttpClient(),
     provideAnimations(),
-    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     isDevMode()
       ? provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
       : [],

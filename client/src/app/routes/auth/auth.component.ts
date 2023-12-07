@@ -56,8 +56,6 @@ class AuthComponent {
   readonly routePath = this.store.selectSignal(selectUrl);
   readonly Routes: Signal<RoutesInterface> = signal(ClientRoutes);
 
-  constructor() {
-  }
 }
 
 export default AuthComponent;
