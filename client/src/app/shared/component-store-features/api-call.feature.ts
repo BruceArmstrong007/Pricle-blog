@@ -28,7 +28,7 @@ export function withCallState() {
       const store = inject(Store);
       return {
         setError: (error: string) => {
-          patchState(state, setError(error));
+          patchState(state, saveError(error));
         },
         openAlert: (title: string, message: string, type: AlertType) => {
           let id = generateAlertID();
@@ -56,6 +56,6 @@ export function setLoaded(): { callState: CallState } {
   return { callState: 'loaded' };
 }
 
-function setError(error: string): { callState: CallState } {
+function saveError(error: string): { callState: CallState } {
   return { callState: { error } };
 }
