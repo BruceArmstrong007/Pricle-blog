@@ -6,12 +6,15 @@ import {
   signal,
 } from '@angular/core';
 
+type BrokenImageType = 'image' | 'person';
+
 @Component({
   selector: 'app-image',
   standalone: true,
   imports: [NgIf, NgClass],
   template: `
     <img
+      class="cursor-default"
       [ngClass]="{ hidden: state() != 'loaded' }"
       [src]="imgSrc"
       fill
@@ -19,28 +22,35 @@ import {
       (load)="onLoad()"
     />
     @if (state() === 'error') {
-    <div class="w-full h-full flex justify-center items-center bg-slate-500">
-      <i class="material-icons text-md">broken_image</i>
+    <div class="inheritClass flex justify-center items-center bg-slate-500">
+      <i class="material-icons text-md">{{ brokenImage }}</i>
     </div>
     } @else if (state() === 'loading') {
     <div
-      class="w-full h-full flex justify-center items-center animate-pulse bg-slate-500"
+      class="inheritClass flex justify-center items-center animate-pulse bg-slate-500"
     >
       <i class="material-icons text-md">image</i>
     </div>
     }
   `,
-  styles: ``,
+  styles: ` 
+  .inheritClass{
+    border-radius: inherit;
+    width: inherit;
+    height: inherit;
+    cursor: inherit;
+  }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class ImageComponent {
-  @Input({ required: true }) imgSrc!: string;
+  @Input({ required: true }) imgSrc: string | null | undefined;
   readonly state = signal('loading');
+  @Input() brokenImage: BrokenImageType = 'image';
 
   onError() {
     this.state.update(() => 'error');
   }
-
   onLoad() {
     this.state.update(() => 'loaded');
   }
