@@ -1,7 +1,9 @@
 <div class="flex justify-between items-center w-full px-2 sm:px-8 py-2">
   <a [routerLink]="Routes().Home" class="no-underline">
     <div class="flex gap-2 justify-evenly items-center">
-      <img [ngSrc]="AppIcon()" priority alt="Pricle Icon" width="40" height="40" />
+      <div class="relative w-12 h-12">
+        <app-image [imgSrc]="AppIcon()"/>
+      </div>
       <div class="text-xl">Pricle</div>
     </div>
   </a>
