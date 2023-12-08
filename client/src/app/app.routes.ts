@@ -12,7 +12,6 @@ export const routes: Routes = [
     path: 'auth',
     resolve: [authGuard],
     loadChildren: () => import('./routes/auth/auth.routes'),
-    providers: [],
   },
   {
     path: 'user',

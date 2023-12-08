@@ -1,5 +1,5 @@
-import { ResolveFn } from '@angular/router';
-import { map, catchError, throwError } from 'rxjs';
+import { ResolveFn, Router } from '@angular/router';
+import { map, catchError, throwError, of } from 'rxjs';
 import { API } from '../utils/api.endpoints';
 import { inject } from '@angular/core';
 import { ApiService } from '../services/api/api.service';
@@ -34,7 +34,7 @@ export const tokenResolver: ResolveFn<boolean> = () => {
     }),
     catchError((err) => {
       store.dispatch(userActions.logout());
-      return throwError(() => err);
+      return of(err);
     })
   );
 };

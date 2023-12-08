@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideStore } from '@ngrx/store';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { authFeature } from './stores/auth/auth.reducer';
 import { userFeature } from './stores/user/user.reducer';
 import { contactsFeature } from './stores/contacts/contacts.reducer';
@@ -18,6 +18,7 @@ import * as alertEffect from './stores/alert/alert.effect';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     provideRouter(routes),
     provideServiceWorker('ngsw-worker.js', {
@@ -33,7 +34,6 @@ export const appConfig: ApplicationConfig = {
     }),
     provideEffects([alertEffect]),
     provideRouterStore({ serializer: CustomRouterStateSerializer }),
-    provideHttpClient(),
     provideAnimations(),
     isDevMode()
       ? provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
