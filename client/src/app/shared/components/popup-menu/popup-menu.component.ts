@@ -2,6 +2,11 @@ import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
+  HostListener,
+  Input,
+  TemplateRef,
+  ViewChild,
   inject,
   signal,
 } from '@angular/core';
@@ -23,12 +28,13 @@ import { ModeService } from '../../services/mode/mode.service';
       <ng-content select="popup-source"></ng-content>
     </button>
     <ng-template
+    #overlay
       cdkConnectedOverlay
       [cdkConnectedOverlayOrigin]="trigger"
       [cdkConnectedOverlayOpen]="isOpen()"
       cdkConnectedOverlayPanelClass="absolute"
     >
-      <app-card [ngClass]="{ dark: darkMode(), 'text-white': darkMode()}">
+      <app-card (click)="close()" [ngClass]="{ dark: darkMode(), 'text-white': darkMode() }">
         <ng-container ngProjectAs="body">
           <ng-content select="popup-menu"></ng-content>
         </ng-container>
@@ -41,6 +47,14 @@ import { ModeService } from '../../services/mode/mode.service';
 class PopupMenuComponent {
   isOpen = signal(false);
   darkMode = inject(ModeService).darkMode;
+  @Input('disableClose') disableClose = false;
+  @ViewChild('overlay') menu!: TemplateRef<any>
+
+  close() {
+    if(this.disableClose) return;
+    this.isOpen.set(false);
+  }
+
 }
 
 export default PopupMenuComponent;
