@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, signal } from '@angular/core';
+import { ElementRef, Injectable, NgZone, inject, signal } from '@angular/core';
 import {
   Scene,
   PerspectiveCamera,
@@ -21,6 +21,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
   providedIn: 'root',
 })
 export class EarthService {
+  private readonly ngZone = inject(NgZone);
   scene!: Scene;
   camera!: PerspectiveCamera;
   renderer!: WebGLRenderer | null;
@@ -32,7 +33,7 @@ export class EarthService {
   mouseY = signal(0);
   container!: ElementRef<HTMLCanvasElement> | null;
   private frameID: number | null = null;
-  readonly isLoading = signal(0);
+  readonly loader = signal(0);
 
   createScene(container: ElementRef<HTMLCanvasElement>) {
     this.container = container;
@@ -107,7 +108,9 @@ export class EarthService {
       },
       (xhr) => {
         const percentage = (xhr.loaded / xhr.total) * 100;
-        this.isLoading.set(percentage);
+        this.ngZone.run(() => {
+          this.loader.set(percentage);
+        })
       },
       (error) => {
         console.log('An error happened');
