@@ -68,7 +68,23 @@ import ImageComponent from '../image/image.component';
       width: 3rem;
       height: 3rem;
     }
-  }`,
+  }
+  
+  :host-context(.xl) {
+    .size {
+      width: 4rem;
+      height: 4rem;
+    }
+  }
+  
+  :host-context(.dxl) {
+    .size {
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class ImgAvatarComponent {
