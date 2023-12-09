@@ -44,19 +44,23 @@ export class AuthService {
     };
     const { accessToken, refreshToken } =
       await this.authRepository.generateJWT(payload);
-    const cookieExpiration = Number(this.config.get('COOKIE_EXPIRATION'));
+
+    const expires = Number(this.config.get('COOKIE_EXPIRATION'));
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + expires);
 
     response.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
-      maxAge: cookieExpiration,
+      expires: expirationDate,
     });
     response.cookie('isLoggedIn', true, {
       sameSite: 'none',
       secure: true,
-      maxAge: cookieExpiration,
+      expires: expirationDate,
     });
+    
     response.status(200).json({ accessToken });
   }
 
