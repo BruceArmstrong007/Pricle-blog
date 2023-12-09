@@ -1,4 +1,4 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { UserState } from './user.model';
 import { userActions } from './user.action';
 
@@ -53,4 +53,10 @@ export const userFeature = createFeature({
       })
     )
   ),
+  extraSelectors: ({ selectUserState }) => ({
+    userProfile: createSelector(
+      selectUserState,
+      (select) => select.details?.profile
+    ),
+  }),
 });

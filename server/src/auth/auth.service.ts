@@ -19,6 +19,7 @@ import { CurrentUserType, TokenType } from '@app/common';
 import { Inject } from '@nestjs/common';
 import { Response } from 'express';
 import { NotificationGateway } from 'src/notification/notification.gateway';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -28,6 +29,7 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly mailService: MailService,
     private readonly notificationService: NotificationGateway,
+    private readonly config: ConfigService,
   ) {}
 
   async login(user: User, response: Response) {
@@ -42,15 +44,23 @@ export class AuthService {
     };
     const { accessToken, refreshToken } =
       await this.authRepository.generateJWT(payload);
+
+    const expires = Number(this.config.get('COOKIE_EXPIRATION'));
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + expires);
+
     response.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      expires: expirationDate,
     });
     response.cookie('isLoggedIn', true, {
       sameSite: 'none',
       secure: true,
+      expires: expirationDate,
     });
+    
     response.status(200).json({ accessToken });
   }
 

@@ -26,6 +26,7 @@ import { NotificationModule } from './notification/notification.module';
         MAIL_FROM: Joi.string().required(),
         VERFIY_TOKEN_TIME: Joi.string().required(),
         HASH_SALT: Joi.string().required(),
+        COOKIE_EXPIRATION: Joi.string().required(),
         MONGODB_URI: Joi.string().required(),
         MONGODB_PASS: Joi.string().required(),
         MONGODB_NAME: Joi.string().required(),

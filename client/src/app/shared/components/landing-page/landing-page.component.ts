@@ -10,6 +10,7 @@ import {
   NgZone,
   signal,
   Signal,
+  computed,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ClientRoutes, RoutesInterface } from '../../utils/client.routes';
@@ -44,7 +45,7 @@ class LandingPageComponent implements AfterViewInit, OnDestroy {
   private readonly ngZone = inject(NgZone);
   readonly appName: Signal<string> = signal(App.NAME);
   readonly slogan: Signal<string> = signal(App.SLOGAN);
-
+  readonly loading = computed(() => this.earth.loader() != 100);
   ngAfterViewInit() {
     this.ngZone.runOutsideAngular(() => {
       this.earth.createScene(this.container);
