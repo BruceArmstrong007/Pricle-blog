@@ -28,7 +28,7 @@ import { ModeService } from '../../services/mode/mode.service';
       [cdkConnectedOverlayOpen]="isOpen()"
       cdkConnectedOverlayPanelClass="absolute"
     >
-      <app-card [ngClass]="{ dark: darkMode() }">
+      <app-card [ngClass]="{ dark: darkMode(), 'text-white': darkMode()}">
         <ng-container ngProjectAs="body">
           <ng-content select="popup-menu"></ng-content>
         </ng-container>
