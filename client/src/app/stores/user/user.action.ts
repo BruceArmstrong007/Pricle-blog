@@ -10,11 +10,11 @@ import {
 export const userActions = createActionGroup({
   source: 'User Actions',
   events: {
-    Logout: emptyProps(),
-
+    ResetState: emptyProps(),
     Profile: emptyProps(),
     ProfileSuccess: props<UserDetails>(),
     ProfileFailure: emptyProps(),
+    Logout: emptyProps(),
     LogoutSuccess: emptyProps(),
     LogoutFailure: emptyProps(),
 
@@ -44,6 +44,5 @@ export const userActions = createActionGroup({
     ChangeEmailSuccess: emptyProps(),
     ChangeEmailFailure: emptyProps(),
 
-    ResetState: emptyProps(),
   },
 });

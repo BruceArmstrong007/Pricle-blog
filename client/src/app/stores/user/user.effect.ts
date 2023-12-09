@@ -10,6 +10,7 @@ import { contactsActions } from '../contacts/contacts.action';
 import { Router } from '@angular/router';
 import { ClientRoutes } from '../../shared/utils/client.routes';
 import { CookieService } from 'ngx-cookie-service';
+import { NotificationSocketService } from '../../shared/sockets/notification-socket.service';
 
 export const profile = createEffect(
   (actions$ = inject(Actions), apiService = inject(ApiService)) => {
@@ -97,8 +98,7 @@ export const logout = createEffect(
     actions$ = inject(Actions),
     store = inject(Store),
     router = inject(Router),
-    // messageSocket = inject(MessageSocketService),
-    // userSocket = inject(UserSocketService),
+    notificationSocket = inject(NotificationSocketService),
     apiService = inject(ApiService)
   ) => {
     return actions$.pipe(
@@ -106,17 +106,16 @@ export const logout = createEffect(
       exhaustMap(() => {
         return apiService.request(API.LOGOUT).pipe(
           map(() => {
-            // messageSocket.disconnect();
-            // userSocket.disconnect();
+            notificationSocket.disconnect();
+
             store.dispatch(authActions.resetState());
             store.dispatch(contactsActions.resetState());
-            // store.dispatch(channelsActions.resetState());
-            // store.dispatch(onlineFriendsActions.resetState());
             store.dispatch(userActions.resetState());
-            localStorage.removeItem('isLoggedIn');
-            // router.navigateByUrl(Routes.Home);
+            store.dispatch(authActions.resetState());
 
-            router.navigateByUrl(ClientRoutes.Auth.Root);
+            localStorage.removeItem('isLoggedIn');
+            router.navigateByUrl(ClientRoutes.Home);
+
             return userActions.logoutSuccess();
           }),
           catchError(({ error }) => {

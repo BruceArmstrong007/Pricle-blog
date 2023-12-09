@@ -1,3 +1,4 @@
+import { userActions } from './../../stores/user/user.action';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -77,7 +78,10 @@ import PopupMenuComponent from '../../shared/components/popup-menu/popup-menu.co
                   />
                 </section>
 
-                <app-button class="bg-red-500 rounded-full p-0">
+                <app-button
+                  (click)="logout()"
+                  class="bg-red-500 rounded-full p-0"
+                >
                   <ng-container ngProjectAs="btn-prefix">
                     <i class="material-icons text-sm">logout</i>
                   </ng-container>
@@ -105,6 +109,10 @@ class UserComponent {
   readonly Routes: Signal<RoutesInterface> = signal(ClientRoutes);
   private readonly notificationSocket = inject(NotificationSocketService);
   readonly userProfile = this.store.selectSignal(userFeature.userProfile);
+
+  logout() {
+    this.store.dispatch(userActions.logout());
+  }
 }
 
 export default UserComponent;
