@@ -22,12 +22,12 @@ type BrokenImageType = 'image' | 'person';
       (load)="onLoad()"
     />
     @if (state() === 'error') {
-    <div class="inheritClass flex justify-center items-center bg-slate-500">
+    <div class="inheritClass flex justify-center items-center bg-slate-500 text-white">
       <i class="material-icons text-md">{{ brokenImage }}</i>
     </div>
     } @else if (state() === 'loading') {
     <div
-      class="inheritClass flex justify-center items-center animate-pulse bg-slate-500"
+      class="inheritClass flex justify-center items-center animate-pulse bg-slate-500 text-white"
     >
       <i class="material-icons text-md">image</i>
     </div>
