@@ -14,7 +14,6 @@ import { ModeService } from '../../services/mode/mode.service';
   standalone: true,
   imports: [NgClass, OverlayModule, CardComponent],
   template: `
-    <!-- This button triggers the overlay and is it's origin -->
     <button
       (click)="isOpen.set(!isOpen())"
       type="button"
@@ -23,7 +22,6 @@ import { ModeService } from '../../services/mode/mode.service';
     >
       <ng-content select="popup-source"></ng-content>
     </button>
-
     <ng-template
       cdkConnectedOverlay
       [cdkConnectedOverlayOrigin]="trigger"
