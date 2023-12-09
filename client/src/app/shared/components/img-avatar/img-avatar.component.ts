@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import ImageComponent from '../image/image.component';
 
 @Component({
@@ -13,17 +8,28 @@ import ImageComponent from '../image/image.component';
   template: `
     <div class="relative">
       <app-image
-        class="cursor-default rounded-full size"
+        class="cursor rounded-full size"
         [imgSrc]="url"
         [brokenImage]="'person'"
       />
       <span class="signal rounded-xl w-3 h-3 absolute bottom-0 right-0"></span>
     </div>
   `,
-  styles: `.signal {
+  styles: `
+  .signal {
     display: none;
   }
-  
+
+  .cursor {
+    cursor: default;
+  }
+
+  :host-context(.pointer) {
+    .cursor {
+      cursor: pointer;
+    }
+  }
+
   :host-context(.online) {
     .signal {
       background-color: blue;
