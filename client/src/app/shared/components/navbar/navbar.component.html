@@ -2,7 +2,7 @@
   <a [routerLink]="Routes().Home" class="no-underline">
     <div class="flex gap-2 justify-evenly items-center">
       <div class="relative w-12 h-12">
-        <app-image [imgSrc]="AppIcon()"/>
+        <app-image [imgSrc]="AppIcon()" />
       </div>
       <div class="text-xl">Pricle</div>
     </div>
@@ -12,9 +12,11 @@
     <ng-content select="navbar-right"></ng-content>
     <app-button
       (click)="mode.switchMode()"
-      [class]="
-        mode.darkMode() ? 'rounded text-white' : 'rounded text-yellow-500'
-      "
+      class="rounded"
+      [ngClass]="{
+        'text-white': mode.darkMode(),
+        'text-yellow-500': !mode.darkMode()
+      }"
     >
       <ng-container ngProjectAs="btn-name">
         <i class="material-icons">{{
