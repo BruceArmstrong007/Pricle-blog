@@ -1,11 +1,18 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { NgClass } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import CardComponent from '../card/card.component';
+import { ModeService } from '../../services/mode/mode.service';
 
 @Component({
   selector: 'app-popup-menu',
   standalone: true,
-  imports: [OverlayModule, CardComponent],
+  imports: [NgClass, OverlayModule, CardComponent],
   template: `
     <!-- This button triggers the overlay and is it's origin -->
     <button
@@ -21,9 +28,9 @@ import CardComponent from '../card/card.component';
       cdkConnectedOverlay
       [cdkConnectedOverlayOrigin]="trigger"
       [cdkConnectedOverlayOpen]="isOpen()"
-      [cdkConnectedOverlayPanelClass]="['absolute']"
+      cdkConnectedOverlayPanelClass="absolute"
     >
-      <app-card>
+      <app-card [ngClass]="{ dark: darkMode() }">
         <ng-container ngProjectAs="body">
           <ng-content select="popup-menu"></ng-content>
         </ng-container>
@@ -35,6 +42,7 @@ import CardComponent from '../card/card.component';
 })
 class PopupMenuComponent {
   isOpen = signal(false);
+  darkMode = inject(ModeService).darkMode;
 }
 
 export default PopupMenuComponent;

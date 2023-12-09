@@ -10,7 +10,7 @@ import {
   providedIn: 'root',
 })
 export class ModeService {
-  public darkMode: WritableSignal<boolean | null> = signal(null);
+  public darkMode: WritableSignal<boolean> = signal(false);
 
   constructor() {
     if (localStorage.getItem('darkMode') == 'true') {
