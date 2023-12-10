@@ -4,7 +4,12 @@ const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./user.component'),
-    children: [],
+    children: [
+      {
+        path: 'profile',
+        loadComponent: () => import('./routes/profile/profile.component'),
+      },
+    ],
   },
 ];
 
