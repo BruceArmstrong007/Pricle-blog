@@ -45,16 +45,29 @@ import PopupMenuComponent from '../../shared/components/popup-menu/popup-menu.co
             <ng-container ngProjectAs="popup-menu">
               <div class="w-46 flex flex-col justify-center items-center gap-3">
                 <avatar class="dxl" [url]="userProfile()?.url" />
-
-                <app-button class="bg-blue-500 rounded-full p-0 text-xs">
-                  <ng-container ngProjectAs="btn-name">
-                    <span class="text-white">Edit Profile</span>
-                  </ng-container>
-                </app-button>
+                <section>
+                  <span class="break-words text-xs">{{
+                    userDetails()?.name
+                  }}</span>
+                </section>
                 <section
                   class="w-full flex flex-col justify-center items-start cursor-pointer"
                 >
-                  <app-button>
+                  <app-button
+                    class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl"
+                    [routerLink]="[Routes().User.Profile.Root]"
+                  >
+                    <ng-container ngProjectAs="btn-prefix">
+                      <i class="material-icons text-sm">person</i>
+                    </ng-container>
+                    <ng-container ngProjectAs="btn-name">
+                      <span>Profile</span>
+                    </ng-container>
+                  </app-button>
+                  <hr
+                    class="w-full my-2 h-0.5 border-0 bg-transparent bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-800 to-transparent"
+                  />
+                  <app-button class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl">
                     <ng-container ngProjectAs="btn-prefix">
                       <i class="material-icons text-sm">settings</i>
                     </ng-container>
@@ -65,7 +78,7 @@ import PopupMenuComponent from '../../shared/components/popup-menu/popup-menu.co
                   <hr
                     class="w-full my-2 h-0.5 border-0 bg-transparent bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-800 to-transparent"
                   />
-                  <app-button>
+                  <app-button class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl">
                     <ng-container ngProjectAs="btn-prefix">
                       <i class="material-icons text-sm">help</i>
                     </ng-container>
@@ -80,13 +93,13 @@ import PopupMenuComponent from '../../shared/components/popup-menu/popup-menu.co
 
                 <app-button
                   (click)="logout()"
-                  class="bg-red-500 rounded-full p-0"
+                  class="bg-red-500 rounded-full p-0 text-white"
                 >
                   <ng-container ngProjectAs="btn-prefix">
                     <i class="material-icons text-sm">logout</i>
                   </ng-container>
                   <ng-container ngProjectAs="btn-name">
-                    <span class="text-white">Logout</span>
+                    <span>Logout</span>
                   </ng-container>
                 </app-button>
               </div>
@@ -109,6 +122,7 @@ class UserComponent {
   readonly Routes: Signal<RoutesInterface> = signal(ClientRoutes);
   private readonly notificationSocket = inject(NotificationSocketService);
   readonly userProfile = this.store.selectSignal(userFeature.userProfile);
+  readonly userDetails = this.store.selectSignal(userFeature.selectDetails);
 
   logout() {
     this.store.dispatch(userActions.logout());
