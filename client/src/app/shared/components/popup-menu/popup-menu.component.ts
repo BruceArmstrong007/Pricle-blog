@@ -28,7 +28,6 @@ import { ModeService } from '../../services/mode/mode.service';
       <ng-content select="popup-source"></ng-content>
     </button>
     <ng-template
-    #overlay
       cdkConnectedOverlay
       [cdkConnectedOverlayOrigin]="trigger"
       [cdkConnectedOverlayOpen]="isOpen()"
@@ -48,7 +47,6 @@ class PopupMenuComponent {
   isOpen = signal(false);
   darkMode = inject(ModeService).darkMode;
   @Input('disableClose') disableClose = false;
-  @ViewChild('overlay') menu!: TemplateRef<any>
 
   close() {
     if(this.disableClose) return;
