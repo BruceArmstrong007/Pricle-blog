@@ -4,7 +4,7 @@ import {
   ChangeEmailLink,
   ResetPassword,
   UploadProfile,
-  UserDetails,
+  User,
 } from './user.model';
 
 export const userActions = createActionGroup({
@@ -12,14 +12,13 @@ export const userActions = createActionGroup({
   events: {
     ResetState: emptyProps(),
     Profile: emptyProps(),
-    ProfileSuccess: props<UserDetails>(),
+    ProfileSuccess: props<User>(),
     ProfileFailure: emptyProps(),
     Logout: emptyProps(),
     LogoutSuccess: emptyProps(),
     LogoutFailure: emptyProps(),
-
     UpdateUser: props<{
-      request: Pick<UserDetails, 'name' & 'bio' & 'userame'>;
+      request: Pick<User, 'name' | 'bio' | 'username'>;
     }>(),
     UpdateUserSuccess: emptyProps(),
     UpdateUserFailure: emptyProps(),
@@ -43,6 +42,5 @@ export const userActions = createActionGroup({
     ChangeEmail: props<ChangeEmail>(),
     ChangeEmailSuccess: emptyProps(),
     ChangeEmailFailure: emptyProps(),
-
   },
 });
