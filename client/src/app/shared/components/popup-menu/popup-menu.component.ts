@@ -2,11 +2,7 @@ import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
-  HostListener,
   Input,
-  TemplateRef,
-  ViewChild,
   inject,
   signal,
 } from '@angular/core';
