@@ -54,12 +54,7 @@ export class ControlValueAccessorDirective<T>
     }
   }
 
-  writeValue(value: T): void {
-    if(!value) return;
-    this.control
-      ? this.control.setValue(value)
-      : (this.control = new FormControl(value));
-  }
+  writeValue(value: T): void {}
 
   registerOnChange(fn: (val: T | null) => T): void {
     this.control?.valueChanges.pipe(
