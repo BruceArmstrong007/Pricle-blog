@@ -60,14 +60,14 @@ export const updateUser = createEffect(
           }),
           catchError((error) => {
             let errorMsg =
-            error?.error?.message ?? error?.statusText ?? error?.message;
+              error?.error?.message ?? error?.statusText ?? error?.message;
             store.dispatch(
               alertActions.addAlert({
                 alert: {
                   id: generateAlertID(),
                   type: 'ERROR',
                   title: 'API Error.',
-                  message: errorMsg,
+                  message: errorMsg ?? 'Error while updating user details.',
                 },
               })
             );
@@ -82,28 +82,43 @@ export const updateUser = createEffect(
   }
 );
 
-
-
-
 export const uploadProfile = createEffect(
   (
     actions$ = inject(Actions),
     apiService = inject(ApiService),
     store = inject(Store)
-    // editStore = inject(EditProfileStore)
   ) => {
     return actions$.pipe(
       ofType(userActions.uploadProfile),
       exhaustMap((request) => {
-        //   editStore.EditProfile();
         return apiService.uploadProfile(API.UPLOADPROFILE, request).pipe(
           map((response: any) => {
-            //     editStore.EditProfileSuccess(response);
             store.dispatch(userActions.profile());
+            store.dispatch(
+              alertActions.addAlert({
+                alert: {
+                  id: generateAlertID(),
+                  type: 'SUCCESS',
+                  title: 'Successfully uploaded!',
+                  message: response?.message ?? 'User profile uploaded.',
+                },
+              })
+            );
             return userActions.uploadProfileSuccess();
           }),
-          catchError(({ error }) => {
-            //   editStore.EditProfileFailure(error);
+          catchError((error) => {
+            let errorMsg =
+              error?.error?.message ?? error?.statusText ?? error?.message;
+            store.dispatch(
+              alertActions.addAlert({
+                alert: {
+                  id: generateAlertID(),
+                  type: 'ERROR',
+                  title: 'API Error.',
+                  message: errorMsg ?? 'Error while uploading profile picture.',
+                },
+              })
+            );
             return of(userActions.uploadProfileFailure());
           })
         );
