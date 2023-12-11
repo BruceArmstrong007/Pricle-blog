@@ -1,1 +1,106 @@
-<p>profile works!</p>
+<app-card class="block md:w-96">
+  <ng-container ngProjectAs="header">
+    <div class="w-full text-center text-2xl pt-4 font-bold">Profile</div>
+  </ng-container>
+  <ng-container ngProjectAs="body">
+    <form
+      [formGroup]="form"
+      class="flex flex-col justify-center items-center gap-4 py-4"
+    >
+      <div class="grid grid-rows-2 grid-cols-4 gap-2">
+        <div>
+          <span>Name: </span>
+        </div>
+        <div class="col-span-2 w-full">
+          <app-editable-input
+            inputID="profile-name"
+            type="text"
+            formControlName="name"
+          >
+          </app-editable-input>
+        </div>
+        <div class="justify-self-end">
+          <app-button
+            (click)="state.nameState() == 'View' ? edit('name') : save('name')"
+            class="rounded-full hover:bg-slate-300 dark:hover:bg-slate-800"
+          >
+            <ng-container ngProjectAs="btn-name">
+              @switch (state.nameState()) { @case ('Edit') {
+              <i class="material-icons text-sm text-green-500">save</i>
+              } @case ('View') {
+              <i class="material-icons text-sm">edit</i>
+              } @case ('Load') {
+              <loader />
+              } }
+            </ng-container>
+          </app-button>
+        </div>
+        <div>
+          <span>Username: </span>
+        </div>
+        <div class="col-span-2 w-full">
+          <app-editable-input
+            inputID="profile-username"
+            type="text"
+            formControlName="username"
+          >
+          </app-editable-input>
+        </div>
+        <div class="justify-self-end">
+          <app-button
+            (click)="
+              state.usernameState() == 'View'
+                ? edit('username')
+                : save('username')
+            "
+            class="rounded-full hover:bg-slate-300 dark:hover:bg-slate-800"
+          >
+            <ng-container ngProjectAs="btn-name">
+              @switch (state.usernameState()) { @case ('Edit') {
+              <i class="material-icons text-sm text-green-500">save</i>
+              } @case ('View') {
+              <i class="material-icons text-sm">edit</i>
+              } @case ('Load') {
+              <loader />
+              } }
+            </ng-container>
+          </app-button>
+        </div>
+        <div>
+          <span>Bio: </span>
+        </div>
+        <div class="col-span-2 w-full">
+          <app-editable-textarea
+            inputID="profile-bio"
+            formControlName="bio"
+          >
+          </app-editable-textarea>
+        </div>
+        <div class="justify-self-end">
+          <app-button
+            (click)="state.bioState() == 'View' ? edit('bio') : save('bio')"
+            class="rounded-full hover:bg-slate-300 dark:hover:bg-slate-800"
+          >
+            <ng-container ngProjectAs="btn-name">
+              @switch (state.bioState()) { @case ('Edit') {
+              <i class="material-icons text-sm text-green-500">save</i>
+              } @case ('View') {
+              <i class="material-icons text-sm">edit</i>
+              } @case ('Load') {
+              <loader />
+              } }
+            </ng-container>
+          </app-button>
+        </div>
+        <div>
+          <span class="text-sm">Created at:</span>
+        </div>
+        <div class="col-span-3">
+          <span class="text-sm">
+            {{ (userDetails$ | async)?.createdAt | date : "short" }}</span
+          >
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</app-card>
