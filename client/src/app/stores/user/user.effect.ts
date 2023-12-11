@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ApiService } from '../../shared/services/api/api.service';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of } from 'rxjs';
 import { API } from '../../shared/utils/api.endpoints';
 import { userActions } from './user.action';
 import { Store } from '@ngrx/store';
@@ -9,8 +9,9 @@ import { authActions } from '../auth/auth.action';
 import { contactsActions } from '../contacts/contacts.action';
 import { Router } from '@angular/router';
 import { ClientRoutes } from '../../shared/utils/client.routes';
-import { CookieService } from 'ngx-cookie-service';
 import { NotificationSocketService } from '../../shared/sockets/notification-socket.service';
+import { alertActions } from '../alert/alert.action';
+import { generateAlertID } from '../../shared/utils/variables';
 
 export const profile = createEffect(
   (actions$ = inject(Actions), apiService = inject(ApiService)) => {
@@ -21,7 +22,7 @@ export const profile = createEffect(
           map((response: any) => {
             return userActions.profileSuccess(response);
           }),
-          catchError(({ error }) => {
+          catchError(() => {
             return of(userActions.profileFailure());
           })
         );
@@ -38,20 +39,38 @@ export const updateUser = createEffect(
     actions$ = inject(Actions),
     apiService = inject(ApiService),
     store = inject(Store)
-    // editStore = inject(EditProfileStore)
   ) => {
     return actions$.pipe(
       ofType(userActions.updateUser),
-      exhaustMap((request) => {
-        //    editStore.EditProfile();
+      exhaustMap(({ request }) => {
         return apiService.request(API.UPDATEUSER, request).pipe(
           map((response: any) => {
-            //      editStore.EditProfileSuccess(response);
             store.dispatch(userActions.profile());
+            store.dispatch(
+              alertActions.addAlert({
+                alert: {
+                  id: generateAlertID(),
+                  type: 'SUCCESS',
+                  title: 'Successfully updated!',
+                  message: response?.message ?? 'User details are updated.',
+                },
+              })
+            );
             return userActions.updateUserSuccess();
           }),
-          catchError(({ error }) => {
-            //    editStore.EditProfileFailure(error);
+          catchError((error) => {
+            let errorMsg =
+              error?.error?.message ?? error?.statusText ?? error?.message;
+            store.dispatch(
+              alertActions.addAlert({
+                alert: {
+                  id: generateAlertID(),
+                  type: 'ERROR',
+                  title: 'API Error.',
+                  message: errorMsg ?? 'Error while updating user details.',
+                },
+              })
+            );
             return of(userActions.updateUserFailure());
           })
         );
@@ -68,20 +87,38 @@ export const uploadProfile = createEffect(
     actions$ = inject(Actions),
     apiService = inject(ApiService),
     store = inject(Store)
-    // editStore = inject(EditProfileStore)
   ) => {
     return actions$.pipe(
       ofType(userActions.uploadProfile),
       exhaustMap((request) => {
-        //   editStore.EditProfile();
         return apiService.uploadProfile(API.UPLOADPROFILE, request).pipe(
           map((response: any) => {
-            //     editStore.EditProfileSuccess(response);
             store.dispatch(userActions.profile());
+            store.dispatch(
+              alertActions.addAlert({
+                alert: {
+                  id: generateAlertID(),
+                  type: 'SUCCESS',
+                  title: 'Successfully uploaded!',
+                  message: response?.message ?? 'User profile uploaded.',
+                },
+              })
+            );
             return userActions.uploadProfileSuccess();
           }),
-          catchError(({ error }) => {
-            //   editStore.EditProfileFailure(error);
+          catchError((error) => {
+            let errorMsg =
+              error?.error?.message ?? error?.statusText ?? error?.message;
+            store.dispatch(
+              alertActions.addAlert({
+                alert: {
+                  id: generateAlertID(),
+                  type: 'ERROR',
+                  title: 'API Error.',
+                  message: errorMsg ?? 'Error while uploading profile picture.',
+                },
+              })
+            );
             return of(userActions.uploadProfileFailure());
           })
         );

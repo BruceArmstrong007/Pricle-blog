@@ -14,7 +14,7 @@ type BrokenImageType = 'image' | 'person';
   imports: [NgIf, NgClass],
   template: `
     <img
-      class="cursor-default"
+      class="cursor-default inheritClass"
       [ngClass]="{ hidden: state() != 'loaded' }"
       [src]="imgSrc"
       fill

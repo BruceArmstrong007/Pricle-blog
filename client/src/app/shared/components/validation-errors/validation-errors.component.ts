@@ -13,7 +13,13 @@ import { ValidationErrors } from '@angular/forms';
   selector: 'app-validation-errors',
   standalone: true,
   imports: [NgFor, KeyValuePipe],
-  templateUrl: './validation-errors.component.html',
+  template: `
+    <ul class="text-red-600 dark:text-red-400 list-disc">
+      @for(error of errors(); track error) {
+      <li class="break-words w-56 text-xs">{{ error }}</li>
+      }
+    </ul>
+  `,
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

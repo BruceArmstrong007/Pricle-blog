@@ -20,6 +20,7 @@ import {
 import ImgAvatarComponent from '../../shared/components/img-avatar/img-avatar.component';
 import { userFeature } from '../../stores/user/user.reducer';
 import PopupMenuComponent from '../../shared/components/popup-menu/popup-menu.component';
+import DividerComponent from '../../shared/components/divider/divider.component';
 
 @Component({
   selector: 'app-user',
@@ -32,6 +33,7 @@ import PopupMenuComponent from '../../shared/components/popup-menu/popup-menu.co
     ButtonComponent,
     ImgAvatarComponent,
     PopupMenuComponent,
+    DividerComponent
   ],
   styles: ``,
   template: `
@@ -64,10 +66,10 @@ import PopupMenuComponent from '../../shared/components/popup-menu/popup-menu.co
                       <span>Profile</span>
                     </ng-container>
                   </app-button>
-                  <hr
-                    class="w-full my-2 h-0.5 border-0 bg-transparent bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-800 to-transparent"
-                  />
-                  <app-button class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl">
+                  <app-divider />
+                  <app-button
+                    class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl"
+                  >
                     <ng-container ngProjectAs="btn-prefix">
                       <i class="material-icons text-sm">settings</i>
                     </ng-container>
@@ -75,10 +77,10 @@ import PopupMenuComponent from '../../shared/components/popup-menu/popup-menu.co
                       <span>Settings</span>
                     </ng-container>
                   </app-button>
-                  <hr
-                    class="w-full my-2 h-0.5 border-0 bg-transparent bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-800 to-transparent"
-                  />
-                  <app-button class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl">
+                  <app-divider />
+                  <app-button
+                    class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl"
+                  >
                     <ng-container ngProjectAs="btn-prefix">
                       <i class="material-icons text-sm">help</i>
                     </ng-container>
@@ -86,9 +88,7 @@ import PopupMenuComponent from '../../shared/components/popup-menu/popup-menu.co
                       <span>Help and Support</span>
                     </ng-container>
                   </app-button>
-                  <hr
-                    class="w-full my-2 h-0.5 border-0 bg-transparent bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-800 to-transparent"
-                  />
+                  <app-divider />
                 </section>
 
                 <app-button

@@ -84,6 +84,13 @@ import ImageComponent from '../image/image.component';
     }
   }
 
+  :host-context(.ddxl) {
+    .size {
+      width: 6rem;
+      height: 6rem;
+    }
+  }
+
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
