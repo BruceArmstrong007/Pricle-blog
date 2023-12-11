@@ -33,3 +33,6 @@ export interface ContactNotification {
   userID: string;
   contactID: string;
 }
+
+
+export type EditableFieldState = 'Edit' | 'View' | 'Load';
