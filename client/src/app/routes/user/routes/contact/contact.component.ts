@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './contact.component.html',
   styles: ``,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-class ContactComponent {
-
-}
+class ContactComponent {}
 export default ContactComponent;
