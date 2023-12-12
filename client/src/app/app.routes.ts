@@ -6,6 +6,7 @@ import { ClientRoutes } from './shared/utils/client.routes';
 import { provideEffects } from '@ngrx/effects';
 import * as userEffects from './stores/user/user.effect';
 import * as contactEffects from './stores/contacts/contacts.effect';
+import { landingPageGuard } from './shared/guards/landing-page.guard';
 
 export const routes: Routes = [
   {
@@ -22,12 +23,13 @@ export const routes: Routes = [
   },
   {
     path: 'home',
+    canActivate: [landingPageGuard],
     loadComponent: () =>
       import('./shared/components/landing-page/landing-page.component'),
   },
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: ClientRoutes.Home, // need to change after we create blog timeline
+    redirectTo: ClientRoutes.Home,
   },
 ];

@@ -14,13 +14,13 @@ export const ClientRoutes: RoutesInterface = {
       SentRequests: '/user/contacts/sent-requests',
       ReceivedRequests: '/user/contacts/received-requests',
     },
-    SearchUsers: {
-      Root: '/user/search-users',
-    },
     Settings: {
       Root: '/user/settings',
       Account: '/user/settings/account',
       Personal: '/user/settings/personal',
+    },
+    Dashboard: {
+      Root: '/user/dashboard',
     },
     Profile: {
       Root: '/user/profile',
@@ -45,7 +45,7 @@ export interface RoutesInterface {
       SentRequests: string;
       ReceivedRequests: string;
     };
-    SearchUsers: {
+    Dashboard: {
       Root: string;
     };
     Settings: {

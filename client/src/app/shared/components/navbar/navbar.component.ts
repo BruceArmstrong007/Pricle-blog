@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Input,
   Signal,
   inject,
   signal,
@@ -22,6 +23,7 @@ import ImageComponent from '../image/image.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class NavbarComponent {
+  @Input() isUser = false;
   readonly Routes: Signal<RoutesInterface> = signal(ClientRoutes);
   readonly AppIcon: Signal<string> = signal(App.ICON);
   readonly mode = inject(ModeService);
