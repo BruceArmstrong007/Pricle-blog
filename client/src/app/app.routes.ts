@@ -28,6 +28,6 @@ export const routes: Routes = [
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: ClientRoutes.Home, // need to change after we create blog timeline
+    redirectTo: ClientRoutes.Home,
   },
 ];
