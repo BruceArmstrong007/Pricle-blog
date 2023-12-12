@@ -132,10 +132,8 @@ import DividerComponent from '../../shared/components/divider/divider.component'
           </app-popup-menu>
         </ng-container>
       </app-navbar>
-      <div class="grow">
-        <div class="w-full h-full flex justify-center items-center">
+      <div class="grow w-full h-full">
           <router-outlet />
-        </div>
       </div>
     </div>
   `,
