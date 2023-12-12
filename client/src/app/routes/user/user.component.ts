@@ -33,12 +33,12 @@ import DividerComponent from '../../shared/components/divider/divider.component'
     ButtonComponent,
     ImgAvatarComponent,
     PopupMenuComponent,
-    DividerComponent
+    DividerComponent,
   ],
   styles: ``,
   template: `
     <div class="h-full flex flex-col">
-      <app-navbar>
+      <app-navbar [isUser]="true">
         <ng-container ngProjectAs="navbar-right">
           <app-popup-menu>
             <ng-container ngProjectAs="popup-source">
@@ -64,6 +64,31 @@ import DividerComponent from '../../shared/components/divider/divider.component'
                     </ng-container>
                     <ng-container ngProjectAs="btn-name">
                       <span>Profile</span>
+                    </ng-container>
+                  </app-button>
+                  <app-divider />
+
+                  <app-button
+                    class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl"
+                    [routerLink]="[Routes().User.Dashboard.Root]"
+                  >
+                    <ng-container ngProjectAs="btn-prefix">
+                      <i class="material-icons text-sm">dashboard</i>
+                    </ng-container>
+                    <ng-container ngProjectAs="btn-name">
+                      <span>Dashboard</span>
+                    </ng-container>
+                  </app-button>
+                  <app-divider />
+                  <app-button
+                    class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl"
+                    [routerLink]="[Routes().User.Contacts.Friends]"
+                  >
+                    <ng-container ngProjectAs="btn-prefix">
+                      <i class="material-icons text-sm">contacts</i>
+                    </ng-container>
+                    <ng-container ngProjectAs="btn-name">
+                      <span>Contacts</span>
                     </ng-container>
                   </app-button>
                   <app-divider />

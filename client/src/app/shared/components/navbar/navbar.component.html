@@ -1,5 +1,8 @@
 <div class="flex justify-between items-center w-full px-2 sm:px-8 py-2">
-  <a [routerLink]="Routes().Home" class="no-underline">
+  <a
+    [routerLink]="isUser ? Routes().User.Dashboard.Root : Routes().Home"
+    class="no-underline"
+  >
     <div class="flex gap-2 justify-evenly items-center">
       <div class="relative w-12 h-12">
         <app-image [imgSrc]="AppIcon()" />
@@ -7,7 +10,7 @@
       <div class="text-xl">Pricle</div>
     </div>
   </a>
-  <div class="m-auto"></div>
+  <ng-content select="navbar-center"></ng-content>
   <div class="flex justify-between items-center gap-2">
     <ng-content select="navbar-right"></ng-content>
     <app-button
