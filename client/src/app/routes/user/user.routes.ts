@@ -9,6 +9,15 @@ const routes: Routes = [
         path: 'profile',
         loadComponent: () => import('./routes/profile/profile.component'),
       },
+      {
+        path: 'settings',
+        loadComponent: () => import('./routes/settings/settings.component'),
+      },
+      {
+        path: 'help-support',
+        loadComponent: () =>
+          import('./routes/help-support/help-support.component'),
+      },
     ],
   },
 ];
