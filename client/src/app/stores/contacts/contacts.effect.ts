@@ -27,85 +27,6 @@ export const contacts = createEffect(
   }
 );
 
-
-// export const acceptRequest = createEffect(
-//   (
-//     actions$ = inject(Actions),
-//     store = inject(Store),
-//     apiService = inject(ApiService)
-//     // toastService = inject(MessageService)
-//   ) => {
-//     return actions$.pipe(
-//       ofType(contactsActions.acceptRequest),
-//       exhaustMap((request) => {
-//         return apiService.request(API.ACCEPTREQUEST, request).pipe(
-//           map((response: any) => {
-//             // toast(
-//             //   toastService,
-//             //   'success',
-//             //   'Success',
-//             //   'Friend request accepted.'
-//             // );
-//             store.dispatch(contactsActions.contacts());
-//             return contactsActions.acceptRequestSuccess(response);
-//           }),
-//           catchError(({ error }) => {
-//             // toast(
-//             //   toastService,
-//             //   'error',
-//             //   'Error',
-//             //   error?.message ?? 'Error while accepting friend request.'
-//             // );
-//             return of(contactsActions.acceptRequestFailure());
-//           })
-//         );
-//       })
-//     );
-//   },
-//   {
-//     functional: true,
-//   }
-// );
-
-// export const declineRequest = createEffect(
-//   (
-//     actions$ = inject(Actions),
-//     store = inject(Store),
-//     apiService = inject(ApiService)
-//     // toastService = inject(MessageService)
-//   ) => {
-//     return actions$.pipe(
-//       ofType(contactsActions.declineRequest),
-//       exhaustMap((request) => {
-//         return apiService.request(API.DECLINEREQUEST, request).pipe(
-//           map((response: any) => {
-//             // toast(
-//             //   toastService,
-//             //   'success',
-//             //   'Success',
-//             //   'Friend request declined.'
-//             // );
-//             store.dispatch(contactsActions.contacts());
-//             return contactsActions.declineRequestSuccess(response);
-//           }),
-//           catchError(({ error }) => {
-//             // toast(
-//             //   toastService,
-//             //   'error',
-//             //   'Error',
-//             //   error?.message ?? 'Error while accepting friend request.'
-//             // );
-//             return of(contactsActions.declineRequestFailure());
-//           })
-//         );
-//       })
-//     );
-//   },
-//   {
-//     functional: true,
-//   }
-// );
-
 // export const sendRequest = createEffect(
 //   (
 //     actions$ = inject(Actions),
@@ -130,45 +51,6 @@ export const contacts = createEffect(
 //             //   error?.message ?? 'Error while sending friend request.'
 //             // );
 //             return of(contactsActions.sendRequestFailure);
-//           })
-//         );
-//       })
-//     );
-//   },
-//   {
-//     functional: true,
-//   }
-// );
-
-// export const cancelRequest = createEffect(
-//   (
-//     actions$ = inject(Actions),
-//     store = inject(Store),
-//     apiService = inject(ApiService)
-//     // toastService = inject(MessageService)
-//   ) => {
-//     return actions$.pipe(
-//       ofType(contactsActions.cancelRequest),
-//       exhaustMap((request) => {
-//         return apiService.request(API.CANCELREQUEST, request).pipe(
-//           map((response: any) => {
-//             // toast(
-//             //   toastService,
-//             //   'success',
-//             //   'Success',
-//             //   'Friend request cancelled.'
-//             // );
-//             store.dispatch(contactsActions.contacts());
-//             return contactsActions.cancelRequestSuccess(response);
-//           }),
-//           catchError(({ error }) => {
-//             // toast(
-//             //   toastService,
-//             //   'error',
-//             //   'Error',
-//             //   error?.message ?? 'Error while cancelling friend request.'
-//             // );
-//             return of(contactsActions.acceptRequestFailure());
 //           })
 //         );
 //       })
