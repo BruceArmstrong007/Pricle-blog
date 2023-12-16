@@ -48,6 +48,15 @@
           <app-divider />
           }
         </div>
+        } @else if(contactState() === 'error') {
+        <div class="w-full h-full flex justify-center items-center">
+          <div class="flex justify-center items-center gap-1">
+            <i class="material-icons text-lg">error</i>
+            <span class="text-lg"
+              >Failed to fetch, check your internet and try again</span
+            >
+          </div>
+        </div>
         } @else {
         <router-outlet></router-outlet>
         }
