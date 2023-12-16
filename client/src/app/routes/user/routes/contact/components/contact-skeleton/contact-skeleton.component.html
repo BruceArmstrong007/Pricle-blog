@@ -1,0 +1,21 @@
+  <div class="w-full h-12 flex justify-between items-center py-1">
+    <div class="flex gap-4">
+      <avatar class="pointer" />
+      <section class="flex flex-col gap-1">
+        <div class="text-xs w-52 h-4 animate:pulse rounded bg-slate-400"></div>
+        <div class="text-xs w-36 h-4 animate:pulse rounded bg-slate-400"></div>
+      </section>
+    </div>
+    <div class="flex gap-4">
+        <app-button class="rounded-full animate:pulse bg-slate-400">
+          <ng-container ngProjectAs="btn-name">
+            <i class="material-icons text-xs">refresh</i>
+          </ng-container>
+        </app-button>
+        <app-button class="rounded-full animate:pulse bg-slate-400">
+          <ng-container ngProjectAs="btn-name">
+            <i class="material-icons text-xs">refresh</i>
+          </ng-container>
+        </app-button>
+    </div>
+  </div>
