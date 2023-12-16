@@ -11,7 +11,7 @@ const routes: Routes = [
         loadComponent: () => import('./routes/friends/friends.component'),
       },
       {
-        path: 'friend-requests',
+        path: 'sent-requests',
         loadComponent: () =>
           import('./routes/friend-requests/friend-requests.component'),
       },
