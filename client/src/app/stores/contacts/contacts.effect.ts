@@ -28,50 +28,6 @@ export const contacts = createEffect(
   }
 );
 
-export const removeContact = createEffect(
-  (
-    actions$ = inject(Actions),
-    apiService = inject(ApiService),
-    store = inject(Store)
-    // toastService = inject(MessageService)
-  ) => {
-    return actions$.pipe(
-      ofType(contactsActions.removeContact),
-      exhaustMap((request) => {
-        return apiService.request(API.REMOVECONTACT, request).pipe(
-          map((response: any) => {
-            // toast(
-            //   toastService,
-            //   'success',
-            //   'Success',
-            //   'Contact removed successfully.'
-            // );
-            store.dispatch(contactsActions.contacts());
-            const user = store.selectSignal(userFeature.selectDetails);
-            // store.dispatch(
-            //   channelsActions.removeRoom({
-            //     roomID: generateRoomIDs(user()?._id as string, request?.contactID),
-            //   })
-            // );
-            return contactsActions.removeContactSuccess(response);
-          }),
-          catchError(({ error }) => {
-            // toast(
-            //   toastService,
-            //   'error',
-            //   'Error',
-            //   error?.message ?? 'Error while removing contact'
-            // );
-            return of(contactsActions.removeContactFailure());
-          })
-        );
-      })
-    );
-  },
-  {
-    functional: true,
-  }
-);
 
 export const acceptRequest = createEffect(
   (
@@ -249,17 +205,3 @@ export const seenContact = createEffect(
     functional: true,
   }
 );
-
-// const toast = (
-//   toastService: MessageService,
-//   severity: 'success' | 'error',
-//   summary: string,
-//   detail: string
-// ) => {
-//   toastService.add({
-//     severity,
-//     summary,
-//     detail,
-//   });
-// };
-
