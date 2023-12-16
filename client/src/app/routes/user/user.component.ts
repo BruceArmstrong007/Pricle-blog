@@ -3,13 +3,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   Signal,
+  WritableSignal,
   inject,
   signal,
 } from '@angular/core';
 import { NotificationSocketService } from '../../shared/sockets/notification-socket.service';
 import ButtonComponent from '../../shared/components/button/button.component';
 import NavbarComponent from '../../shared/components/navbar/navbar.component';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectUrl } from '../../shared/router-store/router-selector';
@@ -22,6 +23,12 @@ import { userFeature } from '../../stores/user/user.reducer';
 import PopupMenuComponent from '../../shared/components/popup-menu/popup-menu.component';
 import DividerComponent from '../../shared/components/divider/divider.component';
 
+interface MenuItems {
+  icon: string;
+  label: string;
+  route: string;
+}
+
 @Component({
   selector: 'app-user',
   standalone: true,
@@ -29,6 +36,7 @@ import DividerComponent from '../../shared/components/divider/divider.component'
     RouterOutlet,
     RouterLink,
     NgIf,
+    NgFor,
     NavbarComponent,
     ButtonComponent,
     ImgAvatarComponent,
@@ -55,67 +63,21 @@ import DividerComponent from '../../shared/components/divider/divider.component'
                 <section
                   class="w-full flex flex-col justify-center items-start cursor-pointer"
                 >
+                  @for(item of menuOptions(); track $index) {
                   <app-button
                     class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl"
-                    [routerLink]="[Routes().User.Profile.Root]"
+                    [routerLink]="[item.route]"
                   >
                     <ng-container ngProjectAs="btn-prefix">
-                      <i class="material-icons text-sm">person</i>
+                      <i class="material-icons text-sm">{{ item.icon }}</i>
                     </ng-container>
                     <ng-container ngProjectAs="btn-name">
-                      <span>Profile</span>
+                      <span>{{ item.label }}</span>
                     </ng-container>
                   </app-button>
                   <app-divider />
-
-                  <app-button
-                    class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl"
-                    [routerLink]="[Routes().User.Dashboard.Root]"
-                  >
-                    <ng-container ngProjectAs="btn-prefix">
-                      <i class="material-icons text-sm">dashboard</i>
-                    </ng-container>
-                    <ng-container ngProjectAs="btn-name">
-                      <span>Dashboard</span>
-                    </ng-container>
-                  </app-button>
-                  <app-divider />
-                  <app-button
-                    class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl"
-                    [routerLink]="[Routes().User.Contacts.Friends]"
-                  >
-                    <ng-container ngProjectAs="btn-prefix">
-                      <i class="material-icons text-sm">contacts</i>
-                    </ng-container>
-                    <ng-container ngProjectAs="btn-name">
-                      <span>Contacts</span>
-                    </ng-container>
-                  </app-button>
-                  <app-divider />
-                  <app-button
-                    class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl"
-                  >
-                    <ng-container ngProjectAs="btn-prefix">
-                      <i class="material-icons text-sm">settings</i>
-                    </ng-container>
-                    <ng-container ngProjectAs="btn-name">
-                      <span>Settings</span>
-                    </ng-container>
-                  </app-button>
-                  <app-divider />
-                  <app-button
-                    class="grow w-full hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl"
-                  >
-                    <ng-container ngProjectAs="btn-prefix">
-                      <i class="material-icons text-sm">help</i>
-                    </ng-container>
-                    <ng-container ngProjectAs="btn-name">
-                      <span>Help and Support</span>
-                    </ng-container>
-                  </app-button>
-                  <app-divider />
+                  }
                 </section>
-
                 <app-button
                   (click)="logout()"
                   class="bg-red-500 rounded-full p-0 text-white"
@@ -133,7 +95,7 @@ import DividerComponent from '../../shared/components/divider/divider.component'
         </ng-container>
       </app-navbar>
       <div class="grow w-full h-full">
-          <router-outlet />
+        <router-outlet />
       </div>
     </div>
   `,
@@ -146,7 +108,28 @@ class UserComponent {
   private readonly notificationSocket = inject(NotificationSocketService);
   readonly userProfile = this.store.selectSignal(userFeature.userProfile);
   readonly userDetails = this.store.selectSignal(userFeature.selectDetails);
-
+  readonly menuOptions: WritableSignal<MenuItems[]> = signal([
+    {
+      route: this.Routes().User.Profile.Root,
+      icon: 'person',
+      label: 'Profile',
+    },
+    {
+      route: this.Routes().User.Dashboard.Root,
+      icon: 'dashboard',
+      label: 'Dashboard',
+    },
+    {
+      route: this.Routes().User.Settings.Root,
+      icon: 'settings',
+      label: 'Settings',
+    },
+    {
+      route: '',
+      icon: 'help',
+      label: 'Help and Support',
+    },
+  ]);
   logout() {
     this.store.dispatch(userActions.logout());
   }
