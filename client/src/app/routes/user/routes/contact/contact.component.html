@@ -35,12 +35,12 @@
     </app-button>
   </div>
 
-  <app-card class="block md:w-11/12 overflow-auto">
+  <app-card class="block md:w-11/12">
     <ng-container ngProjectAs="header">
       <div class="w-full text-xl pt-4 font-bold">{{ currentRoute() }}</div>
     </ng-container>
     <ng-container ngProjectAs="body">
-      <div class="w-full">
+      <div class="w-full overflow-y-auto height px-5">
         @if(contactState() === 'loading' || contactState() === 'init'){
         <div class="w-full">
           @for(items of [1,2,3,4]; track $index) {

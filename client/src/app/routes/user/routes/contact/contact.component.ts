@@ -36,6 +36,9 @@ import DividerComponent from '../../../../shared/components/divider/divider.comp
   ],
   templateUrl: './contact.component.html',
   styles: `
+  .height {
+    height: calc(100dvh - 250px);
+  }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
