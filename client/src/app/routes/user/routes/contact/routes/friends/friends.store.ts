@@ -11,18 +11,23 @@ import { inject } from '@angular/core';
 import { ApiService } from '../../../../../../shared/services/api/api.service';
 import { Store } from '@ngrx/store';
 import { contactsActions } from '../../../../../../stores/contacts/contacts.action';
-import { RemoveContact } from '../../../../../../stores/contacts/contacts.model';
+import { ContactPayload } from '../../../../../../stores/contacts/contacts.model';
 
 export const FriendStore = signalStore(
-  withState({
+  withState<{
+    unfriendLoadingState: boolean;
+    clickedID: string | null;
+  }>({
     unfriendLoadingState: false,
+    clickedID: null,
   }),
   withCallState(),
   withMethods((state) => {
     const apiService = inject(ApiService);
     const store = inject(Store);
     return {
-      removeFriend: rxMethod<RemoveContact>((c$) =>
+      clicked: (id: string) => patchState(state, { clickedID: id }),
+      removeFriend: rxMethod<ContactPayload>((c$) =>
         c$.pipe(
           tap(() => {
             patchState(state, setLoading());

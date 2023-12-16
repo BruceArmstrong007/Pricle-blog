@@ -8,7 +8,8 @@
         (click)="removeFriend(contact._id)"
       >
         <ng-container ngProjectAs="btn-name">
-          @if(state.unfriendLoadingState()) {
+          @if(state.unfriendLoadingState() && contact._id === state.clickedID())
+          {
           <loader />
           } @else {
           <i class="material-icons text-xs">close</i>
@@ -18,12 +19,12 @@
     </ng-container>
   </app-contact-card>
   <app-divider />
-  }@empty { 
-    <div class="w-full h-full flex justify-center items-center">
-      <div class="flex justify-center items-center gap-1">
-        <i class="material-icons text-lg">inventory_2</i>
-        <span class="text-lg">Empty</span>
-      </div>
+  }@empty {
+  <div class="w-full h-full flex justify-center items-center">
+    <div class="flex justify-center items-center gap-1">
+      <i class="material-icons text-lg">inventory_2</i>
+      <span class="text-lg">Empty</span>
     </div>
+  </div>
   }
 </div>
