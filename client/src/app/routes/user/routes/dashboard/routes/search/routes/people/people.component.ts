@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-friend-requests',
+  selector: 'app-people',
   standalone: true,
   imports: [],
-  templateUrl: './friend-requests.component.html',
+  templateUrl: './people.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-class FriendRequestsComponent {}
+class PeopleComponent {}
 
-export default FriendRequestsComponent;
+export default PeopleComponent;

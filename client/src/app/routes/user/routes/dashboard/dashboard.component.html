@@ -1,1 +1,26 @@
-<p>dashboard works!</p>
+<div class="flex w-full h-full">
+  <div class="sm:basis-2/4 sm:block hidden"></div>
+  <div class="basis-full">
+    <form class="px-2 flex justify-center items-center" [formGroup]="form">
+      <app-input
+        class="sm:w-full"
+        formControlName="search"
+        type="search"
+        placeHolder="Search for names, usernames (start with '@') and tags (start with '#')"
+      >
+        <ng-container ngProjectAs="input-suffix">
+          <app-button
+            btnType="submit"
+            class="rounded-full bg-green-600 p-0 text-xs text-white ml-2"
+          >
+            <ng-container ngProjectAs="btn-name">
+              <i class="material-icons">search</i>
+            </ng-container>
+          </app-button>
+        </ng-container>
+      </app-input>
+    </form>
+    <router-outlet />
+  </div>
+  <div class="sm:basis-2/4 sm:block hidden"></div>
+</div>

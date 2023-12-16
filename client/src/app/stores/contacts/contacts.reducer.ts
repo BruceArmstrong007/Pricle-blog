@@ -10,7 +10,7 @@ const adaptor: EntityAdapter<ContactDetails> =
   });
 
 const initialState: ContactsState = adaptor.getInitialState({
-  isLoading: false,
+  state: 'init',
 });
 
 export const contactsFeature = createFeature({
@@ -19,34 +19,34 @@ export const contactsFeature = createFeature({
     initialState,
     on(
       contactsActions.contacts,
-      contactsActions.acceptRequest,
-      contactsActions.cancelRequest,
-      contactsActions.declineRequest,
-      contactsActions.removeContact,
-      contactsActions.sendRequest,
-      (state): ContactsState => ({ ...state, isLoading: true })
+      // contactsActions.acceptRequest,
+      // contactsActions.cancelRequest,
+      // contactsActions.declineRequest,
+      // contactsActions.removeContact,
+      // contactsActions.sendRequest,
+      (state): ContactsState => ({ ...state, state: 'loading' })
     ),
     on(
       contactsActions.contactsFailure,
-      contactsActions.acceptRequestFailure,
-      contactsActions.cancelRequestFailure,
-      contactsActions.sendRequestFailure,
-      contactsActions.removeContactFailure,
-      contactsActions.declineRequestFailure,
-      (state): ContactsState => ({ ...state, isLoading: false })
+      // contactsActions.acceptRequestFailure,
+      // contactsActions.cancelRequestFailure,
+      // contactsActions.sendRequestFailure,
+      // contactsActions.removeContactFailure,
+      // contactsActions.declineRequestFailure,
+      (state): ContactsState => ({ ...state, state: 'error' })
     ),
     on(
       contactsActions.contactsSuccess,
       (state, action): ContactsState =>
-        adaptor.setAll(action?.contacts, { ...state, isLoading: false })
+        adaptor.setAll(action?.contacts, { ...state, state: 'loaded' })
     ),
     on(
-      contactsActions.acceptRequestSuccess,
-      contactsActions.cancelRequestSuccess,
-      contactsActions.declineRequestSuccess,
-      contactsActions.removeContactSuccess,
-      contactsActions.sendRequestSuccess,
-      (state): ContactsState => ({ ...state, isLoading: false })
+      // contactsActions.acceptRequestSuccess,
+      // contactsActions.cancelRequestSuccess,
+      // contactsActions.declineRequestSuccess,
+      // contactsActions.removeContactSuccess,
+      // contactsActions.sendRequestSuccess,
+      (state): ContactsState => ({ ...state, state: 'loaded' })
     ),
     on(
       contactsActions.resetState,
@@ -69,11 +69,13 @@ export const contactsFeature = createFeature({
       }),
       friendsIDs: createSelector(selectAll, (selectAll) => {
         return [
-          ...selectAll.filter(
-            (contact) =>
-              contact.status === ContactStatus.ACCEPTED ||
-              contact.status === ContactStatus.FRIENDS
-          ).flatMap((friend) => friend?._id),
+          ...selectAll
+            .filter(
+              (contact) =>
+                contact.status === ContactStatus.ACCEPTED ||
+                contact.status === ContactStatus.FRIENDS
+            )
+            .flatMap((friend) => friend?._id),
         ];
       }),
       sentRequestList: createSelector(selectAll, (selectAll) => {

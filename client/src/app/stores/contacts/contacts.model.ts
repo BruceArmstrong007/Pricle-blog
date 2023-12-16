@@ -2,7 +2,7 @@ import { EntityState } from '@ngrx/entity';
 import { ContactStatus, ContactType } from '../../shared/utils/variables';
 
 export interface ContactsState extends EntityState<ContactDetails> {
-  isLoading: boolean;
+  state: 'init' | 'loading' | 'loaded' | 'error';
 }
 
 export interface ContactsFailure {
@@ -19,14 +19,15 @@ export interface ContactDetails {
     url: string;
     filename: string;
   };
-  verified: boolean;
   createdAt: string;
   updatedAt: string;
   status: ContactStatus;
   type: ContactType;
 }
 
-
+export interface ContactPayload {
+  contactID: string;
+}
 
 export interface SeenContact {
   contactID: string;

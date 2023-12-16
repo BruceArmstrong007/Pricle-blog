@@ -3,12 +3,12 @@
   <app-contact-card class="w-full" [contact]="contact">
     <ng-container ngProjectAs="buttons">
       <app-button
-        [disabled]="state.unfriendLoadingState()"
+        [disabled]="state.cancelRequestLoadingState()"
         class="rounded-full bg-red-600 text-white"
-        (click)="removeFriend(contact._id)"
+        (click)="cancelRequest(contact._id)"
       >
         <ng-container ngProjectAs="btn-name">
-          @if(state.unfriendLoadingState() && contact._id === state.clickedID())
+          @if(state.cancelRequestLoadingState() && contact._id === state.clickedID())
           {
           <loader />
           } @else {

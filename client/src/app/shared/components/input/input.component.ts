@@ -9,7 +9,7 @@ import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { ControlValueAccessorDirective } from '../../directives/control-value-accessor/control-value-accessor.directive';
 import ValidationErrorsComponent from '../validation-errors/validation-errors.component';
 
-type InputType = 'text' | 'number' | 'email' | 'password';
+type InputType = 'text' | 'number' | 'email' | 'password' | 'search';
 
 @Component({
   selector: 'app-input',
@@ -31,7 +31,7 @@ class InputComponent<T> extends ControlValueAccessorDirective<T> {
   @Input() label!: string;
   @Input({required: true}) type!: InputType;
   @Input() customErrorMessages!: Record<string, string>;
-  
+  @Input() placeHolder: string = '';
 }
 
 export default InputComponent;

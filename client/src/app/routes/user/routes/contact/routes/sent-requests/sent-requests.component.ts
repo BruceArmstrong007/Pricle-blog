@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { contactsFeature } from '../../../../../../stores/contacts/contacts.reducer';
-import LoaderComponent from '../../../../../../shared/components/loader/loader.component';
 import { NgFor, NgIf } from '@angular/common';
 import ButtonComponent from '../../../../../../shared/components/button/button.component';
 import DividerComponent from '../../../../../../shared/components/divider/divider.component';
+import LoaderComponent from '../../../../../../shared/components/loader/loader.component';
 import ContactCardComponent from '../../components/contact-card/contact-card.component';
-import { ReceivedRequestsStore } from './received-requests.store';
+import { SentRequestsStore } from './sent-requests.store';
 
 @Component({
-  selector: 'app-received-requests',
+  selector: 'app-sent-requests',
   standalone: true,
   imports: [
     NgFor,
@@ -19,27 +19,19 @@ import { ReceivedRequestsStore } from './received-requests.store';
     ButtonComponent,
     DividerComponent,
   ],
-  templateUrl: './received-requests.component.html',
+  templateUrl: './sent-requests.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ReceivedRequestsStore]
+  providers: [SentRequestsStore],
 })
-class ReceivedRequestsComponent {
+class SentRequestsComponent {
   private readonly store = inject(Store);
-  readonly state = inject(ReceivedRequestsStore);
-  readonly contacts = this.store.selectSignal(
-    contactsFeature.receivedRequestList
-  );
+  readonly state = inject(SentRequestsStore);
+  readonly contacts = this.store.selectSignal(contactsFeature.sentRequestList);
 
-  acceptRequest(contactID: string) {
+  cancelRequest(contactID: string) {
     this.state.clicked(contactID);
-    this.state.acceptRequest({contactID});
-  }
-  
-  declineRequest(contactID: string) {
-    this.state.clicked(contactID);
-    this.state.declineRequest({contactID});
+    this.state.cancelRequest({ contactID });
   }
 }
-
-export default ReceivedRequestsComponent;
+export default SentRequestsComponent;

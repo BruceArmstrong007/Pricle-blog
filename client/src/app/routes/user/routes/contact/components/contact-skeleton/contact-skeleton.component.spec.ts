@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import FriendRequestsComponent from './friend-requests.component';
+import ContactSkeletonComponent from './contact-skeleton.component';
 
-describe('FriendRequestsComponent', () => {
-  let component: FriendRequestsComponent;
-  let fixture: ComponentFixture<FriendRequestsComponent>;
+describe('ContactSkeletonComponent', () => {
+  let component: ContactSkeletonComponent;
+  let fixture: ComponentFixture<ContactSkeletonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FriendRequestsComponent]
+      imports: [ContactSkeletonComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(FriendRequestsComponent);
+    fixture = TestBed.createComponent(ContactSkeletonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

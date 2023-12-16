@@ -107,6 +107,7 @@ export class UserRepository {
         _id: { $in: users },
       })
       .select('-password')
+      .select('-verified')
       .exec();
   }
 }

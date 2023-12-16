@@ -95,7 +95,7 @@ import ImageComponent from '../image/image.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class ImgAvatarComponent {
-  @Input({ required: true }) url: string | null | undefined;
+  @Input() url: string | null | undefined;
 }
 
 export default ImgAvatarComponent;

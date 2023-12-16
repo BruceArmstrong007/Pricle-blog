@@ -1,1 +1,66 @@
-<router-outlet />
+<div class="flex flex-col items-center w-full h-full gap-6 py-2">
+  <div class="md:w-11/12 flex justify-start items-center gap-6">
+    <app-button
+      [routerLink]="Routes().User.Contacts.Friends"
+      [ngClass]="{
+        'bg-green-500 text-white': routePath() === Routes().User.Contacts.Friends,
+      }"
+      class="rounded-full hover:bg-blue-500 hover:text-white dark:text-white sm"
+    >
+      <ng-container ngProjectAs="btn-name">
+        <span class="text-sm">Friends</span>
+      </ng-container>
+    </app-button>
+    <app-button
+      [routerLink]="Routes().User.Contacts.ReceivedRequests"
+      [ngClass]="{
+        'bg-green-500 text-white': routePath() === Routes().User.Contacts.ReceivedRequests,
+      }"
+      class="rounded-full hover:bg-blue-500 hover:text-white dark:text-white sm"
+    >
+      <ng-container ngProjectAs="btn-name">
+        <span class="text-sm">Received Requests</span>
+      </ng-container>
+    </app-button>
+    <app-button
+      [routerLink]="Routes().User.Contacts.SentRequests"
+      [ngClass]="{
+        'bg-green-500 text-white': routePath() === Routes().User.Contacts.SentRequests,
+      }"
+      class="rounded-full hover:bg-blue-500 hover:text-white dark:text-white sm"
+    >
+      <ng-container ngProjectAs="btn-name">
+        <span class="text-sm">Sent Requests</span>
+      </ng-container>
+    </app-button>
+  </div>
+
+  <app-card class="block md:w-11/12">
+    <ng-container ngProjectAs="header">
+      <div class="w-full text-xl pt-4 font-bold">{{ currentRoute() }}</div>
+    </ng-container>
+    <ng-container ngProjectAs="body">
+      <div class="w-full overflow-y-auto height px-5">
+        @if(contactState() === 'loading' || contactState() === 'init'){
+        <div class="w-full">
+          @for(items of [1,2,3,4]; track $index) {
+          <app-contact-skeleton class="w-11/12" />
+          <app-divider />
+          }
+        </div>
+        } @else if(contactState() === 'error') {
+        <div class="w-full h-full flex justify-center items-center">
+          <div class="flex justify-center items-center gap-1">
+            <i class="material-icons text-lg">error</i>
+            <span class="text-lg"
+              >Failed to fetch, check your internet and try again</span
+            >
+          </div>
+        </div>
+        } @else {
+        <router-outlet></router-outlet>
+        }
+      </div>
+    </ng-container>
+  </app-card>
+</div>
