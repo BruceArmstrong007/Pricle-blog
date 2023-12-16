@@ -19,7 +19,6 @@ export interface ContactDetails {
     url: string;
     filename: string;
   };
-  verified: boolean;
   createdAt: string;
   updatedAt: string;
   status: ContactStatus;
