@@ -10,7 +10,7 @@ const adaptor: EntityAdapter<ContactDetails> =
   });
 
 const initialState: ContactsState = adaptor.getInitialState({
-  isLoading: false,
+  state: 'init',
 });
 
 export const contactsFeature = createFeature({
@@ -24,7 +24,7 @@ export const contactsFeature = createFeature({
       contactsActions.declineRequest,
       contactsActions.removeContact,
       contactsActions.sendRequest,
-      (state): ContactsState => ({ ...state, isLoading: true })
+      (state): ContactsState => ({ ...state, state: 'loading' })
     ),
     on(
       contactsActions.contactsFailure,
@@ -33,12 +33,12 @@ export const contactsFeature = createFeature({
       contactsActions.sendRequestFailure,
       contactsActions.removeContactFailure,
       contactsActions.declineRequestFailure,
-      (state): ContactsState => ({ ...state, isLoading: false })
+      (state): ContactsState => ({ ...state, state: 'error' })
     ),
     on(
       contactsActions.contactsSuccess,
       (state, action): ContactsState =>
-        adaptor.setAll(action?.contacts, { ...state, isLoading: false })
+        adaptor.setAll(action?.contacts, { ...state, state: 'loaded' })
     ),
     on(
       contactsActions.acceptRequestSuccess,
@@ -46,7 +46,7 @@ export const contactsFeature = createFeature({
       contactsActions.declineRequestSuccess,
       contactsActions.removeContactSuccess,
       contactsActions.sendRequestSuccess,
-      (state): ContactsState => ({ ...state, isLoading: false })
+      (state): ContactsState => ({ ...state, state: 'loaded' })
     ),
     on(
       contactsActions.resetState,
