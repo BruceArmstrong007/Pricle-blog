@@ -25,7 +25,7 @@ export interface ContactDetails {
   type: ContactType;
 }
 
-export interface RemoveContact {
+export interface ContactPayload {
   contactID: string;
 }
 
