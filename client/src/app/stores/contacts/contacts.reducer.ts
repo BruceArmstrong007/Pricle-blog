@@ -19,20 +19,20 @@ export const contactsFeature = createFeature({
     initialState,
     on(
       contactsActions.contacts,
-      contactsActions.acceptRequest,
-      contactsActions.cancelRequest,
-      contactsActions.declineRequest,
-      contactsActions.removeContact,
-      contactsActions.sendRequest,
+      // contactsActions.acceptRequest,
+      // contactsActions.cancelRequest,
+      // contactsActions.declineRequest,
+      // contactsActions.removeContact,
+      // contactsActions.sendRequest,
       (state): ContactsState => ({ ...state, state: 'loading' })
     ),
     on(
       contactsActions.contactsFailure,
-      contactsActions.acceptRequestFailure,
-      contactsActions.cancelRequestFailure,
-      contactsActions.sendRequestFailure,
-      contactsActions.removeContactFailure,
-      contactsActions.declineRequestFailure,
+      // contactsActions.acceptRequestFailure,
+      // contactsActions.cancelRequestFailure,
+      // contactsActions.sendRequestFailure,
+      // contactsActions.removeContactFailure,
+      // contactsActions.declineRequestFailure,
       (state): ContactsState => ({ ...state, state: 'error' })
     ),
     on(
@@ -41,11 +41,11 @@ export const contactsFeature = createFeature({
         adaptor.setAll(action?.contacts, { ...state, state: 'loaded' })
     ),
     on(
-      contactsActions.acceptRequestSuccess,
-      contactsActions.cancelRequestSuccess,
-      contactsActions.declineRequestSuccess,
-      contactsActions.removeContactSuccess,
-      contactsActions.sendRequestSuccess,
+      // contactsActions.acceptRequestSuccess,
+      // contactsActions.cancelRequestSuccess,
+      // contactsActions.declineRequestSuccess,
+      // contactsActions.removeContactSuccess,
+      // contactsActions.sendRequestSuccess,
       (state): ContactsState => ({ ...state, state: 'loaded' })
     ),
     on(
@@ -69,11 +69,13 @@ export const contactsFeature = createFeature({
       }),
       friendsIDs: createSelector(selectAll, (selectAll) => {
         return [
-          ...selectAll.filter(
-            (contact) =>
-              contact.status === ContactStatus.ACCEPTED ||
-              contact.status === ContactStatus.FRIENDS
-          ).flatMap((friend) => friend?._id),
+          ...selectAll
+            .filter(
+              (contact) =>
+                contact.status === ContactStatus.ACCEPTED ||
+                contact.status === ContactStatus.FRIENDS
+            )
+            .flatMap((friend) => friend?._id),
         ];
       }),
       sentRequestList: createSelector(selectAll, (selectAll) => {
