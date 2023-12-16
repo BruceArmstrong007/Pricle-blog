@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { contactsFeature } from '../../../../../../stores/contacts/contacts.reducer';
 
 @Component({
   selector: 'app-friend-requests',
@@ -8,6 +10,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-class FriendRequestsComponent {}
+class FriendRequestsComponent {
+  private readonly store = inject(Store);
+  readonly contacts = this.store.selectSignal(contactsFeature.sentRequestList);
+}
 
 export default FriendRequestsComponent;
