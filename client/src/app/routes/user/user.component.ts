@@ -120,6 +120,11 @@ class UserComponent {
       label: 'Dashboard',
     },
     {
+      route: this.Routes().User.Contacts.Root,
+      icon: 'contacts',
+      label: 'Contacts',
+    },
+    {
       route: this.Routes().User.Settings.Root,
       icon: 'settings',
       label: 'Settings',
