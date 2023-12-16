@@ -13,7 +13,7 @@ const routes: Routes = [
       {
         path: 'sent-requests',
         loadComponent: () =>
-          import('./routes/friend-requests/friend-requests.component'),
+          import('./routes/sent-requests/sent-requests.component'),
       },
       {
         path: 'received-requests',

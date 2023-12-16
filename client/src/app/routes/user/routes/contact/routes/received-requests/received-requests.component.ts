@@ -12,7 +12,7 @@ import { contactsFeature } from '../../../../../../stores/contacts/contacts.redu
 })
 class ReceivedRequestsComponent {
   private readonly store = inject(Store);
-  readonly contacts = this.store.selectSignal(contactsFeature.sentRequestList);
+  readonly contacts = this.store.selectSignal(contactsFeature.receivedRequestList);
 }
 
 export default ReceivedRequestsComponent;

@@ -51,7 +51,7 @@ class ContactComponent {
     let currentRoute;
     const route = this.routePath().split('/').pop();
     switch (route) {
-      case 'friend-requests':
+      case 'sent-requests':
         currentRoute = 'Friend Requests';
         break;
       case 'received-requests':
