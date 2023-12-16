@@ -30,7 +30,8 @@ class FriendsComponent {
   readonly contacts = this.store.selectSignal(contactsFeature.friendsList);
 
   removeFriend(contactID: string) {
-    this.state.removeFriend({contactID})
+    this.state.clicked(contactID);
+    this.state.removeFriend({ contactID });
   }
 }
 export default FriendsComponent;
