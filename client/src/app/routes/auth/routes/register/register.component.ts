@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -39,7 +39,7 @@ import { CustomValidationService } from '../../../../shared/services/validator/c
 class RegisterComponent {
   private readonly fb: FormBuilder = inject(FormBuilder);
   readonly state = inject(RegisterStore);
-  readonly Routes: RoutesInterface = ClientRoutes;
+  readonly Routes: Signal<RoutesInterface> = signal(ClientRoutes);
   readonly passwordValidation = {
     pattern: `Password should be alphanumberic and should have atleast one
     number.`,

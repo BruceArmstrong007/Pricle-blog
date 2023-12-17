@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, inject, signal } from '@angular/core';
 import { ClientRoutes, RoutesInterface } from '../../../../../../shared/utils/client.routes';
 import { NgSwitch, NgIf, DatePipe, AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -51,7 +51,6 @@ export class ProfileDetailsComponent {
       Validators.compose([Validators.maxLength(500)]),
     ],
   });
-  readonly Routes: RoutesInterface = ClientRoutes;
   private readonly store = inject(Store);
   readonly state = inject(ProfileStore);
   readonly userDetails$ = this.store.select(userFeature.selectDetails).pipe(

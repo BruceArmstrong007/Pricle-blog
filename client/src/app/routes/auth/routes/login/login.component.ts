@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal, inject, signal } from '@angular/core';
 import {
   ClientRoutes,
   RoutesInterface,
@@ -37,7 +37,7 @@ import LoaderComponent from '../../../../shared/components/loader/loader.compone
 class LoginComponent {
   private readonly fb: FormBuilder = inject(FormBuilder);
   readonly state = inject(LoginStore);
-  readonly Routes: RoutesInterface = ClientRoutes;
+  readonly Routes: Signal<RoutesInterface> = signal(ClientRoutes);
   readonly passwordValidation = {
     pattern: `Password should be alphanumberic and should have atleast one
     number.`,

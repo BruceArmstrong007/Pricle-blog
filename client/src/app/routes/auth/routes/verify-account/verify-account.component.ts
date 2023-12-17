@@ -5,6 +5,7 @@ import {
   Signal,
   effect,
   inject,
+  signal,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -46,7 +47,7 @@ class VerifyAccountComponent {
   private readonly fb: FormBuilder = inject(FormBuilder);
   readonly state = inject(VerifyAccountStore);
   readonly store = inject(Store);
-  readonly Routes: RoutesInterface = ClientRoutes;
+  readonly Routes: Signal<RoutesInterface> = signal(ClientRoutes);
   readonly form: FormGroup = this.fb.group({
     email: [
       '',
