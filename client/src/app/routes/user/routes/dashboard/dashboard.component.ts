@@ -32,23 +32,25 @@ class DashboardComponent {
 
   submit() {
     if (this.form.invalid) return;
-    const key = this.form.value.search?.charAt(0);
-    let params = '';
+    let value = this.form.value.search;
+    const key = value?.charAt(0);
+
+    let params;
     switch (key) {
       case '#':
-        params = JSON.stringify({ search: this.form.value, type: 'tag' });
+        value = value?.slice(1);
+        params = { search: value, route: 'tags', type: 'tag' };
         break;
       case '@':
-        params = JSON.stringify({ search: this.form.value, type: 'username' });
+        value = value?.slice(1);
+        params = { search: value, route: 'people', type: 'username' };
         break;
       default:
-        params = JSON.stringify({ search: this.form.value, type: 'name' });
+        params = { search: value, route: 'people', type: 'name' };
     }
-
-    this.router.navigate([
-      this.Routes().User.Dashboard.Search,
-      { queryParams: params },
-    ]);
+    this.router.navigate([this.Routes().User.Dashboard.Search], {
+      queryParams: params,
+    });
   }
 }
 export default DashboardComponent;
