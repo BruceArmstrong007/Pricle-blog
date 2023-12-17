@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, catchError, switchMap, tap, of } from 'rxjs';
+import { Observable, catchError, switchMap, tap, of, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { authFeature } from '../../stores/auth/auth.reducer';
 import { ApiService } from '../services/api/api.service';
@@ -28,6 +28,8 @@ export class RequestInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     return next.handle(this.addAuthHeader(request)).pipe(
       catchError((response: HttpErrorResponse) => {
+        console.log(response);
+
         return this.handle401Error(request, next, response);
       })
     );
@@ -54,11 +56,11 @@ export class RequestInterceptor implements HttpInterceptor {
         }),
         catchError((error) => {
           this.store.dispatch(userActions.logout());
-          return of(error);
+          return throwError(() => error);
         })
       );
     }
-    return of(response);
+    return throwError(() => response);
   }
 
   private addAuthHeader(request: HttpRequest<unknown>): HttpRequest<unknown> {
