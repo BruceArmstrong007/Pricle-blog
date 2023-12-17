@@ -17,6 +17,7 @@ import {
   ChangeEmail,
   ChangeEmailLink,
   ResetPassword,
+  SearchUser,
   UpdateUser,
 } from './dto/user.request';
 import { Response } from 'express';
@@ -32,7 +33,6 @@ export class UserController {
     return await this.userService.userProfile(user);
   }
 
-  
   @Get('logout')
   async logout(@Res() response: Response) {
     await this.userService.logout(response);
@@ -40,13 +40,17 @@ export class UserController {
 
   @Get('search-users')
   async searchUsers(
-    @Query('name') name: string,
+    @Query() queryParams: SearchUser,
     @CurrentUser() user: CurrentUserType,
   ) {
-    if (!name) {
+    if (!queryParams) {
       throw new BadGatewayException('Bad Request');
     }
-    return await this.userService.searchUsers(name, user?.username);
+    return await this.userService.searchUsers(
+      queryParams.search,
+      queryParams.type,
+      user?.username,
+    );
   }
 
   @Delete('delete')
@@ -89,5 +93,4 @@ export class UserController {
       body?.token,
     );
   }
-
 }

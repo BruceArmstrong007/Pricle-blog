@@ -30,8 +30,9 @@ export class UserService {
     return await this.userRepository.findByEmail(email);
   }
 
-  async searchUsers(name: string, username: string) {
-    const users = (await this.userRepository.findUsers(name, username)) ?? [];
+  async searchUsers(key: string, type: string, username: string) {
+    const users =
+      (await this.userRepository.findUsers(key, type, username)) ?? [];
     return { users };
   }
 
