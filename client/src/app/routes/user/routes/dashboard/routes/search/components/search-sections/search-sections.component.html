@@ -1,0 +1,24 @@
+<div class="flex justify-start items-center gap-4 p-2">
+  <app-button
+    (click)="switchRoute('people')"
+    [ngClass]="{
+        'bg-green-500 text-white': queryParams()['route'] === 'people',
+      }"
+    class="rounded-full hover:bg-blue-500 hover:text-white dark:text-white sm"
+  >
+    <ng-container ngProjectAs="btn-name">
+      <span class="text-sm">People</span>
+    </ng-container>
+  </app-button>
+  <app-button
+    (click)="switchRoute('tags')"
+    [ngClass]="{
+        'bg-green-500 text-white': queryParams()['route'] === 'tags',
+      }"
+    class="rounded-full hover:bg-blue-500 hover:text-white dark:text-white sm"
+  >
+    <ng-container ngProjectAs="btn-name">
+      <span class="text-sm">Tags</span>
+    </ng-container>
+  </app-button>
+</div>
