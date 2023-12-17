@@ -16,7 +16,7 @@ import { ValidationErrors } from '@angular/forms';
   template: `
     <ul class="text-red-600 dark:text-red-400 list-disc pl-4">
       @for(error of errors(); track error) {
-      <li class="break-words w-1/2 text-xs">{{ error }}</li>
+      <li class="break-words text-xs">{{ error }}</li>
       }
     </ul>
   `,
