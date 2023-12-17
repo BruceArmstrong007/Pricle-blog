@@ -227,3 +227,18 @@ export class Contacts {
     Object.assign(this, assign);
   }
 }
+
+export class SearchUser {
+  @IsString()
+  @IsNotEmpty()
+  type: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(50)
+  search: string;
+
+  constructor(private assign: Partial<ResetPassword>) {
+    Object.assign(this, assign);
+  }
+}
