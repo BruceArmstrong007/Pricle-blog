@@ -13,7 +13,7 @@ export const API = {
   },
   RESET_PASSWORD: { url: '/auth/reset-password', method: 'POST' },
   PROFILE: { url: '/user/profile', method: 'GET' },
-  SEARCHUSERS: { url: '/user/search-users', method: 'GET' },
+  SEARCHUSERS: { url: '/user/search-users', method: 'POST' },
   UPDATEUSER: { url: '/user/update', method: 'POST' },
   UPLOADPROFILE: { url: '/upload/profile', method: 'PUT' },
 
@@ -30,6 +30,10 @@ export const API = {
   CHANGEEMAIL: { url: '/user/change-email', method: 'POST' },
   DELETEUSER: { url: '/user/delete', method: 'DELETE' },
   LOGOUT: { url: '/user/logout', method: 'GET' },
+
+  SEARCHTAGS: { url: '/tag/search-tags', method: 'POST' },
+
+
 };
 
 export type APIEndpoint = { url: string; method: string };
