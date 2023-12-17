@@ -41,10 +41,8 @@ import {
           }
         </ng-container>
       </app-navbar>
-      <div class="grow">
-        <div class="w-full h-full flex justify-center items-center">
-          <router-outlet />
-        </div>
+      <div class="w-full h-full flex justify-center items-center">
+        <router-outlet />
       </div>
     </div>
   `,
@@ -55,7 +53,6 @@ class AuthComponent {
   readonly store = inject(Store);
   readonly routePath = this.store.selectSignal(selectUrl);
   readonly Routes: Signal<RoutesInterface> = signal(ClientRoutes);
-
 }
 
 export default AuthComponent;
