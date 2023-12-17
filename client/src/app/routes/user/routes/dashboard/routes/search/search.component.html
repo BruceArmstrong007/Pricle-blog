@@ -1,3 +1,18 @@
-<div class="flex flex-col gap-4">
-  <app-search-sections />
+<div class="relative w-full h-full flex flex-col gap-2">
+  <app-search-sections class="sticky top-0 z-50 dark:bg-black bg-white" />
+  @switch(state.route()){ @case('people') {
+  <app-people
+    class="h-full"
+    [people]="state.data()"
+    [isLoading]="state.loading()"
+    [clickedID]="state.clickedID()"
+    (clickEvent)="clickEvent($event)"
+  />
+  } @case('tags') {
+  <app-tags
+    class="h-full"
+    [tags]="state.data()"
+    [isLoading]="state.loading()"
+  />
+  } }
 </div>

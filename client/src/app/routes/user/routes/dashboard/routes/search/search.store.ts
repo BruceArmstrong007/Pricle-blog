@@ -10,16 +10,31 @@ import {
   setLoaded,
 } from '../../../../../../shared/component-store-features/api-call.feature';
 import { API, APIEndpoint } from '../../../../../../shared/utils/api.endpoints';
+import { User } from '../../../../../../stores/user/user.model';
+import { contactsActions } from '../../../../../../stores/contacts/contacts.action';
+import { ContactPayload } from '../../../../../../stores/contacts/contacts.model';
+import { Store } from '@ngrx/store';
+
+export type searchRoute = 'people' | 'tags';
 
 export const SearchStore = signalStore(
-  withState({
-    type: '',
+  withState<{
+    route: searchRoute;
+    data: User[] | any[];
+    clickedID: string;
+  }>({
+    route: 'people',
     data: [],
+    clickedID: '',
   }),
   withCallState(),
   withMethods((state) => {
     const apiService = inject(ApiService);
+    const store = inject(Store);
     return {
+      setSelectedID: (id: string) => patchState(state, { clickedID: id }),
+      resetData: () => patchState(state, { data: [], clickedID: '' }),
+      setType: (route: searchRoute) => patchState(state, { route }),
       search: rxMethod<Search>((c$) =>
         c$.pipe(
           tap(() => {
@@ -27,12 +42,11 @@ export const SearchStore = signalStore(
           }),
           switchMap((c) => {
             let url!: APIEndpoint;
-            switch (c.type) {
-              case 'username':
-              case 'name':
+            switch (c.route) {
+              case 'people':
                 url = API.SEARCHUSERS;
                 break;
-              case 'tag':
+              case 'tags':
                 url = API.SEARCHTAGS;
                 break;
               default:
@@ -45,26 +59,22 @@ export const SearchStore = signalStore(
               .pipe(
                 tap((response: any) => {
                   patchState(state, setLoaded());
-                  switch (c.type) {
-                    case 'username':
-                    case 'name':
-                      url = API.SEARCHUSERS;
+                  switch (c.route) {
+                    case 'people':
                       patchState(state, {
-                        type: 'people',
+                        route: 'people',
                         data: response.users,
                       });
                       break;
-                    case 'tag':
-                      url = API.SEARCHTAGS;
+                    case 'tags':
                       patchState(state, {
-                        type: 'tags',
+                        route: 'tags',
                         data: response.tags,
                       });
                       break;
                     default:
-                      url = API.SEARCHUSERS;
                       patchState(state, {
-                        type: 'people',
+                        route: 'people',
                         data: response.users,
                       });
                   }
@@ -80,6 +90,33 @@ export const SearchStore = signalStore(
                 })
               );
           })
+        )
+      ),
+      sendRequest: rxMethod<ContactPayload>((c$) =>
+        c$.pipe(
+          tap(() => {
+            patchState(state, setLoading());
+          }),
+          switchMap((c) =>
+            apiService.request(API.SENDREQUEST, c).pipe(
+              tap((response: any) => {
+                patchState(state, setLoaded());
+                state.openAlert(
+                  'Request Sent',
+                  response?.message ?? 'Friend request sent successfully.',
+                  'SUCCESS'
+                );
+                store.dispatch(contactsActions.contacts());
+              }),
+              catchError((error) => {
+                let errorMsg =
+                  error?.error?.message ?? error?.statusText ?? error?.message;
+                state.setError(errorMsg);
+                state.openAlert('API Error', errorMsg, 'ERROR');
+                return of(errorMsg);
+              })
+            )
+          )
         )
       ),
     };
