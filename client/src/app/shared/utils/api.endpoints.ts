@@ -13,7 +13,7 @@ export const API = {
   },
   RESET_PASSWORD: { url: '/auth/reset-password', method: 'POST' },
   PROFILE: { url: '/user/profile', method: 'GET' },
-  SEARCHUSERS: { url: '/user/search-users', method: 'POST' },
+  SEARCHUSERS: { url: '/user/search-users', method: 'GET' },
   UPDATEUSER: { url: '/user/update', method: 'POST' },
   UPLOADPROFILE: { url: '/upload/profile', method: 'PUT' },
 
