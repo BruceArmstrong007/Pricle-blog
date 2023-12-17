@@ -7,6 +7,7 @@ import ButtonComponent from '../../../../../../shared/components/button/button.c
 import DividerComponent from '../../../../../../shared/components/divider/divider.component';
 import ContactCardComponent from '../../components/contact-card/contact-card.component';
 import { ReceivedRequestsStore } from './received-requests.store';
+import EmptyComponent from '../../../../../../shared/components/empty/empty.component';
 
 @Component({
   selector: 'app-received-requests',
@@ -18,6 +19,7 @@ import { ReceivedRequestsStore } from './received-requests.store';
     LoaderComponent,
     ButtonComponent,
     DividerComponent,
+    EmptyComponent
   ],
   templateUrl: './received-requests.component.html',
   styles: ``,
