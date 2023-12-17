@@ -1,12 +1,16 @@
-<div class="flex w-full h-full">
-  <div class="sm:basis-2/4 sm:block hidden"></div>
-  <div class="basis-full">
-    <form class="px-2 flex justify-center items-center" [formGroup]="form">
+<div class="w-full h-full grid grid-cols-4 gap-4">
+  <div></div>
+  <div class="col-span-2 grid grid-rows-12">
+    <form
+      class="px-2 flex justify-center items-center"
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+    >
       <app-input
-        class="sm:w-full"
+        class="w-full"
         formControlName="search"
         type="search"
-        placeHolder="Search for names, usernames (start with '@') and tags (start with '#')"
+        placeHolder="Search names,'@'usernames,'#'tags"
       >
         <ng-container ngProjectAs="input-suffix">
           <app-button
@@ -20,7 +24,9 @@
         </ng-container>
       </app-input>
     </form>
-    <router-outlet />
+    <div class="row-span-11 height overflow-y-auto px-5">
+      <router-outlet />
+    </div>
   </div>
-  <div class="sm:basis-2/4 sm:block hidden"></div>
+  <div></div>
 </div>
