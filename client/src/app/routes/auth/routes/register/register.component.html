@@ -6,9 +6,9 @@
     <form
       [formGroup]="form"
       (ngSubmit)="submit()"
-      class="flex flex-col justify-center items-center gap-4"
+      class="w-full flex flex-col justify-center gap-4 px-6"
     >
-      <div class="w-full flex flex-col justify-between items-center">
+      <div class="w-full flex flex-col justify-between">
         <app-input
           inputID="register-email"
           label="Email"
@@ -80,7 +80,7 @@
         </app-input>
       </div>
 
-      <div class="w-full flex justify-between items-center">
+      <div class="w-full flex justify-between">
         <app-button btnType="button" (click)="clear()" class="rounded outline sm">
           <ng-container ngProjectAs="btn-name"
             ><span class="text-sm">Clear</span></ng-container
@@ -105,7 +105,7 @@
         <i>
           <small class="font-bold">Registered? Verify your </small>
           <small class="text-blue-600 dark:text-blue-300 underline">
-            <a [routerLink]="Routes.Auth.VerifyAccount">account here</a></small
+            <a [routerLink]="Routes().Auth.VerifyAccount">account here</a></small
           >
         </i>
       </div>

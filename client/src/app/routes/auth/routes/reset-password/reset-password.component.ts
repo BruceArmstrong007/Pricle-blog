@@ -5,6 +5,7 @@ import {
   Signal,
   effect,
   inject,
+  signal,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -48,7 +49,7 @@ class ResetPasswordComponent {
   private readonly fb: FormBuilder = inject(FormBuilder);
   readonly state = inject(ResetPasswordStore);
   readonly store = inject(Store);
-  readonly Routes: RoutesInterface = ClientRoutes;
+  readonly Routes: Signal<RoutesInterface> = signal(ClientRoutes);
   readonly passwordValidation = {
     pattern: `Password should be alphanumberic and should have atleast one
     number.`,

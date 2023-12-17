@@ -30,6 +30,10 @@ export const API = {
   CHANGEEMAIL: { url: '/user/change-email', method: 'POST' },
   DELETEUSER: { url: '/user/delete', method: 'DELETE' },
   LOGOUT: { url: '/user/logout', method: 'GET' },
+
+  SEARCHTAGS: { url: '/tag/search-tags', method: 'POST' },
+
+
 };
 
 export type APIEndpoint = { url: string; method: string };

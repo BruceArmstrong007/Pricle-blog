@@ -6,7 +6,7 @@
     <form
       [formGroup]="form"
       (ngSubmit)="submit()"
-      class="flex flex-col justify-center items-center gap-4"
+      class="w-full flex flex-col justify-center gap-4 px-6"
     >
       <app-input
         inputID="login-username"
@@ -64,7 +64,7 @@
         <i>
           <small class="font-bold">Forgot password? </small
           ><small class="text-blue-600 dark:text-blue-300 underline">
-            <a [routerLink]="Routes.Auth.ResetPassword">Click here</a></small
+            <a [routerLink]="Routes().Auth.ResetPassword">Click here</a></small
           >
         </i>
       </div>

@@ -12,7 +12,7 @@ export class ApiService {
 
   request(
     endpoint: APIEndpoint,
-    body?: unknown,
+    body: unknown = undefined,
     params?: { urlParams?: string; queryParams?: string }
   ) {
     const requestOptions = {

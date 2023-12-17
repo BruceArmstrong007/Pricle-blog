@@ -7,8 +7,8 @@ const routes: Routes = [
     children: [
       {
         path: 'search',
-        loadChildren: () => import('./routes/search/search.routes'),
-      },  
+        loadComponent: () => import('./routes/search/search.component'),
+      },
     ],
   },
 ];

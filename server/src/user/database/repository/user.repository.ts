@@ -30,11 +30,27 @@ export class UserRepository {
     return await this.userModel.findById(id).select('-password').exec();
   }
 
-  async findUsers(name: string, username: string): Promise<User[] | null> {
-    const regex = new RegExp(name, 'i');
+  async findUsers(
+    key: string,
+    type: string,
+    username: string,
+  ): Promise<User[] | null> {
+    const regex = new RegExp(key, 'i');
+    let find: any = { username: { $ne: username } };
+    switch (type) {
+      case 'name':
+        find = { ...find, name: regex };
+        break;
+      case 'username':
+        find = { ...find, username: regex };
+        break;
+      default:
+        find = { ...find, name: regex };
+    }
     return await this.userModel
-      .find({ name: regex, username: { $ne: username } })
+      .find(find)
       .select('-password')
+      .select('-verified')
       .exec();
   }
 

@@ -94,7 +94,7 @@ interface MenuItems {
           </app-popup-menu>
         </ng-container>
       </app-navbar>
-      <div class="grow w-full h-full">
+      <div class="w-full h-full">
         <router-outlet />
       </div>
     </div>

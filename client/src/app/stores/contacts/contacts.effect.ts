@@ -4,7 +4,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { inject } from '@angular/core';
 import { ApiService } from '../../shared/services/api/api.service';
 import { contactsActions } from './contacts.action';
-import { Store } from '@ngrx/store';
 
 export const contacts = createEffect(
   (actions$ = inject(Actions), apiService = inject(ApiService)) => {
@@ -26,40 +25,6 @@ export const contacts = createEffect(
     functional: true,
   }
 );
-
-// export const sendRequest = createEffect(
-//   (
-//     actions$ = inject(Actions),
-//     apiService = inject(ApiService),
-//     store = inject(Store)
-//     // toastService = inject(MessageService)
-//   ) => {
-//     return actions$.pipe(
-//       ofType(contactsActions.sendRequest),
-//       exhaustMap((request) => {
-//         return apiService.request(API.SENDREQUEST, request).pipe(
-//           map((response: any) => {
-//             // toast(toastService, 'success', 'Success', 'Friend request sent.');
-//             store.dispatch(contactsActions.contacts());
-//             return contactsActions.sendRequestSuccess(response);
-//           }),
-//           catchError(({ error }) => {
-//             // toast(
-//             //   toastService,
-//             //   'error',
-//             //   'Error',
-//             //   error?.message ?? 'Error while sending friend request.'
-//             // );
-//             return of(contactsActions.sendRequestFailure);
-//           })
-//         );
-//       })
-//     );
-//   },
-//   {
-//     functional: true,
-//   }
-// );
 
 // export const seenContact = createEffect(
 //   (

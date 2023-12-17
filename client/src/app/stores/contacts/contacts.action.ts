@@ -13,19 +13,5 @@ export const contactsActions = createActionGroup({
     SeenContactFailure: emptyProps(),
 
     ResetState: emptyProps(),
-
-    // SendRequest: props<{ contactID: string }>(),
-    // SendRequestSuccess: props<{ contactID: string }>(),
-    // SendRequestFailure: emptyProps(),
-    // CancelRequest: props<{ contactID: string }>(),
-    // CancelRequestSuccess: props<{ contactID: string }>(),
-    // CancelRequestFailure: emptyProps(),
-    // AcceptRequest: props<{ contactID: string }>(),
-    // AcceptRequestSuccess: props<{ contactID: string }>(),
-    // AcceptRequestFailure: emptyProps(),
-    // DeclineRequest: props<{ contactID: string }>(),
-    // DeclineRequestSuccess: props<{ contactID: string }>(),
-    // DeclineRequestFailure: emptyProps(),
-
   },
 });
