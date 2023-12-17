@@ -28,8 +28,6 @@ export class RequestInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     return next.handle(this.addAuthHeader(request)).pipe(
       catchError((response: HttpErrorResponse) => {
-        console.log(response);
-
         return this.handle401Error(request, next, response);
       })
     );
