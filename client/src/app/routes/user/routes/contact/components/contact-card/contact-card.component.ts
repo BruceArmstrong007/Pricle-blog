@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import CardComponent from '../../../../../../shared/components/card/card.component';
 import ImgAvatarComponent from '../../../../../../shared/components/img-avatar/img-avatar.component';
 import { ContactDetails } from '../../../../../../stores/contacts/contacts.model';
+import { User } from '../../../../../../stores/user/user.model';
 
 @Component({
   selector: 'app-contact-card',
@@ -32,6 +33,6 @@ import { ContactDetails } from '../../../../../../stores/contacts/contacts.model
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class ContactCardComponent {
-  @Input() contact!: ContactDetails;
+  @Input() contact!: ContactDetails | User;
 }
 export default ContactCardComponent;

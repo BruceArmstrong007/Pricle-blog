@@ -7,6 +7,7 @@ import { FriendStore } from './friends.store';
 import LoaderComponent from '../../../../../../shared/components/loader/loader.component';
 import ButtonComponent from '../../../../../../shared/components/button/button.component';
 import DividerComponent from '../../../../../../shared/components/divider/divider.component';
+import EmptyComponent from '../../../../../../shared/components/empty/empty.component';
 
 @Component({
   selector: 'app-friends',
@@ -18,6 +19,7 @@ import DividerComponent from '../../../../../../shared/components/divider/divide
     LoaderComponent,
     ButtonComponent,
     DividerComponent,
+    EmptyComponent
   ],
   templateUrl: './friends.component.html',
   styles: ``,

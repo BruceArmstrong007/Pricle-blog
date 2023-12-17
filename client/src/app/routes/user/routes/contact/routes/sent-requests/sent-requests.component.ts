@@ -7,6 +7,7 @@ import DividerComponent from '../../../../../../shared/components/divider/divide
 import LoaderComponent from '../../../../../../shared/components/loader/loader.component';
 import ContactCardComponent from '../../components/contact-card/contact-card.component';
 import { SentRequestsStore } from './sent-requests.store';
+import EmptyComponent from '../../../../../../shared/components/empty/empty.component';
 
 @Component({
   selector: 'app-sent-requests',
@@ -18,6 +19,7 @@ import { SentRequestsStore } from './sent-requests.store';
     LoaderComponent,
     ButtonComponent,
     DividerComponent,
+    EmptyComponent
   ],
   templateUrl: './sent-requests.component.html',
   styles: ``,
