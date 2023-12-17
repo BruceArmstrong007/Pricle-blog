@@ -27,7 +27,13 @@ class DashboardComponent {
   private readonly router = inject(Router);
   private readonly Routes = signal(ClientRoutes);
   readonly form = this.fb.group({
-    search: ['', Validators.pattern('^[a-zA-Z]|^@[a-zA-Z]|^#[a-zA-Z].*')],
+    search: [
+      '',
+      Validators.compose([
+        Validators.pattern('^[a-zA-Z]|^@[a-zA-Z]|^#[a-zA-Z].*'),
+        Validators.maxLength(50),
+      ]),
+    ],
   });
 
   submit() {
