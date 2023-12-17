@@ -19,34 +19,16 @@ export const contactsFeature = createFeature({
     initialState,
     on(
       contactsActions.contacts,
-      // contactsActions.acceptRequest,
-      // contactsActions.cancelRequest,
-      // contactsActions.declineRequest,
-      // contactsActions.removeContact,
-      // contactsActions.sendRequest,
       (state): ContactsState => ({ ...state, state: 'loading' })
     ),
     on(
       contactsActions.contactsFailure,
-      // contactsActions.acceptRequestFailure,
-      // contactsActions.cancelRequestFailure,
-      // contactsActions.sendRequestFailure,
-      // contactsActions.removeContactFailure,
-      // contactsActions.declineRequestFailure,
       (state): ContactsState => ({ ...state, state: 'error' })
     ),
     on(
       contactsActions.contactsSuccess,
       (state, action): ContactsState =>
         adaptor.setAll(action?.contacts, { ...state, state: 'loaded' })
-    ),
-    on(
-      // contactsActions.acceptRequestSuccess,
-      // contactsActions.cancelRequestSuccess,
-      // contactsActions.declineRequestSuccess,
-      // contactsActions.removeContactSuccess,
-      // contactsActions.sendRequestSuccess,
-      (state): ContactsState => ({ ...state, state: 'loaded' })
     ),
     on(
       contactsActions.resetState,
