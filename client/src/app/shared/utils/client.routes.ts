@@ -24,6 +24,11 @@ export const ClientRoutes: RoutesInterface = {
       Timeline: '/user/dashboard/timeline',
       Search: '/user/dashboard/search',
     },
+    Posts: {
+      Root: '/posts',
+      Create: '/posts/create',
+      Edit: '/posts/edit'
+    },
     Profile: {
       Root: '/user/profile',
     },
@@ -47,6 +52,11 @@ export interface RoutesInterface {
       SentRequests: string;
       ReceivedRequests: string;
     };
+    Posts: {
+      Root: string;
+      Create: string;
+      Edit: string;
+    }
     Dashboard: {
       Root: string;
       Timeline: string;

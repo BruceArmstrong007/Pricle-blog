@@ -19,6 +19,11 @@ const routes: Routes = [
         loadChildren: () => import('./routes/dashboard/dashboard.routes'),
       },
       {
+        path: 'posts',
+        loadComponent: () =>
+          import('./routes/help-support/help-support.component'),
+      },
+      {
         path: 'settings',
         loadComponent: () => import('./routes/settings/settings.component'),
       },
