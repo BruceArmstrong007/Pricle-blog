@@ -2,17 +2,16 @@
   <app-search-sections class="sticky top-0 z-50 dark:bg-black bg-white" />
   @switch(state.route()){ @case('people') {
   <app-people
-    class="h-full"
     [people]="state.data()"
     [isLoading]="state.loading()"
     [clickedID]="state.clickedID()"
     (clickEvent)="clickEvent($event)"
   />
   } @case('tags') {
-  <app-tags
-    class="h-full"
-    [tags]="state.data()"
-    [isLoading]="state.loading()"
-  />
+  <app-tags [tags]="state.data()" [isLoading]="state.loading()" />
+  } @case('posts') {
+  <app-posts [tags]="state.data()" [isLoading]="state.loading()" />
+  } @default{
+  <app-posts [tags]="state.data()" [isLoading]="state.loading()" />
   } }
 </div>
