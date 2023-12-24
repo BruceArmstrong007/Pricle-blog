@@ -8,6 +8,7 @@ import { ContactModule } from './contact/contact.module';
 import { UploadModule } from './upload/upload.module';
 import { MongoDBModule } from '@app/common';
 import { NotificationModule } from './notification/notification.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { NotificationModule } from './notification/notification.module';
     UploadModule,
     MongoDBModule,
     NotificationModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [],
