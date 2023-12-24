@@ -1,29 +1,7 @@
 <div class="w-full h-full grid grid-cols-4 gap-4">
   <div></div>
   <div class="col-span-2 grid grid-rows-12">
-    <form
-      class="px-2 flex justify-center items-center"
-      [formGroup]="form"
-      (ngSubmit)="submit()"
-    >
-      <app-input
-        class="w-full"
-        formControlName="search"
-        type="search"
-        placeHolder="Search names,'@'usernames,'#'tags"
-      >
-        <ng-container ngProjectAs="input-suffix">
-          <app-button
-            btnType="submit"
-            class="rounded-full bg-green-600 p-0 text-xs text-white ml-2"
-          >
-            <ng-container ngProjectAs="btn-name">
-              <i class="material-icons">search</i>
-            </ng-container>
-          </app-button>
-        </ng-container>
-      </app-input>
-    </form>
+    <app-search-bar class="w-full" />
     <div class="row-span-11 height overflow-y-auto px-5">
       <router-outlet />
     </div>
