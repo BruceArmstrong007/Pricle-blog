@@ -1,4 +1,4 @@
-import { contactsFeature } from './../../../../../../../../../stores/contacts/contacts.reducer';
+import { contactsFeature } from '../../../../../../../../stores/contacts/contacts.reducer';
 import { NgFor } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -8,16 +8,16 @@ import {
   Output,
   inject,
 } from '@angular/core';
-import { User } from '../../../../../../../../../stores/user/user.model';
-import ButtonComponent from '../../../../../../../../../shared/components/button/button.component';
-import ImgAvatarComponent from '../../../../../../../../../shared/components/img-avatar/img-avatar.component';
-import CardComponent from '../../../../../../../../../shared/components/card/card.component';
-import UserCardComponent from '../../user-card/user-card.component';
-import EmptyComponent from '../../../../../../../../../shared/components/empty/empty.component';
-import { ClickEvent } from '../../../search.component';
-import LoaderComponent from '../../../../../../../../../shared/components/loader/loader.component';
+import { User } from '../../../../../../../../stores/user/user.model';
+import ButtonComponent from '../../../../../../../../shared/components/button/button.component';
+import ImgAvatarComponent from '../../../../../../../../shared/components/img-avatar/img-avatar.component';
+import CardComponent from '../../../../../../../../shared/components/card/card.component';
+import UserCardComponent from '../user-card/user-card.component';
+import EmptyComponent from '../../../../../../../../shared/components/empty/empty.component';
+import { ClickEvent } from '../../search.component';
+import LoaderComponent from '../../../../../../../../shared/components/loader/loader.component';
 import { Store } from '@ngrx/store';
-import { CheckUserByIDPipe } from '../../../pipes/check-user-by-id.pipe';
+import { CheckUserByIDPipe } from '../../pipes/check-user-by-id.pipe';
 
 @Component({
   selector: 'app-people',
