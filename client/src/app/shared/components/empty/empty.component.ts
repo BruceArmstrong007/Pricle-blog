@@ -10,7 +10,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       <span class="text-lg">Empty</span>
     </div>
   </div>`,
-  styles: ``,
+  styles: `
+  :host {
+    width: 100%;
+    height: 100%;
+  }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class EmptyComponent {}
