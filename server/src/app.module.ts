@@ -9,6 +9,7 @@ import { UploadModule } from './upload/upload.module';
 import { MongoDBModule } from '@app/common';
 import { NotificationModule } from './notification/notification.module';
 import { TagsModule } from './tags/tags.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { TagsModule } from './tags/tags.module';
     MongoDBModule,
     NotificationModule,
     TagsModule,
+    PostsModule,
   ],
   controllers: [AppController],
   providers: [],
