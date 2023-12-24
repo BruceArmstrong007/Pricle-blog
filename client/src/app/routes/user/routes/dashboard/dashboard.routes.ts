@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ClientRoutes } from '../../../../shared/utils/client.routes';
 
 const routes: Routes = [
   {
@@ -8,6 +9,15 @@ const routes: Routes = [
       {
         path: 'search',
         loadComponent: () => import('./routes/search/search.component'),
+      },
+      {
+        path: 'timeline',
+        loadComponent: () => import('./routes/timeline/timeline.component'),
+      },
+      {
+        path: '**',
+        pathMatch: 'full',
+        redirectTo: ClientRoutes.User.Dashboard.Timeline,
       },
     ],
   },
