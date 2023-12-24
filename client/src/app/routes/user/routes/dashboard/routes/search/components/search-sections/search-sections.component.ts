@@ -42,8 +42,11 @@ class SearchSectionsComponent {
       case 'tags':
         params = { ...this.queryParams(), route: 'tags' };
         break;
+      case 'posts':
+        params = { ...this.queryParams(), route: 'posts' };
+        break;
       default:
-        params = { ...this.queryParams(), route: 'people' };
+        params = { ...this.queryParams(), route: 'posts' };
     }
 
     this.router.navigate([this.Routes().User.Dashboard.Search], {

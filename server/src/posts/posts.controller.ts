@@ -8,12 +8,17 @@ import {
   Delete,
   Query,
   ValidationPipe,
+  UseFilters,
+  UseGuards,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePost, SearchPosts, UpdatePost } from './dto/post.request';
-import { CurrentUser, CurrentUserType } from '@app/common';
+import { ApiExceptionFilter, CurrentUser, CurrentUserType } from '@app/common';
+import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 
 @Controller('posts')
+@UseGuards(JwtAuthGuard)
+@UseFilters(new ApiExceptionFilter())
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 

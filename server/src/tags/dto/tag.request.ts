@@ -10,12 +10,12 @@ export class CreateTag {
   }
 }
 
-export class GetTags {
+export class SearchTags {
   @IsString()
   @IsNotEmpty()
   key: string;
 
-  constructor(private assign: Partial<GetTags>) {
+  constructor(private assign: Partial<SearchTags>) {
     Object.assign(this, assign);
   }
 }

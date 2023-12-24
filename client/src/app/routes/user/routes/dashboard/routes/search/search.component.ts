@@ -9,8 +9,9 @@ import { Store } from '@ngrx/store';
 import { selectQueryParams } from '../../../../../../shared/router-store/router-selector';
 import { SearchStore } from './search.store';
 import SearchSectionsComponent from './components/search-sections/search-sections.component';
-import TagsComponent from './components/search-sections/tags/tags.component';
-import PeopleComponent from './components/search-sections/people/people.component';
+import TagsComponent from './components/tags/tags.component';
+import PeopleComponent from './components/people/people.component';
+import PostsComponent from './components/posts/posts.component';
 
 export interface ClickEvent {
   id: string;
@@ -20,7 +21,13 @@ export interface ClickEvent {
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [NgSwitch, SearchSectionsComponent, TagsComponent, PeopleComponent],
+  imports: [
+    NgSwitch,
+    SearchSectionsComponent,
+    TagsComponent,
+    PeopleComponent,
+    PostsComponent,
+  ],
   templateUrl: './search.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
