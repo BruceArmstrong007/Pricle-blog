@@ -1,13 +1,13 @@
 <div class="flex justify-start items-center gap-4 p-2">
   <app-button
-    (click)="switchRoute('people')"
+    (click)="switchRoute('posts')"
     [ngClass]="{
-        'bg-green-500 text-white': queryParams()['route'] === 'people',
+        'bg-green-500 text-white': queryParams()['route'] === 'posts',
       }"
     class="rounded-full hover:bg-blue-500 hover:text-white dark:text-white sm"
   >
     <ng-container ngProjectAs="btn-name">
-      <span class="text-sm">People</span>
+      <span class="text-sm">Posts</span>
     </ng-container>
   </app-button>
   <app-button
@@ -19,6 +19,17 @@
   >
     <ng-container ngProjectAs="btn-name">
       <span class="text-sm">Tags</span>
+    </ng-container>
+  </app-button>
+  <app-button
+    (click)="switchRoute('people')"
+    [ngClass]="{
+  'bg-green-500 text-white': queryParams()['route'] === 'people',
+}"
+    class="rounded-full hover:bg-blue-500 hover:text-white dark:text-white sm"
+  >
+    <ng-container ngProjectAs="btn-name">
+      <span class="text-sm">People</span>
     </ng-container>
   </app-button>
 </div>
