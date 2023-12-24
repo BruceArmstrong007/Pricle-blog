@@ -25,9 +25,9 @@ export const ClientRoutes: RoutesInterface = {
       Search: '/user/dashboard/search',
     },
     Posts: {
-      Root: '/posts',
-      Create: '/posts/create',
-      Edit: '/posts/edit'
+      Root: '/user/posts',
+      Create: '/user/posts/create',
+      Edit: '/user/posts/edit'
     },
     Profile: {
       Root: '/user/profile',

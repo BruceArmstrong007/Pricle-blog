@@ -20,8 +20,8 @@ const routes: Routes = [
       },
       {
         path: 'posts',
-        loadComponent: () =>
-          import('./routes/help-support/help-support.component'),
+        loadChildren: () =>
+          import('./routes/posts/posts.routes'),
       },
       {
         path: 'settings',
