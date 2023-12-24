@@ -33,7 +33,7 @@ import { CheckUserByIDPipe } from '../../../pipes/check-user-by-id.pipe';
     LoaderComponent,
   ],
   template: `
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4 h-full">
       @if(isLoading && !clickedID){ @for (item of [1,2,3]; track $index) {
       <app-user-card />
       } } @else { @for (user of people; track user._id) {
