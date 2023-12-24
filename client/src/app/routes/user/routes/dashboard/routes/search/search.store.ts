@@ -15,7 +15,7 @@ import { contactsActions } from '../../../../../../stores/contacts/contacts.acti
 import { ContactPayload } from '../../../../../../stores/contacts/contacts.model';
 import { Store } from '@ngrx/store';
 
-export type searchRoute = 'people' | 'tags';
+export type searchRoute = 'people' | 'tags' | 'posts';
 
 export const SearchStore = signalStore(
   withState<{
@@ -46,11 +46,14 @@ export const SearchStore = signalStore(
               case 'people':
                 url = API.SEARCHUSERS;
                 break;
+              case 'posts':
+                url = API.SEARCHPOSTS;
+                break;
               case 'tags':
                 url = API.SEARCHTAGS;
                 break;
               default:
-                url = API.SEARCHUSERS;
+                url = API.SEARCHPOSTS;
             }
             return apiService
               .request(url, undefined, {
@@ -72,10 +75,16 @@ export const SearchStore = signalStore(
                         data: response.tags,
                       });
                       break;
+                    case 'posts':
+                      patchState(state, {
+                        route: 'posts',
+                        data: response.posts,
+                      });
+                      break;
                     default:
                       patchState(state, {
-                        route: 'people',
-                        data: response.users,
+                        route: 'posts',
+                        data: response.posts,
                       });
                   }
                 }),
