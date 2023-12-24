@@ -6,7 +6,11 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   standalone: true,
   imports: [NgFor],
   templateUrl: './tags.component.html',
-  styles: ``,
+  styles: `
+    :host {
+    height: 100%;
+  }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class TagsComponent {

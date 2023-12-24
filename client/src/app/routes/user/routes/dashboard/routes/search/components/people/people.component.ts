@@ -62,7 +62,11 @@ import { CheckUserByIDPipe } from '../../pipes/check-user-by-id.pipe';
       } }
     </div>
   `,
-  styles: ``,
+  styles: `
+  :host{
+    height: 100%;
+  }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class PeopleComponent {
