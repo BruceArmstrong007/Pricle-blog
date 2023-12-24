@@ -13,4 +13,8 @@ export class TagsService {
   getTags(key: string) {
     return this.tagRepository.getTags(key);
   }
+
+  checkTag(key: string) {
+    return this.tagRepository.checkTag(key);
+  }
 }

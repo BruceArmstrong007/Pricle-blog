@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { TagsService } from './tags.service';
-import { CreateTag, GetTags } from './dto/tag.request';
+import { CheckTag, CreateTag, GetTags } from './dto/tag.request';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { ApiExceptionFilter } from '@app/common';
 
@@ -26,5 +26,11 @@ export class TagsController {
   @Get()
   findTags(@Query() queryParams: GetTags) {
     return this.tagsService.getTags(queryParams.key);
+  }
+
+  
+  @Get()
+  findTag(@Query() queryParams: CheckTag) {
+    return this.tagsService.checkTag(queryParams.key);
   }
 }

@@ -10,14 +10,22 @@ export class CreateTag {
   }
 }
 
-
 export class GetTags {
-    @IsString()
-    @IsNotEmpty()
-    key: string;
-  
-    constructor(private assign: Partial<GetTags>) {
-      Object.assign(this, assign);
-    }
+  @IsString()
+  @IsNotEmpty()
+  key: string;
+
+  constructor(private assign: Partial<GetTags>) {
+    Object.assign(this, assign);
   }
-  
+}
+
+export class CheckTag {
+  @IsString()
+  @IsNotEmpty()
+  key: string;
+
+  constructor(private assign: Partial<CheckTag>) {
+    Object.assign(this, assign);
+  }
+}

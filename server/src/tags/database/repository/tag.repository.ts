@@ -17,6 +17,16 @@ export class TagRepository {
       .exec();
   }
 
+
+  async checkTag(key: string): Promise<Tag | null> {
+    return await this.tagModel
+      .findOne({
+        name: key,
+      })
+      .exec();
+  }
+
+
   async createTag(name: string) {
     const newUser = new this.tagModel({
       name,
