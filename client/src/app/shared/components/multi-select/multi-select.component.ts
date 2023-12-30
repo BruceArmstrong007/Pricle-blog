@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf, TitleCasePipe } from '@angular/common';
+import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -42,7 +42,6 @@ export type options = 'typing' | 'enter';
     PopupMenuComponent,
     ButtonComponent,
     TitleCasePipe,
-    AsyncPipe,
   ],
   templateUrl: './multi-select.component.html',
   styles: `
