@@ -14,9 +14,10 @@ export class TagRepository {
       .find({
         name: regex,
       })
+      .select('-createdAt')
+      .select('-updatedAt')
       .exec();
   }
-
 
   async checkTag(key: string): Promise<Tag | null> {
     return await this.tagModel
@@ -25,7 +26,6 @@ export class TagRepository {
       })
       .exec();
   }
-
 
   async createTag(name: string) {
     const newUser = new this.tagModel({

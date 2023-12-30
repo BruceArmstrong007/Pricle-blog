@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, catchError, switchMap, tap, of, throwError } from 'rxjs';
+import { Observable, catchError, switchMap, tap, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { authFeature } from '../../stores/auth/auth.reducer';
 import { ApiService } from '../services/api/api.service';
@@ -58,6 +58,7 @@ export class RequestInterceptor implements HttpInterceptor {
         })
       );
     }
+
     return throwError(() => response);
   }
 

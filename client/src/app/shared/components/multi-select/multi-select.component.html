@@ -4,7 +4,7 @@
   }
   <div class="w-full flex justify-center items-center">
     <ng-content select="input-prefix"></ng-content>
-    <app-popup-menu class="w-full sourceWidthInherit">
+    <app-popup-menu [isOpen]="isOpen()" class="w-full sourceWidthInherit">
       <ng-container ngProjectAs="popup-source">
         <div
           #sourceElt
@@ -27,7 +27,12 @@
             </ng-container>
           </app-button>
           }
-          <input (keyup)="searchValues($event)" placeholder="Search for Tags" type="text" class="grow pl-2 h-10 bg-transparent border-none appearance-none outline-none focus:outline-none" />
+          <input
+            (keyup)="searchValues($event)"
+            placeholder="Search for Tags"
+            type="text"
+            class="grow pl-2 h-10 bg-transparent border-none appearance-none outline-none focus:outline-none"
+          />
         </div>
       </ng-container>
       <ng-container ngProjectAs="popup-menu">
@@ -40,7 +45,7 @@
             class="w-full hover:bg-blue-500 rounded-lg hover:text-white p-2"
             (click)="selectItem(item)"
           >
-            {{ item[labelValue.label] }}
+            {{ item[labelValue.label] | titlecase }}
           </div>
           } @empty {
           <div class="w-full h-full flex justify-center items-center">
