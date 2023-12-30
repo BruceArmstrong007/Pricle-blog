@@ -167,8 +167,8 @@ function logoutSetup(
   store.dispatch(userActions.resetState());
   store.dispatch(authActions.resetState());
   localStorage.removeItem('isLoggedIn');
-  router.navigateByUrl(ClientRoutes.Home);
   notificationSocket.disconnect();
+  router.navigateByUrl(ClientRoutes.Home);
   return userActions.logoutSuccess();
 }
 
