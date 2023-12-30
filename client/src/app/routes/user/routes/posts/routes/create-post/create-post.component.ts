@@ -15,12 +15,11 @@ import {
   SearchEvent,
 } from '../../../../../../shared/components/multi-select/multi-select.component';
 import { CreatePostsStore } from './create-post.store';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-post',
   standalone: true,
-  imports: [MultiSelectComponent, ReactiveFormsModule, JsonPipe],
+  imports: [MultiSelectComponent, ReactiveFormsModule],
   templateUrl: './create-post.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
