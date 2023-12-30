@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,8 +8,10 @@ import {
   Output,
   Renderer2,
   ViewChild,
+  WritableSignal,
   forwardRef,
   inject,
+  signal,
 } from '@angular/core';
 import { ReactiveFormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ControlValueAccessorDirective } from '../../directives/control-value-accessor/control-value-accessor.directive';
@@ -22,6 +24,13 @@ interface labelValue {
   value: string;
 }
 
+export interface SearchEvent {
+  type: options;
+  value: string;
+}
+
+export type options = 'typing' | 'enter';
+
 @Component({
   selector: 'app-multi-select',
   standalone: true,
@@ -32,6 +41,8 @@ interface labelValue {
     ValidationErrorsComponent,
     PopupMenuComponent,
     ButtonComponent,
+    TitleCasePipe,
+    AsyncPipe,
   ],
   templateUrl: './multi-select.component.html',
   styles: `
@@ -45,7 +56,7 @@ interface labelValue {
     },
   ],
 })
-class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
+export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
   private readonly renderer = inject(Renderer2);
   @Input() customErrorMessages!: Record<string, string>;
   @Input() label!: string;
@@ -53,12 +64,13 @@ class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
   @Input() placeHolder: string = '';
   @Input() options: Record<string, string>[] = [];
   @Input({ required: true }) labelValue!: labelValue;
-  @Output() searchEvent: EventEmitter<string> = new EventEmitter();
+  @Output() searchEvent: EventEmitter<SearchEvent> = new EventEmitter();
   @ViewChild('sourceElt', { static: true })
   sourceElt: ElementRef<HTMLDivElement> | undefined;
   @ViewChild('targetElt', { static: true }) targetElt:
     | ElementRef<HTMLDivElement>
     | undefined;
+  isOpen: WritableSignal<boolean> = signal(false);
 
   ngAfterViewInit() {
     const observer = new ResizeObserver((entries) => {
@@ -99,7 +111,23 @@ class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
   }
 
   searchValues(event: any) {
-    this.searchEvent.emit(event?.target?.value);
+    if (!event.target.value) {
+      console.log(event.target.value);
+      this.isOpen.set(false);
+      return;
+    }
+    if (event.key === 'Enter' || event.keyCode === 13 || event.which === 13) {
+      this.searchEvent.emit({ value: event?.target?.value, type: 'enter' });
+      event.target.value = '';
+    } else if (
+      event.keyCode === 27 ||
+      event.which === 27 ||
+      event.key === 'Escape' ||
+      event.key === 'Esc'
+    ) {
+      this.isOpen.set(false);
+    } else {
+      this.searchEvent.emit({ value: event?.target?.value, type: 'typing' });
+    }
   }
 }
-export default MultiSelectComponent;
