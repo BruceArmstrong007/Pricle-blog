@@ -111,7 +111,6 @@ export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
 
   searchValues(event: any) {
     if (!event.target.value) {
-      console.log(event.target.value);
       this.isOpen.set(false);
       return;
     }
