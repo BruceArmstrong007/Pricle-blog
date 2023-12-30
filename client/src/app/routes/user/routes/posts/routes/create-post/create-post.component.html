@@ -44,4 +44,25 @@
       </span>
     </ng-container>
   </app-textarea>
+  <div class="w-full flex justify-between items-center">
+    <app-button btnType="button" (click)="clear()" class="rounded outline sm">
+      <ng-container ngProjectAs="btn-name"
+        ><span class="text-sm">Clear</span></ng-container
+      >
+    </app-button>
+    <app-button
+      btnType="submit"
+      [disabled]="state.loading()"
+      class="rounded bg-green-600 text-white sm"
+    >
+      <ng-container ngProjectAs="btn-name">
+        @if(state.loading()) {
+        <loader />
+        } @else {
+        <span class="text-sm">Submit</span>
+
+        }
+      </ng-container>
+    </app-button>
+  </div>
 </form>

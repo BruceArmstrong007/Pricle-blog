@@ -27,30 +27,35 @@ interface CreateTag {
   name: string;
 }
 
+interface CreatePostState {
+  searchingTags: boolean;
+  tags: Record<string, string>[];
+}
+
+const initialState: CreatePostState = {
+  searchingTags: false,
+  tags: [],
+};
+
 export const CreatePostsStore = signalStore(
-  withState<{
-    searchingTags: boolean;
-    tags: Record<string, string>[];
-  }>({
-    searchingTags: false,
-    tags: [],
-  }),
+  withState<CreatePostState>(initialState),
   withCallState(),
   withMethods((state) => {
     const apiService = inject(ApiService);
     const store = inject(Store);
     return {
+      resetState: () => patchState(state, initialState),
       createTag: rxMethod<CreateTag>((c$) =>
         c$.pipe(
           distinctUntilChanged(),
           debounceTime(500),
           tap(() => {
-            patchState(state, setLoading());
+            patchState(state, creatingTags());
           }),
           switchMap((c) =>
             apiService.request(API.CREATETAGS, c).pipe(
               tap((response: any) => {
-                patchState(state, setLoaded());
+                patchState(state, doneCreatingTags());
                 state.openAlert(
                   'Tag Created.',
                   response?.message ?? 'Tag created successfully.',
@@ -58,9 +63,9 @@ export const CreatePostsStore = signalStore(
                 );
               }),
               catchError((error) => {
+                patchState(state, doneCreatingTags());
                 let errorMsg =
                   error?.error?.message ?? error?.statusText ?? error?.message;
-                state.setError(errorMsg);
                 state.openAlert('API Error', errorMsg, 'ERROR');
                 return of(errorMsg);
               })
@@ -139,5 +144,12 @@ function searchingTags() {
   return { searchingTags: true };
 }
 function doneSearchingTags() {
+  return { searchingTags: false };
+}
+
+function creatingTags() {
+  return { searchingTags: true };
+}
+function doneCreatingTags() {
   return { searchingTags: false };
 }

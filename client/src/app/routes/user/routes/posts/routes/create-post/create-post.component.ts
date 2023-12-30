@@ -3,6 +3,7 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -13,6 +14,8 @@ import {
 import { CreatePostsStore } from './create-post.store';
 import InputComponent from '../../../../../../shared/components/input/input.component';
 import TextareaComponent from '../../../../../../shared/components/textarea/textarea.component';
+import ButtonComponent from '../../../../../../shared/components/button/button.component';
+import LoaderComponent from '../../../../../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-create-post',
@@ -22,6 +25,8 @@ import TextareaComponent from '../../../../../../shared/components/textarea/text
     InputComponent,
     MultiSelectComponent,
     ReactiveFormsModule,
+    ButtonComponent,
+    LoaderComponent,
   ],
   templateUrl: './create-post.component.html',
   styles: ``,
@@ -29,10 +34,10 @@ import TextareaComponent from '../../../../../../shared/components/textarea/text
   providers: [CreatePostsStore],
 })
 class CreatePostComponent {
-  private readonly fb = inject(FormBuilder);
+  private readonly fb = inject(NonNullableFormBuilder);
   readonly state = inject(CreatePostsStore);
   readonly form: FormGroup = this.fb.group({
-    tags: [
+    tags: [ 
       [],
       Validators.compose([Validators.required, Validators.maxLength(5)]),
     ],
@@ -80,6 +85,11 @@ class CreatePostComponent {
         this.state.searchTags({ key: key.value });
         break;
     }
+  }
+
+  clear() {
+    this.form.reset();
+    this.state.resetState();
   }
 }
 
