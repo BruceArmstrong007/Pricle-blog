@@ -11,7 +11,7 @@ export class TagsService {
   }
 
   getTags(key: string) {
-    return this.tagRepository.getTags(key);
+    return this.tagRepository.getTags(key.trim().toLocaleLowerCase());
   }
 
   checkTag(key: string) {
