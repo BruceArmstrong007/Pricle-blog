@@ -2,7 +2,6 @@ import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { catchError, of, switchMap, tap } from 'rxjs';
 import { inject } from '@angular/core';
-import { Search } from '../../../../../../stores/dashboard/dashboard.model';
 import { ApiService } from '../../../../../../shared/services/api/api.service';
 import {
   withCallState,
@@ -14,6 +13,13 @@ import { User } from '../../../../../../stores/user/user.model';
 import { contactsActions } from '../../../../../../stores/contacts/contacts.action';
 import { ContactPayload } from '../../../../../../stores/contacts/contacts.model';
 import { Store } from '@ngrx/store';
+
+interface Search {
+  search: string;
+  type: string;
+  route: string;
+}
+
 
 export type searchRoute = 'people' | 'tags' | 'posts';
 
