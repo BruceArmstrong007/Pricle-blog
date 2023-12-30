@@ -4,7 +4,6 @@ import {
   Component,
   Input,
   inject,
-  signal,
 } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import CardComponent from '../card/card.component';
@@ -16,7 +15,7 @@ import { ModeService } from '../../services/mode/mode.service';
   imports: [NgClass, OverlayModule, CardComponent],
   template: `
     <button
-      (click)="isOpen.set(!isOpen())"
+      (click)="isOpen = !isOpen"
       type="button"
       cdkOverlayOrigin
       #trigger="cdkOverlayOrigin"
@@ -27,7 +26,7 @@ import { ModeService } from '../../services/mode/mode.service';
     <ng-template
       cdkConnectedOverlay
       [cdkConnectedOverlayOrigin]="trigger"
-      [cdkConnectedOverlayOpen]="isOpen()"
+      [cdkConnectedOverlayOpen]="isOpen"
       [cdkConnectedOverlayDisposeOnNavigation]="true"
       cdkConnectedOverlayPanelClass="absolute"
     >
@@ -52,13 +51,13 @@ import { ModeService } from '../../services/mode/mode.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class PopupMenuComponent {
-  isOpen = signal(false);
+  @Input('isOpen') isOpen: boolean = false;
   darkMode = inject(ModeService).darkMode;
   @Input('disableClose') disableClose = false;
 
   close() {
     if (this.disableClose) return;
-    this.isOpen.set(false);
+    this.isOpen = false;
   }
 }
 
