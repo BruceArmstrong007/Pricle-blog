@@ -1,8 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -15,11 +11,18 @@ import {
   SearchEvent,
 } from '../../../../../../shared/components/multi-select/multi-select.component';
 import { CreatePostsStore } from './create-post.store';
+import InputComponent from '../../../../../../shared/components/input/input.component';
+import TextareaComponent from '../../../../../../shared/components/textarea/textarea.component';
 
 @Component({
   selector: 'app-create-post',
   standalone: true,
-  imports: [MultiSelectComponent, ReactiveFormsModule],
+  imports: [
+    TextareaComponent,
+    InputComponent,
+    MultiSelectComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './create-post.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,7 +32,10 @@ class CreatePostComponent {
   private readonly fb = inject(FormBuilder);
   readonly state = inject(CreatePostsStore);
   readonly form: FormGroup = this.fb.group({
-    tags: [[], Validators.compose([Validators.maxLength(5)])],
+    tags: [
+      [],
+      Validators.compose([Validators.required, Validators.maxLength(5)]),
+    ],
     title: [
       '',
       Validators.compose([
