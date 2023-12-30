@@ -1,18 +1,36 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  MultiSelectComponent,
+  SearchEvent,
+} from '../../../../../../shared/components/multi-select/multi-select.component';
+import { CreatePostsStore } from './create-post.store';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-post',
   standalone: true,
-  imports: [],
+  imports: [MultiSelectComponent, ReactiveFormsModule, JsonPipe],
   templateUrl: './create-post.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [CreatePostsStore],
 })
 class CreatePostComponent {
   private readonly fb = inject(FormBuilder);
+  readonly state = inject(CreatePostsStore);
   readonly form: FormGroup = this.fb.group({
-    tags: this.fb.array([this.createTagsControl()], [Validators.maxLength(5)]),
+    tags: [[], Validators.compose([Validators.maxLength(5)])],
     title: [
       '',
       Validators.compose([
@@ -39,23 +57,24 @@ class CreatePostComponent {
     ],
   });
 
-  get tagsArray(): FormArray {
-    return this.form.controls['tags'] as FormArray;
+  get tags(): FormControl {
+    return this.form.controls['tags'] as FormControl;
   }
 
-  createTagsControl(name: string = '', id: string = ''): FormGroup {
-    return this.fb.group({
-      name: [name, Validators.required],
-      id: [id, Validators.required],
-    });
+  submit() {
+    console.log(this.form.value, this.tags);
   }
 
-  addTag(): void {
-    this.tagsArray.push(this.createTagsControl());
-  }
-
-  removeTag(index: number): void {
-    this.tagsArray.removeAt(index);
+  searchTags(key: SearchEvent) {
+    switch (key.type) {
+      case 'enter':
+        this.state.createTag({ name: key.value });
+        break;
+      case 'typing':
+      default:
+        this.state.searchTags({ key: key.value });
+        break;
+    }
   }
 }
 

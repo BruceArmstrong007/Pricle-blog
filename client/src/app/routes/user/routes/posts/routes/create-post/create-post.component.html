@@ -1,1 +1,14 @@
-<p>create-post works!</p>
+<form
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  class="w-full flex flex-col justify-center gap-4 px-6"
+>
+  <app-multi-select
+  (click)="submit()"
+    formControlName="tags"
+    label="Tags"
+    (searchEvent)="searchTags($event)"
+    [labelValue]="{ value: '_id', label: 'name' }"
+    [options]="state.tags()"
+  ></app-multi-select>
+</form>
