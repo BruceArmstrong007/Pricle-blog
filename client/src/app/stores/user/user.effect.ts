@@ -143,20 +143,10 @@ export const logout = createEffect(
       exhaustMap(() => {
         return apiService.request(API.LOGOUT).pipe(
           map(() => {
-            notificationSocket.disconnect();
-
-            store.dispatch(authActions.resetState());
-            store.dispatch(contactsActions.resetState());
-            store.dispatch(userActions.resetState());
-            store.dispatch(authActions.resetState());
-
-            localStorage.removeItem('isLoggedIn');
-            router.navigateByUrl(ClientRoutes.Home);
-
-            return userActions.logoutSuccess();
+            return logoutSetup(notificationSocket, store, router);
           }),
-          catchError(({ error }) => {
-            return of(userActions.logoutFailure());
+          catchError(() => {
+            return of(logoutSetup(notificationSocket, store, router));
           })
         );
       })
@@ -166,6 +156,21 @@ export const logout = createEffect(
     functional: true,
   }
 );
+
+function logoutSetup(
+  notificationSocket: NotificationSocketService,
+  store: Store,
+  router: Router
+) {
+  store.dispatch(authActions.resetState());
+  store.dispatch(contactsActions.resetState());
+  store.dispatch(userActions.resetState());
+  store.dispatch(authActions.resetState());
+  localStorage.removeItem('isLoggedIn');
+  router.navigateByUrl(ClientRoutes.Home);
+  notificationSocket.disconnect();
+  return userActions.logoutSuccess();
+}
 
 export const deleteUser = createEffect(
   (
