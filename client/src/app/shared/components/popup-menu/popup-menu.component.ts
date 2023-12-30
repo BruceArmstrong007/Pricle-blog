@@ -20,6 +20,7 @@ import { ModeService } from '../../services/mode/mode.service';
       type="button"
       cdkOverlayOrigin
       #trigger="cdkOverlayOrigin"
+      class="widthInherit"
     >
       <ng-content select="popup-source"></ng-content>
     </button>
@@ -27,16 +28,27 @@ import { ModeService } from '../../services/mode/mode.service';
       cdkConnectedOverlay
       [cdkConnectedOverlayOrigin]="trigger"
       [cdkConnectedOverlayOpen]="isOpen()"
+      [cdkConnectedOverlayDisposeOnNavigation]="true"
       cdkConnectedOverlayPanelClass="absolute"
     >
-      <app-card (click)="close()" [ngClass]="{ dark: darkMode(), 'text-white': darkMode() }">
+      <app-card
+        (click)="close()"
+        [ngClass]="{ dark: darkMode(), 'text-white': darkMode() }"
+      >
         <ng-container ngProjectAs="body">
           <ng-content select="popup-menu"></ng-content>
         </ng-container>
       </app-card>
     </ng-template>
   `,
-  styles: ``,
+  styles: `
+  :host(.sourceWidthInherit) {
+    .widthInherit {
+      width: inherit;
+    }
+}
+ 
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class PopupMenuComponent {
@@ -45,10 +57,9 @@ class PopupMenuComponent {
   @Input('disableClose') disableClose = false;
 
   close() {
-    if(this.disableClose) return;
+    if (this.disableClose) return;
     this.isOpen.set(false);
   }
-
 }
 
 export default PopupMenuComponent;

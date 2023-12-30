@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import InputComponent from './input.component';
 
 describe('InputComponent', () => {
-  let component: InputComponent<T>;
-  let fixture: ComponentFixture<InputComponent<T>>;
+  let component: InputComponent<any>;
+  let fixture: ComponentFixture<InputComponent<any>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
