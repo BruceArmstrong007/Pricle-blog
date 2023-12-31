@@ -44,6 +44,11 @@
       </span>
     </ng-container>
   </app-textarea>
+  <markdown
+    emoji
+    [data]="markdown()"
+    class="prose lg:prose-xl dark:prose-invert"
+  ></markdown>
   <div class="w-full flex justify-between items-center">
     <app-button btnType="button" (click)="clear()" class="rounded outline sm">
       <ng-container ngProjectAs="btn-name"

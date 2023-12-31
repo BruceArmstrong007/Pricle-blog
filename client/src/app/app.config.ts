@@ -15,6 +15,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { alertFeature } from './stores/alert/alert.reducer';
 import { provideEffects } from '@ngrx/effects';
 import * as alertEffect from './stores/alert/alert.effect';
+import { MARKED_OPTIONS, provideMarkdown } from 'ngx-markdown';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -35,6 +36,16 @@ export const appConfig: ApplicationConfig = {
     provideEffects([alertEffect]),
     provideRouterStore({ serializer: CustomRouterStateSerializer }),
     provideAnimations(),
+    provideMarkdown({
+      markedOptions: {
+        provide: MARKED_OPTIONS,
+        useValue: {
+          gfm: true,
+          breaks: true,
+          pedantic: true,
+        },
+      },
+    }),
     isDevMode()
       ? provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
       : [],

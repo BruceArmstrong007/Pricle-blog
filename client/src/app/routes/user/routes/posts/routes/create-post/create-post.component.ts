@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   NonNullableFormBuilder,
@@ -16,11 +15,13 @@ import InputComponent from '../../../../../../shared/components/input/input.comp
 import TextareaComponent from '../../../../../../shared/components/textarea/textarea.component';
 import ButtonComponent from '../../../../../../shared/components/button/button.component';
 import LoaderComponent from '../../../../../../shared/components/loader/loader.component';
+import { MarkdownComponent } from 'ngx-markdown';
 
 @Component({
   selector: 'app-create-post',
   standalone: true,
   imports: [
+    MarkdownComponent,
     TextareaComponent,
     InputComponent,
     MultiSelectComponent,
@@ -66,7 +67,28 @@ class CreatePostComponent {
       ]),
     ],
   });
+  markdown = signal(`
+  Inline \`code\` has \`back-ticks around\` it.
 
+  \`\`\`javascript
+  var s = "JavaScript syntax highlighting";
+  alert(s);
+  \`\`\`
+
+  # Heading1 
+
+  :heart:
+  
+  \`\`\`python
+  s = "Python syntax highlighting"
+  print s
+  \`\`\`
+  
+  \`\`\`
+  No language indicated, so no syntax highlighting.
+  But let's throw in a <b>tag</b>.
+  \`\`\`
+  `)
   get tags(): FormControl {
     return this.form.controls['tags'] as FormControl;
   }
