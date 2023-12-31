@@ -110,11 +110,14 @@ export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
     this.control.patchValue([...prevValue]);
   }
 
+
+  outOfFocus() {
+    setTimeout(() => {
+      this.isOpen.set(false)
+    },1000)
+  }
+
   searchValues(event: any) {
-    if (!event.target.value) {
-      this.isOpen.set(false);
-      return;
-    }
     if (event.key === 'Enter' || event.keyCode === 13 || event.which === 13) {
       this.searchEvent.emit({ value: event?.target?.value, type: 'enter' });
       event.target.value = '';

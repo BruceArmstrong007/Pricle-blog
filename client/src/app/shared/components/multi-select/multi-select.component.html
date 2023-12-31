@@ -29,6 +29,8 @@
           }
           <input
             (keyup)="searchValues($event)"
+            (focus)="isOpen.set(true)"
+            (blur)="outOfFocus()"
             placeholder="Search for Tags"
             type="text"
             class="grow pl-2 h-10 bg-transparent border-none appearance-none outline-none focus:outline-none"
