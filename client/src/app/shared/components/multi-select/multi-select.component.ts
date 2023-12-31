@@ -114,7 +114,7 @@ export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
   outOfFocus() {
     setTimeout(() => {
       this.isOpen.set(false)
-    },1000)
+    },300)
   }
 
   searchValues(event: any) {
