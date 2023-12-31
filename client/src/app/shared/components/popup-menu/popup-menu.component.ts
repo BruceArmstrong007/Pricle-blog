@@ -15,7 +15,6 @@ import { ModeService } from '../../services/mode/mode.service';
   imports: [NgClass, OverlayModule, CardComponent],
   template: `
     <button
-      (click)="isOpen = !isOpen"
       type="button"
       cdkOverlayOrigin
       #trigger="cdkOverlayOrigin"
