@@ -48,9 +48,13 @@ interface MenuItems {
     <div class="h-full flex flex-col">
       <app-navbar [isUser]="true">
         <ng-container ngProjectAs="navbar-right">
-          <app-popup-menu>
+          <app-popup-menu [isOpen]="isOpen()">
             <ng-container ngProjectAs="popup-source">
-              <avatar class="pointer" [url]="userProfile()?.url" />
+              <avatar
+                (click)="isOpen.set(!isOpen())"
+                class="pointer"
+                [url]="userProfile()?.url"
+              />
             </ng-container>
             <ng-container ngProjectAs="popup-menu">
               <div class="w-46 flex flex-col justify-center items-center gap-3">
@@ -135,6 +139,8 @@ class UserComponent {
       label: 'Help and Support',
     },
   ]);
+  isOpen = signal(false);
+
   logout() {
     this.store.dispatch(userActions.logout());
   }
