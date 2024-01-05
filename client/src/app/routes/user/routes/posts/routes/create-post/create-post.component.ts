@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -38,7 +43,7 @@ class CreatePostComponent {
   private readonly fb = inject(NonNullableFormBuilder);
   readonly state = inject(CreatePostsStore);
   readonly form: FormGroup = this.fb.group({
-    tags: [ 
+    tags: [
       [],
       Validators.compose([Validators.required, Validators.maxLength(5)]),
     ],
@@ -68,6 +73,52 @@ class CreatePostComponent {
     ],
   });
   markdown = signal(`
+  # Heading level 1
+
+  1. First item
+  2. Second item
+
+  - First item
+  - Second item
+
+  ---
+
+  [Duck Duck Go](https://duckduckgo.com).
+
+  ![Pricle Image!](/assets/pricle/pricle-icon.png "Pricle Icon")
+
+  | Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
+
+
+- [x] Write the press release
+- [ ] Update the website
+- [ ] Contact the media
+
+First Term
+: This is the definition of the first term.
+
+Second Term
+: This is one definition of the second term.
+: This is another definition of the second term.
+
+$\sqrt{3x-1}+(1+x)^2$
+
+$X^2$
+
+$X_2$
+
+
+\`\`\`mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+\`\`\`
+
   Inline \`code\` has \`back-ticks around\` it.
 
 
@@ -81,7 +132,6 @@ class CreatePostComponent {
   alert(s);
   \`\`\`
 
-  # Heading1 
 
   \`\`\`Python
   s = "Python syntax highlighting"
@@ -92,7 +142,7 @@ class CreatePostComponent {
   No language indicated, so no syntax highlighting.
   But let's throw in a <b>tag</b>.
   \`\`\`
-  `)
+  `);
   markdown2 = signal(`
   \`\`\`javascript
   var s = "JavaScript syntax highlighting";
@@ -103,7 +153,7 @@ class CreatePostComponent {
 
   alert(s);
   \`\`\`
-  `)
+  `);
   get tags(): FormControl {
     return this.form.controls['tags'] as FormControl;
   }
