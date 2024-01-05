@@ -77,8 +77,6 @@ class CreatePostComponent {
 
   # Heading1 
 
-  :heart:
-  
   \`\`\`python
   s = "Python syntax highlighting"
   print s
