@@ -13,6 +13,10 @@
     scroll-behavior: smooth;
 }
 
+html {
+  overflow: hidden;
+}
+
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
@@ -27,7 +31,5 @@
 ::-webkit-scrollbar-track {
   background-color: #f1f1f1;
 }
-
-
 
 
