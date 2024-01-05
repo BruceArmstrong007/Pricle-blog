@@ -70,14 +70,20 @@ class CreatePostComponent {
   markdown = signal(`
   Inline \`code\` has \`back-ticks around\` it.
 
+
   \`\`\`javascript
   var s = "JavaScript syntax highlighting";
+
+  function alert(s) {
+    window.alert(s);
+  }
+
   alert(s);
   \`\`\`
 
   # Heading1 
 
-  \`\`\`python
+  \`\`\`Python
   s = "Python syntax highlighting"
   print s
   \`\`\`
@@ -85,6 +91,17 @@ class CreatePostComponent {
   \`\`\`
   No language indicated, so no syntax highlighting.
   But let's throw in a <b>tag</b>.
+  \`\`\`
+  `)
+  markdown2 = signal(`
+  \`\`\`javascript
+  var s = "JavaScript syntax highlighting";
+
+  function alert(s) {
+    window.alert(s);
+  }
+
+  alert(s);
   \`\`\`
   `)
   get tags(): FormControl {

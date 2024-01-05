@@ -31,6 +31,7 @@
     "@ngrx/store-devtools": "^17.0.0",
     "@tailwindcss/typography": "^0.5.10",
     "clipboard": "^2.0.11",
+    "emoji-toolkit": "^8.0.0",
     "marked": "^9.1.6",
     "material-icons": "^1.13.12",
     "ngx-cookie-service": "^17.0.0",

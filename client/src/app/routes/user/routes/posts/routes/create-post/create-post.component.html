@@ -45,8 +45,16 @@
     </ng-container>
   </app-textarea>
   <markdown
+    lineNumbers
+    emoji
     [data]="markdown()"
     class="prose lg:prose-xl dark:prose-invert"
+  ></markdown>
+  <markdown
+    clipboard
+    [data]="markdown2()"
+    class="prose lg:prose-xl dark:prose-invert"
+    [clipboardButtonTemplate]="buttonTemplate"
   ></markdown>
   <div class="w-full flex justify-between items-center">
     <app-button btnType="button" (click)="clear()" class="rounded outline sm">
@@ -70,3 +78,6 @@
     </app-button>
   </div>
 </form>
+<ng-template #buttonTemplate>
+  <button class="text-white">Copy</button>
+</ng-template>
