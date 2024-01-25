@@ -44,7 +44,21 @@
       </span>
     </ng-container>
   </app-textarea>
-  <div class="w-full flex justify-between items-center">
+  <markdown
+    lineNumbers
+    emoji
+    katex
+    mermaid
+    [data]="markdown()"
+    class="prose lg:prose-xl dark:prose-invert"
+  ></markdown>
+  <markdown
+    clipboard
+    [data]="markdown2()"
+    class="prose lg:prose-xl dark:prose-invert"
+    [clipboardButtonTemplate]="buttonTemplate"
+  ></markdown>
+  <div class="w-full flex justify-between items-center py-1">
     <app-button btnType="button" (click)="clear()" class="rounded outline sm">
       <ng-container ngProjectAs="btn-name"
         ><span class="text-sm">Clear</span></ng-container
@@ -66,3 +80,6 @@
     </app-button>
   </div>
 </form>
+<ng-template #buttonTemplate>
+  <button class="text-white">Copy</button>
+</ng-template>

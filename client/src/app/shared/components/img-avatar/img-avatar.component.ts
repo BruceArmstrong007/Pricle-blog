@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, input } from '@angular/core';
 import ImageComponent from '../image/image.component';
 
 @Component({
@@ -9,7 +9,7 @@ import ImageComponent from '../image/image.component';
     <div class="relative">
       <app-image
         class="cursor rounded-full size"
-        [imgSrc]="url"
+        [imgSrc]="url()"
         [brokenImage]="'person'"
       />
       <span class="signal rounded-xl w-3 h-3 absolute bottom-0 right-0"></span>
@@ -95,7 +95,7 @@ import ImageComponent from '../image/image.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class ImgAvatarComponent {
-  @Input() url: string | null | undefined;
+  url = input<string | null>(null);
 }
 
 export default ImgAvatarComponent;

@@ -1,6 +1,6 @@
 <div class="flex justify-between items-center w-full px-2 sm:px-8 py-2">
   <a
-    [routerLink]="isUser ? Routes().User.Dashboard.Root : Routes().Home"
+    [routerLink]="isUser() ? Routes().User.Dashboard.Root : Routes().Home"
     class="no-underline"
   >
     <div class="flex gap-2 justify-evenly items-center">

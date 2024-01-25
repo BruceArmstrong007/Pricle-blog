@@ -4,6 +4,7 @@ import {
   Component,
   Input,
   inject,
+  input,
 } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import CardComponent from '../card/card.component';
@@ -52,10 +53,10 @@ import { ModeService } from '../../services/mode/mode.service';
 class PopupMenuComponent {
   @Input('isOpen') isOpen: boolean = false;
   darkMode = inject(ModeService).darkMode;
-  @Input('disableClose') disableClose = false;
+  disableClose =  input<boolean>(false);
 
   close() {
-    if (this.disableClose) return;
+    if (this.disableClose()) return;
     this.isOpen = false;
   }
 }

@@ -1,5 +1,5 @@
 import { ApplicationConfig, isDevMode } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { provideServiceWorker } from '@angular/service-worker';
@@ -15,12 +15,13 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { alertFeature } from './stores/alert/alert.reducer';
 import { provideEffects } from '@ngrx/effects';
 import * as alertEffect from './stores/alert/alert.effect';
+import { MARKED_OPTIONS, provideMarkdown } from 'ngx-markdown';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
@@ -35,6 +36,16 @@ export const appConfig: ApplicationConfig = {
     provideEffects([alertEffect]),
     provideRouterStore({ serializer: CustomRouterStateSerializer }),
     provideAnimations(),
+    provideMarkdown({
+      markedOptions: {
+        provide: MARKED_OPTIONS,
+        useValue: {
+          gfm: true,
+          breaks: false,
+          pedantic: false,
+        },
+      },
+    }),
     isDevMode()
       ? provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
       : [],

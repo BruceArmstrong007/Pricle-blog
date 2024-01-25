@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-tags',
@@ -14,7 +14,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class TagsComponent {
-  @Input({ required: true }) tags?: any[];
-  @Input() isLoading?: boolean;
+  tags = input.required<any[]>();
+  isLoading = input<boolean>()
 }
 export default TagsComponent;

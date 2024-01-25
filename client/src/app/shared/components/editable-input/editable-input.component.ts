@@ -1,5 +1,5 @@
 import { NgIf, NgSwitch } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, input } from '@angular/core';
 import { ReactiveFormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import ValidationErrorsComponent from '../validation-errors/validation-errors.component';
 import { ControlValueAccessorDirective } from '../../directives/control-value-accessor/control-value-accessor.directive';
@@ -23,8 +23,8 @@ type InputType = 'text' | 'number' | 'email' | 'password';
   ]
 })
 export class EditableInputComponent<T> extends ControlValueAccessorDirective<T>  {
-  @Input() inputID!: string;
-  @Input() label!: string;
-  @Input({required: true}) type!: InputType;
-  @Input() customErrorMessages!: Record<string, string>;
+  inputID = input<string>();
+  label = input<string>();
+  type = input.required<InputType>();
+  customErrorMessages = input<Record<string, string>>();
 }

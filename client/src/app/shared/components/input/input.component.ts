@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input,
   forwardRef,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
@@ -27,11 +27,11 @@ type InputType = 'text' | 'number' | 'email' | 'password' | 'search';
   ],
 })
 class InputComponent<T> extends ControlValueAccessorDirective<T> {
-  @Input() inputID!: string;
-  @Input() label!: string;
-  @Input({required: true}) type!: InputType;
-  @Input() customErrorMessages!: Record<string, string>;
-  @Input() placeHolder: string = '';
+  inputID = input<string>();
+  label = input<string>();
+  type = input.required<InputType>();
+  customErrorMessages = input<Record<string, string>>();
+  placeHolder = input<string>('');
 }
 
 export default InputComponent;

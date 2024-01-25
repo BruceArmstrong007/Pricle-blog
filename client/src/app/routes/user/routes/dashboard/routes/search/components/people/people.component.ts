@@ -4,9 +4,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   Output,
   inject,
+  input,
 } from '@angular/core';
 import { User } from '../../../../../../../../stores/user/user.model';
 import ButtonComponent from '../../../../../../../../shared/components/button/button.component';
@@ -34,19 +34,19 @@ import { CheckUserByIDPipe } from '../../pipes/check-user-by-id.pipe';
   ],
   template: `
     <div class="flex flex-col gap-4 h-full">
-      @if(isLoading && !clickedID){ @for (item of [1,2,3]; track $index) {
+      @if(isLoading() && !clickedID()){ @for (item of [1,2,3]; track $index) {
       <app-user-card />
-      } } @else { @for (user of people; track user._id) {
+      } } @else { @for (user of people(); track user._id) {
       <app-user-card [user]="user">
         <ng-container ngProjectAs="buttons">
           @if(! (sentRequestList() | checkUserByID:user._id)){
           <app-button
-            [disabled]="clickedID === user._id && isLoading"
+            [disabled]="clickedID() === user._id && isLoading()"
             class="rounded-full bg-green-600 text-white"
             (click)="clickEvent.emit({ id: user._id, type: 'request' })"
           >
             <ng-container ngProjectAs="btn-name">
-              @if(clickedID === user._id && isLoading) {
+              @if(clickedID() === user._id && isLoading()) {
               <loader />
               } @else {
               <i class="material-icons text-xs">person_add</i>
@@ -70,9 +70,9 @@ import { CheckUserByIDPipe } from '../../pipes/check-user-by-id.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class PeopleComponent {
-  @Input({ required: true }) people?: User[];
-  @Input() isLoading?: boolean;
-  @Input() clickedID?: string;
+  people = input.required<User[]>();
+  isLoading = input<boolean>();
+  clickedID = input<string>();
   @Output() clickEvent = new EventEmitter<ClickEvent>();
   private readonly store = inject(Store);
   readonly sentRequestList = this.store.selectSignal(

@@ -2,7 +2,7 @@ import { NgIf, NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input,
   signal,
 } from '@angular/core';
 
@@ -44,9 +44,9 @@ type BrokenImageType = 'image' | 'person';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class ImageComponent {
-  @Input({ required: true }) imgSrc: string | null | undefined;
+  imgSrc = input.required<string | null>();
   readonly state = signal('loading');
-  @Input() brokenImage: BrokenImageType = 'image';
+  brokenImage = input<BrokenImageType>('image');
 
   onError() {
     this.state.update(() => 'error');
