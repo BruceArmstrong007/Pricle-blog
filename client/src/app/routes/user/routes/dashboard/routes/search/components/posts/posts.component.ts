@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgFor } from '@angular/common';
 
 @Component({
@@ -14,7 +14,7 @@ import { NgFor } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class PostsComponent {
-  @Input({ required: true }) tags?: any[];
-  @Input() isLoading?: boolean;
+  tags = input.required<any[]>();
+  isLoading = input<boolean>()
 }
 export default PostsComponent;

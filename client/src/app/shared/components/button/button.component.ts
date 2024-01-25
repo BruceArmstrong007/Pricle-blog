@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 type Buttontype = 'submit' | 'button';
 @Component({
@@ -6,7 +6,7 @@ type Buttontype = 'submit' | 'button';
   standalone: true,
   imports: [],
   template: `
-    <button [type]="btnType" [disabled]="disabled" class="hover:animate-pulse flex justify-evenly items-center gap-1 p-2">
+    <button [type]="btnType()" [disabled]="disabled()" class="hover:animate-pulse flex justify-evenly items-center gap-1 p-2">
       <ng-content select="btn-prefix"></ng-content>
       <ng-content select="btn-name"></ng-content>
       <ng-content select="btn-suffix"></ng-content>
@@ -16,8 +16,8 @@ type Buttontype = 'submit' | 'button';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class ButtonComponent {
-  @Input() btnType!: Buttontype;
-  @Input() disabled: boolean | undefined;
+ btnType = input<Buttontype>();
+ disabled = input<boolean>();
 
 }
 

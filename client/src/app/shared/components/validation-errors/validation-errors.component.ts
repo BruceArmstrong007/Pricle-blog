@@ -4,6 +4,7 @@ import {
   Input,
   OnChanges,
   WritableSignal,
+  input,
   signal,
 } from '@angular/core';
 import { NgFor, KeyValuePipe } from '@angular/common';
@@ -24,8 +25,8 @@ import { ValidationErrors } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class ValidationErrorsComponent implements OnChanges {
-  @Input() customErrorMessages!: Record<string, string>;
-  @Input() validationErrors!: ValidationErrors | null;
+  customErrorMessages = input<Record<string, string>>();
+  validationErrors = input<ValidationErrors | null>(null);
   errors: WritableSignal<any[]> = signal([]);
 
   ngOnInit(): void {
@@ -38,34 +39,34 @@ class ValidationErrorsComponent implements OnChanges {
 
   transformValidation() {
     this.errors.update(() => {
-      if (this.validationErrors === null) return [];
-      return Object.entries(this.validationErrors).map((error) => {
+      if (this.validationErrors() === null) return [];
+      return Object.entries(this.validationErrors() as ValidationErrors).map((error) => {
         let key = error[0],
           value = error[1],
-          customErrorValue = this.customErrorMessages?.[key];
+          customErrorValue = this.customErrorMessages()?.[key];
         switch (key) {
           case 'minlength':
             return (
               customErrorValue ??
-              `This field should have atleast ${value.requiredLength} characters.`
+              `This field should have atleast ${value?.requiredLength} characters.`
             );
             break;
           case 'maxlength':
             return (
               customErrorValue ??
-              `This field should not exceed ${value.requiredLength} characters.`
+              `This field should not exceed ${value?.requiredLength} characters.`
             );
             break;
           case 'min':
             return (
               customErrorValue ??
-              `This field should atleast have ${value.requiredLength} digits.`
+              `This field should atleast have ${value?.requiredLength} digits.`
             );
             break;
           case 'max':
             return (
               customErrorValue ??
-              `This field should not exceed ${value.requiredLength} digits.`
+              `This field should not exceed ${value?.requiredLength} digits.`
             );
             break;
           case 'required':

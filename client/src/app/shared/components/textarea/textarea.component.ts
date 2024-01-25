@@ -2,11 +2,10 @@ import { NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input,
   forwardRef,
 } from '@angular/core';
 import { ReactiveFormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import InputComponent from '../input/input.component';
 import ValidationErrorsComponent from '../validation-errors/validation-errors.component';
 import { ControlValueAccessorDirective } from '../../directives/control-value-accessor/control-value-accessor.directive';
 
@@ -26,9 +25,9 @@ import { ControlValueAccessorDirective } from '../../directives/control-value-ac
   ],
 })
 class TextareaComponent<T> extends ControlValueAccessorDirective<T> {
-  @Input() inputID!: string;
-  @Input() label!: string;
-  @Input() customErrorMessages!: Record<string, string>;
-  @Input() placeHolder: string = '';
+  inputID = input<string>();
+  label= input<string>();
+  customErrorMessages = input<Record<string, string>>();
+  placeHolder= input<string>('');
 }
 export default TextareaComponent;

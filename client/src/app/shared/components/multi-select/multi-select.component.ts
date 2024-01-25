@@ -4,13 +4,13 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
   Output,
   Renderer2,
   ViewChild,
   WritableSignal,
   forwardRef,
   inject,
+  input,
   signal,
 } from '@angular/core';
 import { ReactiveFormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -57,12 +57,12 @@ export type options = 'typing' | 'enter';
 })
 export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
   private readonly renderer = inject(Renderer2);
-  @Input() customErrorMessages!: Record<string, string>;
-  @Input() label!: string;
-  @Input() inputID!: string;
-  @Input() placeHolder: string = '';
-  @Input() options: Record<string, string>[] = [];
-  @Input({ required: true }) labelValue!: labelValue;
+  customErrorMessages = input<Record<string, string>>();
+  label = input<string>();
+  inputID = input<string>();
+  placeHolder = input<string>('');
+  options = input<Record<string, string>[]>([]);
+  labelValue = input.required<labelValue>();
   @Output() searchEvent: EventEmitter<SearchEvent> = new EventEmitter();
   @ViewChild('sourceElt', { static: true })
   sourceElt: ElementRef<HTMLDivElement> | undefined;
@@ -93,7 +93,7 @@ export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
     if(!prevValue) return;
     if (
       prevValue.find(
-        (elt) => elt[this.labelValue.value] === item[this.labelValue.value]
+        (elt) => elt[this.labelValue().value] === item[this.labelValue().value]
       )
     )
       return;
@@ -103,7 +103,7 @@ export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
   removeItem(value: string) {
     let prevValue: any[] = this.control.value;
     const index = prevValue.findIndex(
-      (elt) => elt[this.labelValue.value] === value
+      (elt) => elt[this.labelValue().value] === value
     );
     if (index === -1) return;
     prevValue.splice(index, 1);

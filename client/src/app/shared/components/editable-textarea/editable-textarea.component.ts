@@ -2,7 +2,7 @@ import { NgIf, NgSwitch } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input,
   forwardRef,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
@@ -32,9 +32,9 @@ import { ControlValueAccessorDirective } from '../../directives/control-value-ac
   ],
 })
 class EditableTextareaComponent<T> extends ControlValueAccessorDirective<T> {
-  @Input() inputID!: string;
-  @Input() label!: string;
-  @Input() customErrorMessages!: Record<string, string>;
+  inputID = input<string>();
+  label = input<string>();
+  customErrorMessages = input<Record<string, string>>()
 }
 
 export default EditableTextareaComponent;
