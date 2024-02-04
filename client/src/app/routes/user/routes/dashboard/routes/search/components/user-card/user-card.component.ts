@@ -13,15 +13,15 @@ import { NgIf } from '@angular/common';
       <ng-container ngProjectAs="body">
         <div class="w-full flex justify-between items-center">
           <div class="flex gap-4">
-            <avatar class="pointer" [url]="user().profile?.url ?? ''" />
+            <avatar class="pointer" [url]="user()?.profile?.url ?? ''" />
             <section class="flex flex-col gap-1">
-              @if(user().name) {
-              <div class="text-xs">{{ user().name }}</div>
+              @if(user()?.name) {
+              <div class="text-xs">{{ user()?.name }}</div>
               } @else {
               <div class="text-xs w-52 h-4 animate:pulse rounded bg-slate-400"></div>
               }
-              @if(user().name) {
-                <div class="text-xs">{{ '@' + user().username }}</div>
+              @if(user()?.name) {
+                <div class="text-xs">{{ '@' + user()?.username }}</div>
               } @else {
                 <div class="text-xs w-36 h-4 animate:pulse rounded bg-slate-400"></div>
               }

@@ -53,12 +53,12 @@ interface MenuItems {
               <avatar
                 (click)="isOpen.set(!isOpen())"
                 class="pointer"
-                [url]="userProfile()?.url"
+                [url]="userProfile()?.url ?? null"
               />
             </ng-container>
             <ng-container ngProjectAs="popup-menu">
               <div class="w-46 flex flex-col justify-center items-center gap-3">
-                <avatar class="dxl" [url]="userProfile()?.url" />
+                <avatar class="dxl" [url]="userProfile()?.url ?? null" />
                 <section>
                   <span class="break-words text-xs">{{
                     userDetails()?.name

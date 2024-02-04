@@ -2,7 +2,7 @@
   <avatar
     (click)="profileClick()"
     class="pointer"
-    [url]="userProfile()?.url"
+    [url]="userProfile()?.url ?? null"
     class="ddxl pointer"
   />
   <div

@@ -36,47 +36,47 @@ import ImageComponent from '../image/image.component';
       display: block;
     }
   }
-  
+
   :host-context(.offline) {
     .signal {
       background-color: red;
       display: block;
     }
   }
-  
+
   .size {
     width: 2.5rem;
     height: 2.5rem;
   }
-  
+
   :host-context(.sm) {
     .size {
       width: 2rem;
       height: 2rem;
     }
   }
-  
+
   :host-context(.xs) {
     .size {
       width: 1.5rem;
       height: 1.5rem;
     }
   }
-  
+
   :host-context(.lg) {
     .size {
       width: 3rem;
       height: 3rem;
     }
   }
-  
+
   :host-context(.xl) {
     .size {
       width: 4rem;
       height: 4rem;
     }
   }
-  
+
   :host-context(.dxl) {
     .size {
       width: 5rem;
