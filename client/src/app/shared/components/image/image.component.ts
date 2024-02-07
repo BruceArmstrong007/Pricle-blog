@@ -23,7 +23,7 @@ type BrokenImageType = 'image' | 'person';
     />
     @if (state() === 'error') {
     <div class="inheritClass flex justify-center items-center bg-slate-500 text-white">
-      <i class="material-icons text-md">{{ brokenImage }}</i>
+      <i class="material-icons text-md">{{ brokenImage() }}</i>
     </div>
     } @else if (state() === 'loading') {
     <div
@@ -33,7 +33,7 @@ type BrokenImageType = 'image' | 'person';
     </div>
     }
   `,
-  styles: ` 
+  styles: `
   .inheritClass{
     border-radius: inherit;
     width: inherit;
