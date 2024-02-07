@@ -1,10 +1,10 @@
 <form
   [formGroup]="form"
   (ngSubmit)="submit()"
+  (keydown.enter)="$event.preventDefault()"
   class="w-full flex flex-col justify-center gap-4 px-6"
 >
   <app-multi-select
-    (click)="submit()"
     formControlName="tags"
     label="Tags"
     inputID="createTag-tags"
@@ -73,7 +73,7 @@
         @if(state.loading()) {
         <loader />
         } @else {
-        <span class="text-sm">Submit</span>
+        <span class="text-sm">Create Post</span>
 
         }
       </ng-container>
