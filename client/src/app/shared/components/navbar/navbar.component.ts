@@ -19,7 +19,13 @@ import ImageComponent from '../image/image.component';
   standalone: true,
   imports: [NgClass, RouterLink, NgOptimizedImage, ButtonComponent, ImageComponent],
   templateUrl: './navbar.component.html',
-  styles: '',
+  styles: `
+    .size {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class NavbarComponent {
@@ -27,6 +33,7 @@ class NavbarComponent {
   readonly Routes: Signal<RoutesInterface> = signal(ClientRoutes);
   readonly AppIcon: Signal<string> = signal(App.ICON);
   readonly mode = inject(ModeService);
+
 
 }
 
