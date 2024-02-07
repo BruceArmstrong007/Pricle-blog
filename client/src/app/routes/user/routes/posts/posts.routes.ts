@@ -12,10 +12,6 @@ const routes: Routes = [
           import('./routes/create-post/create-post.component'),
       },
       {
-        path: 'edit/:id',
-        loadComponent: () => import('./routes/edit-post/edit-post.component'),
-      },
-      {
         path: '**',
         pathMatch: 'full',
         redirectTo: ClientRoutes.User.Posts.Create,
