@@ -2,7 +2,8 @@
   <div class="flex flex-col justify-content-center align-items-center gap-4 p-4">
     <app-button
     (click)="optionEvent.emit('heading')"
-    class="rounded bg-blue-600 text-white sm"
+    data-tooltip="Heading"
+    class="rounded bg-blue-600 text-white sm tooltip"
   >
     <ng-container ngProjectAs="btn-name">
       <span class="text-sm"><i class="material-icons text-sm">title</i></span>
@@ -10,7 +11,8 @@
   </app-button>
   <app-button
   (click)="optionEvent.emit('paragraph')"
-  class="rounded bg-blue-600 text-white sm"
+  data-tooltip="Paragraph"
+  class="rounded bg-blue-600 text-white sm tooltip"
 >
   <ng-container ngProjectAs="btn-name">
     <span class="text-sm"><i class="material-icons text-sm">segment</i></span>
@@ -19,7 +21,8 @@
 
 <app-button
 (click)="optionEvent.emit('unordered_list')"
-class="rounded bg-blue-600 text-white sm"
+data-tooltip="Unordered List"
+class="rounded bg-blue-600 text-white sm tooltip"
 >
 <ng-container ngProjectAs="btn-name">
   <span class="text-sm"><i class="material-icons text-sm">format_list_bulleted</i></span>
@@ -28,7 +31,8 @@ class="rounded bg-blue-600 text-white sm"
 
 <app-button
 (click)="optionEvent.emit('ordered_list')"
-class="rounded bg-blue-600 text-white sm"
+data-tooltip="Ordered List"
+class="rounded bg-blue-600 text-white sm tooltip"
 >
 <ng-container ngProjectAs="btn-name">
   <span class="text-sm"><i class="material-icons text-sm">format_list_numbered</i></span>
@@ -36,17 +40,18 @@ class="rounded bg-blue-600 text-white sm"
 </app-button>
 
 <app-button
+data-tooltip="Divider"
 (click)="optionEvent.emit('divider')"
-class="rounded bg-blue-600 text-white sm"
+class="rounded bg-blue-600 text-white sm tooltip"
 >
 <ng-container ngProjectAs="btn-name">
   <span class="text-sm"><i class="material-icons text-sm">horizontal_rule</i></span>
 </ng-container>
 </app-button>
-
 <app-button
+data-tooltip="Code Block"
 (click)="optionEvent.emit('code_block')"
-class="rounded bg-blue-600 text-white sm"
+class="rounded bg-blue-600 text-white sm tooltip"
 >
 <ng-container ngProjectAs="btn-name">
   <span class="text-sm"><i class="material-icons text-sm">code</i></span>
@@ -54,8 +59,9 @@ class="rounded bg-blue-600 text-white sm"
 </app-button>
 
 <app-button
+data-tooltip="Table"
 (click)="optionEvent.emit('table')"
-class="rounded bg-blue-600 text-white sm"
+class="rounded bg-blue-600 text-white sm tooltip"
 >
 <ng-container ngProjectAs="btn-name">
   <span class="text-sm"><i class="material-icons text-sm">table_view</i></span>
@@ -63,8 +69,9 @@ class="rounded bg-blue-600 text-white sm"
 </app-button>
 
 <app-button
+data-tooltip="Task List"
 (click)="optionEvent.emit('task_list')"
-class="rounded bg-blue-600 text-white sm"
+class="rounded bg-blue-600 text-white sm tooltip"
 >
 <ng-container ngProjectAs="btn-name">
   <span class="text-sm"><i class="material-icons text-sm">playlist_add_check</i></span>
@@ -72,8 +79,9 @@ class="rounded bg-blue-600 text-white sm"
 </app-button>
 
 <app-button
+data-tooltip="Image"
 (click)="optionEvent.emit('image')"
-class="rounded bg-blue-600 text-white sm"
+class="rounded bg-blue-600 text-white sm tooltip"
 >
 <ng-container ngProjectAs="btn-name">
   <span class="text-sm"><i class="material-icons text-sm">image</i></span>
@@ -81,8 +89,9 @@ class="rounded bg-blue-600 text-white sm"
 </app-button>
 
   <app-button
+data-tooltip="Block Quote"
   (click)="optionEvent.emit('block_quote')"
-  class="rounded bg-blue-600 text-white sm"
+  class="rounded bg-blue-600 text-white sm tooltip"
   >
     <ng-container ngProjectAs="btn-name">
       <span class="text-sm"><i class="material-icons text-sm">format_quote</i></span>
