@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -21,6 +22,10 @@ import TextareaComponent from '../../../../../../shared/components/textarea/text
 import ButtonComponent from '../../../../../../shared/components/button/button.component';
 import LoaderComponent from '../../../../../../shared/components/loader/loader.component';
 import { MarkdownComponent } from 'ngx-markdown';
+import { Store } from '@ngrx/store';
+import { selectUrl } from '../../../../../../shared/router-store/router-selector';
+import CardComponent from '../../../../../../shared/components/card/card.component';
+import PostCreaterOptionsComponent from '../../component/post-creater-options/post-creater-options.component';
 
 @Component({
   selector: 'app-create-post',
@@ -28,18 +33,44 @@ import { MarkdownComponent } from 'ngx-markdown';
   imports: [
     MarkdownComponent,
     TextareaComponent,
+    CardComponent,
     InputComponent,
     MultiSelectComponent,
     ReactiveFormsModule,
     ButtonComponent,
     LoaderComponent,
+    PostCreaterOptionsComponent
+
   ],
   templateUrl: './create-post.component.html',
-  styles: ``,
+  styles: `
+.height {
+    height: calc(100dvh - 200px);
+  }
+
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CreatePostsStore],
 })
 class CreatePostComponent {
+  private readonly store = inject(Store);
+  readonly routePath = this.store.selectSignal(selectUrl);
+  readonly currentRoute = computed(() => {
+    let currentRoute;
+    let route = this.routePath().split('/').pop();
+    switch (route) {
+      case 'create':
+        currentRoute = 'Create Post';
+        break;
+      case 'edit':
+        currentRoute = 'Edit Post';
+        break;
+      default:
+        currentRoute = 'Create Post';
+        break;
+    }
+    return currentRoute;
+  });
   private readonly fb = inject(NonNullableFormBuilder);
   readonly state = inject(CreatePostsStore);
   readonly form: FormGroup = this.fb.group({
@@ -76,6 +107,10 @@ class CreatePostComponent {
   # Heading level 1
 
   1. First item
+  .height {
+  height: calc(100dvh - 200px);
+}
+
   2. Second item
 
   - First item

@@ -1,85 +1,103 @@
-<form
-  [formGroup]="form"
-  (ngSubmit)="submit()"
-  (keydown.enter)="$event.preventDefault()"
-  class="w-full flex flex-col justify-center gap-4 px-6"
->
-  <app-multi-select
-    formControlName="tags"
-    label="Tags"
-    inputID="createTag-tags"
-    (searchEvent)="searchTags($event)"
-    [labelValue]="{ value: '_id', label: 'name' }"
-    [options]="state.tags()"
-  >
-    <ng-container ngProjectAs="input-suffix">
-      <span class="cursor-pointer pl-2">
-        <i class="material-icons text-sm">tag</i>
-      </span>
+<div class="flex flex-col items-center w-full h-full gap-6 py-2">
+  <app-card class="block w-8/12">
+    <ng-container ngProjectAs="header">
+      <div class="w-full text-xl pt-4 font-bold">{{ currentRoute() }}</div>
     </ng-container>
-  </app-multi-select>
-  <app-input
-    inputID="createTag-title"
-    label="Title"
-    type="text"
-    formControlName="title"
-    placeHolder="Title for your post"
-  >
-    <ng-container ngProjectAs="input-suffix">
-      <span class="cursor-pointer pl-2">
-        <i class="material-icons text-sm">title</i>
-      </span>
-    </ng-container>
-  </app-input>
-  <app-textarea
-    inputID="createTag-description"
-    label="Description"
-    type="text"
-    formControlName="description"
-    placeHolder="A short description of your post"
-  >
-    <ng-container ngProjectAs="input-suffix">
-      <span class="cursor-pointer pl-2">
-        <i class="material-icons text-sm">description</i>
-      </span>
-    </ng-container>
-  </app-textarea>
-  <markdown
-    lineNumbers
-    emoji
-    katex
-    mermaid
-    [data]="markdown()"
-    class="prose lg:prose-xl dark:prose-invert"
-  ></markdown>
-  <markdown
-    clipboard
-    [data]="markdown2()"
-    class="prose lg:prose-xl dark:prose-invert"
-    [clipboardButtonTemplate]="buttonTemplate"
-  ></markdown>
-  <div class="w-full flex justify-between items-center py-1">
-    <app-button btnType="button" (click)="clear()" class="rounded outline sm">
-      <ng-container ngProjectAs="btn-name"
-        ><span class="text-sm">Clear</span></ng-container
-      >
-    </app-button>
-    <app-button
-      btnType="submit"
-      [disabled]="state.loading()"
-      class="rounded bg-green-600 text-white sm"
-    >
-      <ng-container ngProjectAs="btn-name">
-        @if(state.loading()) {
-        <loader />
-        } @else {
-        <span class="text-sm">Create Post</span>
+    <ng-container ngProjectAs="body">
+      <div class="w-full height px-5 overflow-auto">
+        <div class="w-full height px-5 overflow-auto">
+          <form
+            [formGroup]="form"
+            (ngSubmit)="submit()"
+            (keydown.enter)="$event.preventDefault()"
+            class="w-full flex flex-col justify-center gap-4 px-6"
+          >
+            <app-multi-select
+              formControlName="tags"
+              label="Tags"
+              inputID="createTag-tags"
+              (searchEvent)="searchTags($event)"
+              [labelValue]="{ value: '_id', label: 'name' }"
+              [options]="state.tags()"
+            >
+              <ng-container ngProjectAs="input-suffix">
+                <span class="cursor-pointer pl-2">
+                  <i class="material-icons text-sm">tag</i>
+                </span>
+              </ng-container>
+            </app-multi-select>
+            <app-input
+              inputID="createTag-title"
+              label="Title"
+              type="text"
+              formControlName="title"
+              placeHolder="Title for your post"
+            >
+              <ng-container ngProjectAs="input-suffix">
+                <span class="cursor-pointer pl-2">
+                  <i class="material-icons text-sm">title</i>
+                </span>
+              </ng-container>
+            </app-input>
+            <app-textarea
+              inputID="createTag-description"
+              label="Description"
+              type="text"
+              formControlName="description"
+              placeHolder="A short description of your post"
+            >
+              <ng-container ngProjectAs="input-suffix">
+                <span class="cursor-pointer pl-2">
+                  <i class="material-icons text-sm">description</i>
+                </span>
+              </ng-container>
+            </app-textarea>
+            <markdown
+              lineNumbers
+              emoji
+              katex
+              mermaid
+              [data]="markdown()"
+              class="prose lg:prose-xl dark:prose-invert"
+            ></markdown>
+            <markdown
+              clipboard
+              [data]="markdown2()"
+              class="prose lg:prose-xl dark:prose-invert"
+              [clipboardButtonTemplate]="buttonTemplate"
+            ></markdown>
+            <div class="w-full flex justify-between items-center py-1">
+              <app-button
+                btnType="button"
+                (click)="clear()"
+                class="rounded outline sm"
+              >
+                <ng-container ngProjectAs="btn-name"
+                  ><span class="text-sm">Clear</span></ng-container
+                >
+              </app-button>
+              <app-button
+                btnType="submit"
+                [disabled]="state.loading()"
+                class="rounded bg-green-600 text-white sm"
+              >
+                <ng-container ngProjectAs="btn-name">
+                  @if(state.loading()) {
+                  <loader />
+                  } @else {
+                  <span class="text-sm">Create Post</span>
 
-        }
-      </ng-container>
-    </app-button>
-  </div>
-</form>
+                  }
+                </ng-container>
+              </app-button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-container>
+  </app-card>
+</div>
+<app-post-creater-options />
 <ng-template #buttonTemplate>
   <button class="text-white">Copy</button>
 </ng-template>

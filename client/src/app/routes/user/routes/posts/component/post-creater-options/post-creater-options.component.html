@@ -1,0 +1,92 @@
+<div class="absolute right-0 top-0 flex justify-end items-center h-full w-32">
+  <div class="flex flex-col justify-content-center align-items-center gap-4 p-4">
+    <app-button
+    (click)="optionEvent.emit('heading')"
+    class="rounded bg-blue-600 text-white sm"
+  >
+    <ng-container ngProjectAs="btn-name">
+      <span class="text-sm"><i class="material-icons text-sm">title</i></span>
+    </ng-container>
+  </app-button>
+  <app-button
+  (click)="optionEvent.emit('paragraph')"
+  class="rounded bg-blue-600 text-white sm"
+>
+  <ng-container ngProjectAs="btn-name">
+    <span class="text-sm"><i class="material-icons text-sm">segment</i></span>
+  </ng-container>
+</app-button>
+
+<app-button
+(click)="optionEvent.emit('unordered_list')"
+class="rounded bg-blue-600 text-white sm"
+>
+<ng-container ngProjectAs="btn-name">
+  <span class="text-sm"><i class="material-icons text-sm">format_list_bulleted</i></span>
+</ng-container>
+</app-button>
+
+<app-button
+(click)="optionEvent.emit('ordered_list')"
+class="rounded bg-blue-600 text-white sm"
+>
+<ng-container ngProjectAs="btn-name">
+  <span class="text-sm"><i class="material-icons text-sm">format_list_numbered</i></span>
+</ng-container>
+</app-button>
+
+<app-button
+(click)="optionEvent.emit('divider')"
+class="rounded bg-blue-600 text-white sm"
+>
+<ng-container ngProjectAs="btn-name">
+  <span class="text-sm"><i class="material-icons text-sm">horizontal_rule</i></span>
+</ng-container>
+</app-button>
+
+<app-button
+(click)="optionEvent.emit('code_block')"
+class="rounded bg-blue-600 text-white sm"
+>
+<ng-container ngProjectAs="btn-name">
+  <span class="text-sm"><i class="material-icons text-sm">code</i></span>
+</ng-container>
+</app-button>
+
+<app-button
+(click)="optionEvent.emit('table')"
+class="rounded bg-blue-600 text-white sm"
+>
+<ng-container ngProjectAs="btn-name">
+  <span class="text-sm"><i class="material-icons text-sm">table_view</i></span>
+</ng-container>
+</app-button>
+
+<app-button
+(click)="optionEvent.emit('task_list')"
+class="rounded bg-blue-600 text-white sm"
+>
+<ng-container ngProjectAs="btn-name">
+  <span class="text-sm"><i class="material-icons text-sm">playlist_add_check</i></span>
+</ng-container>
+</app-button>
+
+<app-button
+(click)="optionEvent.emit('image')"
+class="rounded bg-blue-600 text-white sm"
+>
+<ng-container ngProjectAs="btn-name">
+  <span class="text-sm"><i class="material-icons text-sm">image</i></span>
+</ng-container>
+</app-button>
+
+  <app-button
+  (click)="optionEvent.emit('block_quote')"
+  class="rounded bg-blue-600 text-white sm"
+  >
+    <ng-container ngProjectAs="btn-name">
+      <span class="text-sm"><i class="material-icons text-sm">format_quote</i></span>
+    </ng-container>
+  </app-button>
+  </div>
+</div>
