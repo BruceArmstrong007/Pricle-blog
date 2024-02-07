@@ -138,7 +138,7 @@ X$_2$$_2$$_2$$_2$$_2$
   s = "Python syntax highlighting"
   print s
   \`\`\`
-  
+
   \`\`\`
   No language indicated, so no syntax highlighting.
   But let's throw in a <b>tag</b>.
@@ -164,6 +164,9 @@ X$_2$$_2$$_2$$_2$$_2$
   }
 
   searchTags(key: SearchEvent) {
+    console.log(key.value);
+
+    if(!key.value) {this.state.clearTags('clear'); return;}
     switch (key.type) {
       case 'enter':
         this.state.createTag({ name: key.value });

@@ -103,6 +103,11 @@ export const CreatePostsStore = signalStore(
           )
         )
       ),
+      clearTags: rxMethod<string>((c$) => c$.pipe(
+        tap(() => {
+          patchState(state, { tags: [] });
+        }),
+      )),
       createPosts: rxMethod<ContactPayload>((c$) =>
         c$.pipe(
           tap(() => {
