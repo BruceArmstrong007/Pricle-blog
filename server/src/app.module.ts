@@ -17,6 +17,7 @@ import { PostsModule } from './posts/posts.module';
       isGlobal: true,
       envFilePath: '.env',
       validationSchema: Joi.object({
+        PORT: Joi.string().required(),
         CLIENT_URI1: Joi.string().required(),
         CLIENT_URI2: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
