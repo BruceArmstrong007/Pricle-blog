@@ -90,7 +90,7 @@ export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
 
   selectItem(item: Record<string, string>) {
     let prevValue: any[] = this.control.value;
-    if(!prevValue) return;
+    if (!prevValue) return;
     if (
       prevValue.find(
         (elt) => elt[this.labelValue().value] === item[this.labelValue().value]
@@ -110,11 +110,10 @@ export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
     this.control.patchValue([...prevValue]);
   }
 
-
   outOfFocus() {
     setTimeout(() => {
-      this.isOpen.set(false)
-    },300)
+      this.isOpen.set(false);
+    }, 300);
   }
 
   searchValues(event: any) {
@@ -129,6 +128,7 @@ export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
     ) {
       this.isOpen.set(false);
     } else {
+      this.isOpen.set(true);
       this.searchEvent.emit({ value: event?.target?.value, type: 'typing' });
     }
   }

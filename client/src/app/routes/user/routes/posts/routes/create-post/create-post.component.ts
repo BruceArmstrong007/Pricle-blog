@@ -164,8 +164,6 @@ X$_2$$_2$$_2$$_2$$_2$
   }
 
   searchTags(key: SearchEvent) {
-    console.log(key.value);
-
     if(!key.value) {this.state.clearTags('clear'); return;}
     switch (key.type) {
       case 'enter':
