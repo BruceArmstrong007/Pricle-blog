@@ -16,7 +16,7 @@ type BrokenImageType = 'image' | 'person';
     <img
       class="cursor-default inheritClass"
       [ngClass]="{ hidden: state() != 'loaded' }"
-      [src]="imgSrc"
+      [src]="imgSrc()"
       fill
       (error)="onError()"
       (load)="onLoad()"
