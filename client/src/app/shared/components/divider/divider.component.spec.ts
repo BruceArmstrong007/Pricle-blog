@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DividerComponent } from './divider.component';
+import DividerComponent from './divider.component';
 
 describe('DividerComponent', () => {
   let component: DividerComponent;
@@ -11,7 +11,7 @@ describe('DividerComponent', () => {
       imports: [DividerComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(DividerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
