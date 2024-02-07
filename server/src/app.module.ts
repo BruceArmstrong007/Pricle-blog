@@ -19,6 +19,7 @@ import { PostsModule } from './posts/posts.module';
       validationSchema: Joi.object({
         CLIENT_URI1: Joi.string().required(),
         CLIENT_URI2: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION: Joi.string().required(),
         MAIL_SERVICE: Joi.string().required(),
         MAIL_HOST: Joi.string().required(),
@@ -26,7 +27,7 @@ import { PostsModule } from './posts/posts.module';
         MAIL_EMAIL: Joi.string().required(),
         MAIL_PASSWORD: Joi.string().required(),
         MAIL_FROM: Joi.string().required(),
-        VERFIY_TOKEN_TIME: Joi.string().required(),
+        VERIFY_TOKEN_TIME: Joi.string().required(),
         HASH_SALT: Joi.string().required(),
         COOKIE_EXPIRATION: Joi.string().required(),
         MONGODB_URI: Joi.string().required(),
