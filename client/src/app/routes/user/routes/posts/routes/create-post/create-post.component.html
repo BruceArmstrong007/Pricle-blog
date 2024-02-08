@@ -54,35 +54,46 @@
               </span>
             </ng-container>
           </app-textarea>
-          @for(field of builder.value; track field) { @switch(field.type) {
-          @case('Heading') {
-            <app-heading />
-          }
-          @case('BlockQuote') {
-            <app-block-quote />
-           }
-          @case('OrderedList') {
+          @for(field of builder.controls; track field) {
+          <div [formGroup]="field">
+            @switch(field.value.type) {
+              @case('Heading') {
+            <app-heading
+              [inputID]="'Heading-' + $index"
+              formControlName="content"
+              (deleteEvent)="deleteEvent($index)"
+            />
+            } @case('BlockQuote') {
+            <app-block-quote
+              [inputID]="'BlockQuote-' + $index"
+              formControlName="content"
+            />
+            } @case('FencedCodeBlock') {
+            <app-code-block
+              [inputID]="'FencedCodeBlock-' + $index"
+              formControlName="content"
+            />
+            } @case('Image') {
+            <app-image
+              [inputID]="'Image-' + $index"
+              formControlName="content"
+            />
+            } @case('Paragraph') {
+            <app-paragraph
+              [inputID]="'Paragraph-' + $index"
+              formControlName="content"
+            />
+            }@case('OrderedList') {
             <app-ordered-list />
-          }
-          @case('UnorderedList') {
+            } @case('UnorderedList') {
             <app-unordered-list />
-          }
-          @case('Table') {
+            } @case('Table') {
             <app-table />
-           }
-          @case('FencedCodeBlock') {
-            <app-code-block/>
+            } @case('TaskList') {
+            <app-task-list />
+            } }
+          </div>
           }
-          @case('TaskList') {
-            <app-task-list/>
-          }
-          @case('Image') {
-            <app-image />
-          }
-          @case('Paragraph') {
-            <app-paragraph/>
-           }
-        } }
 
           <!-- <markdown
             lineNumbers

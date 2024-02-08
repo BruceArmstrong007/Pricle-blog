@@ -259,7 +259,6 @@ class CreatePostComponent {
 
   addField(option: BlogPostFieldOptions) {
     this.builder.push(this.postCreaterOptionsService.generateField(option));
-    console.log(this.builder.value);
   }
 
   removeField(index: number) {
@@ -268,12 +267,17 @@ class CreatePostComponent {
     } else {
       this.builder.reset();
     }
-    console.log(this.builder.value);
 
   }
 
-  get builder(): FormArray {
+  get builder(): FormArray<FormGroup> {
     return this.form.controls['builder'] as FormArray;
+  }
+
+  deleteEvent(index: number) {
+    console.log(index);
+
+        this.removeField(index);
   }
 }
 

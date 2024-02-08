@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { BlogPostFieldOptions } from '../../../../../shared/utils/types';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -14,10 +13,13 @@ export class PostCreaterOptionsService {
     form.addControl('type', new FormControl(options));
     switch (options) {
       case 'OrderedList':
-      case 'TaskList':
       case 'UnorderedList':
         form.addControl('items', this.getItems());
         break;
+      case 'TaskList':
+        form.addControl('items', this.getItems());
+        form.addControl('selected', new FormControl());
+      break;
       case 'Table':
         form.addControl('items', this.getItems());
         form.addControl('rows', new FormControl());
@@ -26,6 +28,7 @@ export class PostCreaterOptionsService {
       case 'BlockQuote':
       case 'Heading':
       case 'Image':
+      case 'Paragraph':
       case 'FencedCodeBlock':
         form.addControl('content', this.getContent());
         break;
@@ -39,13 +42,6 @@ export class PostCreaterOptionsService {
     return new FormControl(value);
   }
 
-  getTaskList(value = '', selected = '') {
-    return new FormGroup({
-      selected: new FormControl(selected),
-      value: new FormControl(value),
-      extras: new FormArray([]),
-    });
-  }
 
   getItems() {
     return new FormArray([this.getContent()]);

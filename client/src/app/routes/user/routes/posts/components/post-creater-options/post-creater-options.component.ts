@@ -40,30 +40,6 @@ import { BlogPostFieldOptions } from '../../../../../../shared/utils/types';
       </app-button>
 
       <app-button
-        (click)="optionEvent.emit('UnorderedList')"
-        data-tooltip="Unordered List"
-        class="rounded bg-blue-600 text-white sm tooltip"
-      >
-        <ng-container ngProjectAs="btn-name">
-          <span class="text-sm"
-            ><i class="material-icons text-sm">format_list_bulleted</i></span
-          >
-        </ng-container>
-      </app-button>
-
-      <app-button
-        (click)="optionEvent.emit('OrderedList')"
-        data-tooltip="Ordered List"
-        class="rounded bg-blue-600 text-white sm tooltip"
-      >
-        <ng-container ngProjectAs="btn-name">
-          <span class="text-sm"
-            ><i class="material-icons text-sm">format_list_numbered</i></span
-          >
-        </ng-container>
-      </app-button>
-
-      <app-button
         data-tooltip="Code Block"
         (click)="optionEvent.emit('FencedCodeBlock')"
         class="rounded bg-blue-600 text-white sm tooltip"
@@ -71,30 +47,6 @@ import { BlogPostFieldOptions } from '../../../../../../shared/utils/types';
         <ng-container ngProjectAs="btn-name">
           <span class="text-sm"
             ><i class="material-icons text-sm">code</i></span
-          >
-        </ng-container>
-      </app-button>
-
-      <app-button
-        data-tooltip="Table"
-        (click)="optionEvent.emit('Table')"
-        class="rounded bg-blue-600 text-white sm tooltip"
-      >
-        <ng-container ngProjectAs="btn-name">
-          <span class="text-sm"
-            ><i class="material-icons text-sm">table_view</i></span
-          >
-        </ng-container>
-      </app-button>
-
-      <app-button
-        data-tooltip="Task List"
-        (click)="optionEvent.emit('TaskList')"
-        class="rounded bg-blue-600 text-white sm tooltip"
-      >
-        <ng-container ngProjectAs="btn-name">
-          <span class="text-sm"
-            ><i class="material-icons text-sm">playlist_add_check</i></span
           >
         </ng-container>
       </app-button>
@@ -122,6 +74,56 @@ import { BlogPostFieldOptions } from '../../../../../../shared/utils/types';
           >
         </ng-container>
       </app-button>
+
+
+      <app-button
+        data-tooltip="Table"
+        (click)="optionEvent.emit('Table')"
+        class="rounded bg-blue-600 text-white sm tooltip"
+      >
+        <ng-container ngProjectAs="btn-name">
+          <span class="text-sm"
+            ><i class="material-icons text-sm">table_view</i></span
+          >
+        </ng-container>
+      </app-button>
+
+      <app-button
+        data-tooltip="Task List"
+        (click)="optionEvent.emit('TaskList')"
+        class="rounded bg-blue-600 text-white sm tooltip"
+      >
+        <ng-container ngProjectAs="btn-name">
+          <span class="text-sm"
+            ><i class="material-icons text-sm">playlist_add_check</i></span
+          >
+        </ng-container>
+      </app-button>
+
+      <app-button
+        (click)="optionEvent.emit('UnorderedList')"
+        data-tooltip="Unordered List"
+        class="rounded bg-blue-600 text-white sm tooltip"
+      >
+        <ng-container ngProjectAs="btn-name">
+          <span class="text-sm"
+            ><i class="material-icons text-sm">format_list_bulleted</i></span
+          >
+        </ng-container>
+      </app-button>
+
+      <app-button
+        (click)="optionEvent.emit('OrderedList')"
+        data-tooltip="Ordered List"
+        class="rounded bg-blue-600 text-white sm tooltip"
+      >
+        <ng-container ngProjectAs="btn-name">
+          <span class="text-sm"
+            ><i class="material-icons text-sm">format_list_numbered</i></span
+          >
+        </ng-container>
+      </app-button>
+
 
       <app-button
         data-tooltip="Preview"

@@ -10,7 +10,7 @@
       [id]="inputID()"
       [formControl]="control"
     />
-    <ng-content select="input-suffix"></ng-content>
+    <i (click)="event.emit({action: 'close'})" class="material-icons px-2 cursor-pointer text-red-600 text-sm">delete</i>
   </div>
   <app-validation-errors
     [customErrorMessages]="customErrorMessages()"
