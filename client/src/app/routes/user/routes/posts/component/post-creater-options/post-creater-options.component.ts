@@ -16,6 +16,8 @@ export type createPostOption =
   | 'table'
   | 'task_list'
   | 'image'
+  | 'preview'
+  | 'publish'
   | 'block_quote';
 
 @Component({
@@ -28,7 +30,8 @@ export type createPostOption =
   .tooltip:hover::before {
       content: attr(data-tooltip);
       position: absolute;
-      left: -50%; /* Adjust this value based on your desired tooltip position */
+      z-index: 10;
+      top: 13%;
       background-color: #333;
       color: white;
       padding: 5px;

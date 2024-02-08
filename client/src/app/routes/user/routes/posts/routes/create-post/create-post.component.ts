@@ -45,7 +45,7 @@ import PostCreaterOptionsComponent from '../../component/post-creater-options/po
   templateUrl: './create-post.component.html',
   styles: `
 .height {
-    height: calc(100dvh - 200px);
+    height: calc(100dvh - 280px);
   }
 
   `,
