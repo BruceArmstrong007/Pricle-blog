@@ -3,9 +3,9 @@ import {
   Component,
   computed,
   inject,
-  signal,
 } from '@angular/core';
 import {
+  FormArray,
   FormControl,
   FormGroup,
   NonNullableFormBuilder,
@@ -25,12 +25,28 @@ import { MarkdownComponent } from 'ngx-markdown';
 import { Store } from '@ngrx/store';
 import { selectUrl } from '../../../../../../shared/router-store/router-selector';
 import CardComponent from '../../../../../../shared/components/card/card.component';
-import PostCreaterOptionsComponent from '../../component/post-creater-options/post-creater-options.component';
+import PostCreaterOptionsComponent from '../../components/post-creater-options/post-creater-options.component';
+import { NgFor, NgSwitch } from '@angular/common';
+import { PostCreaterOptionsService } from '../../services/post-creater-options.service';
+import { BlockQuoteComponent } from '../../components/block-quote/block-quote.component';
+import { CodeBlockComponent } from '../../components/code-block/code-block.component';
+import { ImageComponent } from '../../components/image/image.component';
+import { OrderedListComponent } from '../../components/ordered-list/ordered-list.component';
+import { ParagraphComponent } from '../../components/paragraph/paragraph.component';
+import { PreviewComponent } from '@ctrl/ngx-emoji-mart';
+import { TableComponent } from '../../components/table/table.component';
+import { TaskListComponent } from '../../components/task-list/task-list.component';
+import { UnorderedListComponent } from '../../components/unordered-list/unordered-list.component';
+import { BlogPostFieldOptions } from '../../../../../../shared/utils/types';
+import { HeadingComponent } from '../../components/heading/heading.component';
 
 @Component({
   selector: 'app-create-post',
   standalone: true,
   imports: [
+    NgSwitch,
+    NgFor,
+
     MarkdownComponent,
     TextareaComponent,
     CardComponent,
@@ -39,8 +55,18 @@ import PostCreaterOptionsComponent from '../../component/post-creater-options/po
     ReactiveFormsModule,
     ButtonComponent,
     LoaderComponent,
-    PostCreaterOptionsComponent
+    PostCreaterOptionsComponent,
 
+    BlockQuoteComponent,
+    CodeBlockComponent,
+    ImageComponent,
+    OrderedListComponent,
+    ParagraphComponent,
+    PreviewComponent,
+    TableComponent,
+    TaskListComponent,
+    HeadingComponent,
+    UnorderedListComponent,
   ],
   templateUrl: './create-post.component.html',
   styles: `
@@ -102,94 +128,96 @@ class CreatePostComponent {
         Validators.maxLength(2000),
       ]),
     ],
+    builder: new FormArray([]),
   });
-  markdown = signal(`
-  # Heading level 1
+  private readonly postCreaterOptionsService = inject(
+    PostCreaterOptionsService
+  );
 
-  1. First item
-  .height {
-  height: calc(100dvh - 200px);
-}
+  //   markdown = signal(`
+  //   # Heading level 1
 
-  2. Second item
+  //   1. First item
+  //   .height {
+  //   height: calc(100dvh - 200px);
+  // }
 
-  - First item
-  - Second item
+  //   2. Second item
 
-  ---
+  //   - First item
+  //   - Second item
 
-  [Duck Duck Go](https://duckduckgo.com).
+  //   ---
 
-  ![Pricle Image!](/assets/pricle/pricle-icon.png "Pricle Icon")
+  //   [Duck Duck Go](https://duckduckgo.com).
 
-  | Syntax      | Description |
-| ----------- | ----------- |
-| Header      | Title       |
-| Paragraph   | Text        |
+  //   ![Pricle Image!](/assets/pricle/pricle-icon.png "Pricle Icon")
 
+  //   | Syntax      | Description |
+  // | ----------- | ----------- |
+  // | Header      | Title       |
+  // | Paragraph   | Text        |
 
-- [x] Write the press release
-- [ ] Update the website
-- [ ] Contact the media
+  // - [x] Write the press release
+  // - [ ] Update the website
+  // - [ ] Contact the media
 
-First Term
-: This is the definition of the first term.
+  // First Term
+  // : This is the definition of the first term.
 
-Second Term
-: This is one definition of the second term.
-: This is another definition of the second term.
+  // Second Term
+  // : This is one definition of the second term.
+  // : This is another definition of the second term.
 
-$\sqrt{3x-1}+(1+x)^2$
+  // $\sqrt{3x-1}+(1+x)^2$
 
-X$^a$$^a$$^a$$^a$
+  // X$^a$$^a$$^a$$^a$
 
-X$_2$$_2$$_2$$_2$$_2$
+  // X$_2$$_2$$_2$$_2$$_2$
 
+  // \`\`\`mermaid
+  //   graph TD;
+  //       A-->B;
+  //       A-->C;
+  //       C-->B;
+  //       B-->D;
+  //       C-->D;
+  // \`\`\`
 
-\`\`\`mermaid
-  graph TD;
-      A-->B;
-      A-->C;
-      C-->B;
-      B-->D;
-      C-->D;
-\`\`\`
+  //   Inline \`code\` has \`back-ticks around\` it.
 
-  Inline \`code\` has \`back-ticks around\` it.
+  //   \`\`\`javascript
+  //   var s = "JavaScript syntax highlighting";
 
+  //   function alert(s) {
+  //     window.alert(s);
+  //   }
 
-  \`\`\`javascript
-  var s = "JavaScript syntax highlighting";
+  //   alert(s);.builder.controls
+  //   \`\`\`
 
-  function alert(s) {
-    window.alert(s);
-  }
+  //   \`\`\`Python
+  //   s = "Python syntax highlighting"
+  //   print s
+  //   \`\`\`
 
-  alert(s);
-  \`\`\`
+  //   \`\`\`
+  //   No language indicated, so no syntax highlighting.
+  //   But let's throw in a <b>tag</b>.
+  //   \`\`\`
+  //   `);
+  //   markdown2 = signal(`
+  //   \`\`\`javascript
+  //   var s = "JavaScript syntax highlighting";
 
+  //   function alert(s) {
+  //     window.alert(s);
+  //   }
 
-  \`\`\`Python
-  s = "Python syntax highlighting"
-  print s
-  \`\`\`
+  //   alert(s);
+  //   \`\`\`
+  //   `);
 
-  \`\`\`
-  No language indicated, so no syntax highlighting.
-  But let's throw in a <b>tag</b>.
-  \`\`\`
-  `);
-  markdown2 = signal(`
-  \`\`\`javascript
-  var s = "JavaScript syntax highlighting";
-
-  function alert(s) {
-    window.alert(s);
-  }
-
-  alert(s);
-  \`\`\`
-  `);
   get tags(): FormControl {
     return this.form.controls['tags'] as FormControl;
   }
@@ -199,7 +227,10 @@ X$_2$$_2$$_2$$_2$$_2$
   }
 
   searchTags(key: SearchEvent) {
-    if(!key.value) {this.state.clearTags('clear'); return;}
+    if (!key.value) {
+      this.state.clearTags('clear');
+      return;
+    }
     switch (key.type) {
       case 'enter':
         this.state.createTag({ name: key.value });
@@ -214,6 +245,35 @@ X$_2$$_2$$_2$$_2$$_2$
   clear() {
     this.form.reset();
     this.state.resetState();
+  }
+
+  postOptionsEvent(event: BlogPostFieldOptions | 'Preview' | 'Publish') {
+    if (event === 'Preview') {
+      return;
+    }
+    if (event === 'Publish') {
+      return;
+    }
+    this.addField(event);
+  }
+
+  addField(option: BlogPostFieldOptions) {
+    this.builder.push(this.postCreaterOptionsService.generateField(option));
+    console.log(this.builder.value);
+  }
+
+  removeField(index: number) {
+    if (this.builder.length > 1) {
+      this.builder.removeAt(index);
+    } else {
+      this.builder.reset();
+    }
+    console.log(this.builder.value);
+
+  }
+
+  get builder(): FormArray {
+    return this.form.controls['builder'] as FormArray;
   }
 }
 

@@ -3,7 +3,7 @@
     <ng-container ngProjectAs="header">
       <div class="w-full">
         <h1 class="text-3xl text-center p-4 font-bold">{{ currentRoute() }}</h1>
-        <app-post-creater-options />
+        <app-post-creater-options (optionEvent)="postOptionsEvent($event)" />
       </div>
     </ng-container>
     <ng-container ngProjectAs="body">
@@ -54,7 +54,37 @@
               </span>
             </ng-container>
           </app-textarea>
-          <markdown
+          @for(field of builder.value; track field) { @switch(field.type) {
+          @case('Heading') {
+            <app-heading />
+          }
+          @case('BlockQuote') {
+            <app-block-quote />
+           }
+          @case('OrderedList') {
+            <app-ordered-list />
+          }
+          @case('UnorderedList') {
+            <app-unordered-list />
+          }
+          @case('Table') {
+            <app-table />
+           }
+          @case('FencedCodeBlock') {
+            <app-code-block/>
+          }
+          @case('TaskList') {
+            <app-task-list/>
+          }
+          @case('Image') {
+            <app-image />
+          }
+          @case('Paragraph') {
+            <app-paragraph/>
+           }
+        } }
+
+          <!-- <markdown
             lineNumbers
             emoji
             katex
@@ -67,7 +97,8 @@
             [data]="markdown2()"
             class="prose lg:prose-xl dark:prose-invert"
             [clipboardButtonTemplate]="buttonTemplate"
-          ></markdown>
+          ></markdown> -->
+
           <div class="w-full flex justify-between items-center py-1">
             <app-button
               btnType="button"
