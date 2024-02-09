@@ -40,6 +40,12 @@ import { UnorderedListComponent } from '../../components/unordered-list/unordere
 import { BlogPostFieldOptions } from '../../../../../../shared/utils/types';
 import { HeadingComponent } from '../../components/heading/heading.component';
 
+export interface fieldEvent {
+  action: string
+}
+
+
+
 @Component({
   selector: 'app-create-post',
   standalone: true,
@@ -261,7 +267,18 @@ class CreatePostComponent {
     this.builder.push(this.postCreaterOptionsService.generateField(option));
   }
 
-  removeField(index: number) {
+  fieldEvent(event: any, index: number) {
+    switch(event.action) {
+      case 'delete':
+        this.deleteField(index);
+        break;
+      default:
+
+    }
+
+  }
+
+  deleteField(index: number) {
     if (this.builder.length > 1) {
       this.builder.removeAt(index);
     } else {
@@ -274,11 +291,6 @@ class CreatePostComponent {
     return this.form.controls['builder'] as FormArray;
   }
 
-  deleteEvent(index: number) {
-    console.log(index);
-
-        this.removeField(index);
-  }
 }
 
 export default CreatePostComponent;

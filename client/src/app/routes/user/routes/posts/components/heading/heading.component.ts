@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Output,
   forwardRef,
   input,
 } from '@angular/core';
@@ -31,6 +32,6 @@ import ValidationErrorsComponent from '../../../../../../shared/components/valid
 })
 export class HeadingComponent<T> extends ControlValueAccessorDirective<T> {
   inputID = input<string>();
-  deleteEvent = new EventEmitter();
+  @Output() event = new EventEmitter();
   customErrorMessages = input<Record<string, string>>();
 }

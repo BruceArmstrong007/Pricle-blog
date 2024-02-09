@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, forwardRef, input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { ControlValueAccessorDirective } from '../../../../../../shared/directives/control-value-accessor/control-value-accessor.directive';
 import ButtonComponent from '../../../../../../shared/components/button/button.component';
@@ -25,6 +25,6 @@ import ValidationErrorsComponent from '../../../../../../shared/components/valid
 })
 export class CodeBlockComponent<T> extends ControlValueAccessorDirective<T> {
   inputID = input<string>();
-  event = new EventEmitter();
+  @Output() event = new EventEmitter();
   customErrorMessages = input<Record<string, string>>();
 }

@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogPostFieldOptions } from '../../../../../shared/utils/types';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class PostCreaterOptionsService {
 
   generateField(options: BlogPostFieldOptions) {
     const form = this.fb.group({});
-    form.addControl('type', new FormControl(options));
+    form.addControl('type', new FormControl(options,[Validators.required]));
     switch (options) {
       case 'OrderedList':
       case 'UnorderedList':
@@ -18,12 +18,12 @@ export class PostCreaterOptionsService {
         break;
       case 'TaskList':
         form.addControl('items', this.getItems());
-        form.addControl('selected', new FormControl());
+        form.addControl('selected', new FormControl('',[Validators.required]));
       break;
       case 'Table':
         form.addControl('items', this.getItems());
-        form.addControl('rows', new FormControl());
-        form.addControl('columns', new FormControl());
+        form.addControl('rows', new FormControl('',[Validators.required]));
+        form.addControl('columns', new FormControl('',[Validators.required]));
         break;
       case 'BlockQuote':
       case 'Heading':
@@ -39,7 +39,7 @@ export class PostCreaterOptionsService {
   }
 
   getContent(value = '') {
-    return new FormControl(value);
+    return new FormControl(value,[Validators.required]);
   }
 
 

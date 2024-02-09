@@ -61,27 +61,31 @@
             <app-heading
               [inputID]="'Heading-' + $index"
               formControlName="content"
-              (deleteEvent)="deleteEvent($index)"
+              (event)="fieldEvent($event,$index)"
             />
             } @case('BlockQuote') {
             <app-block-quote
               [inputID]="'BlockQuote-' + $index"
               formControlName="content"
+              (event)="fieldEvent($event,$index)"
             />
             } @case('FencedCodeBlock') {
             <app-code-block
               [inputID]="'FencedCodeBlock-' + $index"
               formControlName="content"
+              (event)="fieldEvent($event,$index)"
             />
             } @case('Image') {
             <app-image
               [inputID]="'Image-' + $index"
               formControlName="content"
+              (event)="fieldEvent($event,$index)"
             />
             } @case('Paragraph') {
             <app-paragraph
               [inputID]="'Paragraph-' + $index"
               formControlName="content"
+              (event)="fieldEvent($event,$index)"
             />
             }@case('OrderedList') {
             <app-ordered-list />

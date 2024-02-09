@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, forwardRef, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, forwardRef, input } from '@angular/core';
 import { ReactiveFormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import ButtonComponent from '../../../../../../shared/components/button/button.component';
 import ValidationErrorsComponent from '../../../../../../shared/components/validation-errors/validation-errors.component';
@@ -27,5 +27,5 @@ import { HeadingComponent } from '../heading/heading.component';
 export class ImageComponent<T> extends ControlValueAccessorDirective<T> {
   inputID = input<string>();
   customErrorMessages = input<Record<string, string>>();
-  event = new EventEmitter();
+  @Output() event = new EventEmitter();
 }
