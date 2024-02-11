@@ -122,7 +122,9 @@
             } @case('TaskList') {
             <app-task-list />
             } @case('HorizontalRule') {
-            <app-horizontal-rule />
+            <app-horizontal-rule
+            (event)="fieldEvent($event, $index)"
+            />
             } }
           </div>
           }
