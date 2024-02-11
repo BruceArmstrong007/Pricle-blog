@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output, forwardRef, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output, ViewChild, forwardRef, input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { ControlValueAccessorDirective } from '../../../../../../shared/directives/control-value-accessor/control-value-accessor.directive';
 import ButtonComponent from '../../../../../../shared/components/button/button.component';
@@ -27,4 +27,13 @@ export class CodeBlockComponent<T> extends ControlValueAccessorDirective<T> {
   inputID = input<string>();
   @Output() event = new EventEmitter();
   customErrorMessages = input<Record<string, string>>();
+  @ViewChild('inputElt') inputField: ElementRef<HTMLTextAreaElement> | undefined;
+
+
+  enterKey(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.keyCode === 13 || event.which === 13) {
+      event.preventDefault();
+      this.control.patchValue(this.control.value + "\n \n")
+    }
+  }
 }

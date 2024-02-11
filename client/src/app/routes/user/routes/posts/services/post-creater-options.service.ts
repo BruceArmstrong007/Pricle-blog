@@ -21,7 +21,7 @@ export class PostCreaterOptionsService {
         form.addControl('selected', new FormControl('',[Validators.required]));
       break;
       case 'Table':
-        form.addControl('items', this.getItems());
+        form.addControl('items',  new FormControl([],[Validators.required]));
         form.addControl('rows', new FormControl('',[Validators.required]));
         form.addControl('columns', new FormControl('',[Validators.required]));
         break;

@@ -63,7 +63,7 @@ export class InputFormatOptionsComponent {
           this.setOptions(this.control.value,selectionStart,selectionEnd, '![Alternative Text][', ']');
           break;
         case 'Code':
-          this.setOptions(this.control.value,selectionStart,selectionEnd, '\`', '\`');
+          this.setOptions(this.control.value,selectionStart,selectionEnd, '`', '`');
           break;
         case 'Strikethrough':
           this.setOptions(this.control.value,selectionStart,selectionEnd, '~~', '~~');

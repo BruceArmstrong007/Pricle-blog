@@ -7,11 +7,16 @@
       [required]="isRequired"
       placeholder="Enter your Code block here"
       [id]="inputID()"
+      (keydown)="enterKey($event)"
       [formControl]="control"
     >
     </textarea>
-    <i (click)="event.emit({action: 'delete'})" class="material-icons px-2 cursor-pointer text-red-600 text-sm">delete</i>
-  </div>
+    <i
+    (click)="event.emit({ action: 'delete' })"
+    class="material-icons px-2 cursor-pointer text-red-600 text-sm"
+    >delete</i
+  >
+</div>
   <app-validation-errors
     [customErrorMessages]="customErrorMessages()"
     [validationErrors]="control.errors"

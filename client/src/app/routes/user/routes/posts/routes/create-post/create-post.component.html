@@ -12,7 +12,7 @@
           >
         </app-button>
         <h1 class="text-3xl p-4 font-bold">{{ currentRoute() }}</h1>
-        <div class="flex gap-4">
+        <div class="flex flex-col sm:flex-row gap-4">
           <app-button
             btnType="button"
             class="rounded bg-orange-600 text-white sm"
@@ -38,7 +38,7 @@
           </app-button>
         </div>
       </div>
-      <app-post-creater-options (optionEvent)="postOptionsEvent($event)" />
+      <app-post-creater-options class="w-full" (optionEvent)="postOptionsEvent($event)" />
     </ng-container>
     <ng-container ngProjectAs="body">
       <div class="w-full height px-5 overflow-auto">
@@ -88,56 +88,67 @@
             </ng-container>
           </app-textarea>
           @for(field of builder.controls; track field) {
+          @switch(field.value.type) { @case('Heading') {
           <div [formGroup]="field">
-            @switch(field.value.type) { @case('Heading') {
             <app-heading
               [inputID]="'Heading-' + $index"
               formControlName="content"
               (event)="fieldEvent($event, $index)"
             />
-            } @case('BlockQuote') {
+          </div>
+          } @case('BlockQuote') {
+          <div [formGroup]="field">
             <app-block-quote
               [inputID]="'BlockQuote-' + $index"
               formControlName="content"
               (event)="fieldEvent($event, $index)"
             />
-            } @case('FencedCodeBlock') {
+          </div>
+          } @case('FencedCodeBlock') {
+          <div [formGroup]="field">
             <app-code-block
               [inputID]="'FencedCodeBlock-' + $index"
               formControlName="content"
               (event)="fieldEvent($event, $index)"
             />
-            } @case('Paragraph') {
+          </div>
+          } @case('Paragraph') {
+          <div [formGroup]="field">
             <app-paragraph
               [inputID]="'Paragraph-' + $index"
               formControlName="content"
               (event)="fieldEvent($event, $index)"
             />
-            }@case('OrderedList') {
-            <app-ordered-list />
-            } @case('UnorderedList') {
-            <app-unordered-list />
-            } @case('Table') {
-            <app-table />
-            } @case('TaskList') {
-            <app-task-list />
-            } @case('HorizontalRule') {
-            <app-horizontal-rule
-            (event)="fieldEvent($event, $index)"
-            />
-            } }
           </div>
-          }
-
-          <!-- <markdown
-            lineNumbers
+          } @case('Table') {
+            <app-table
+              [formGroup]="field"
+              (event)="fieldEvent($event, $index)"
+            />
+          } @case('TaskList') {
+          <div [formGroup]="field">
+            <app-task-list />
+          </div>
+          } @case('OrderedList') {
+          <div [formGroup]="field">
+            <app-ordered-list />
+          </div>
+          } @case('UnorderedList') {
+          <div [formGroup]="field">
+            <app-unordered-list />
+          </div>
+          } @case('HorizontalRule') {
+          <div [formGroup]="field">
+            <app-horizontal-rule (event)="fieldEvent($event, $index)" />
+          </div>
+          } } }
+          <markdown
             emoji
-            katex
-            mermaid
-            [data]="markdown()"
+            [data]="val"
             class="prose lg:prose-xl dark:prose-invert"
           ></markdown>
-          <markdown
+
+          <!--   <markdown
             clipboard
             [data]="markdown2()"
             class="prose lg:prose-xl dark:prose-invert"

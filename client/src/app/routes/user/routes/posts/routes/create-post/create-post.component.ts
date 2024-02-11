@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   inject,
+  signal,
 } from '@angular/core';
 import {
   FormArray,
@@ -41,10 +42,8 @@ import { HeadingComponent } from '../../components/heading/heading.component';
 import { HorizontalRuleComponent } from '../../components/horizontal-rule/horizontal-rule.component';
 
 export interface fieldEvent {
-  action: string
+  action: string;
 }
-
-
 
 @Component({
   selector: 'app-create-post',
@@ -97,7 +96,8 @@ class CreatePostComponent {
       case 'edit':
         currentRoute = 'Edit Post';
         break;
-      default:'Enter'
+      default:
+        'Enter';
         currentRoute = 'Create Post';
         break;
     }
@@ -139,6 +139,8 @@ class CreatePostComponent {
   private readonly postCreaterOptionsService = inject(
     PostCreaterOptionsService
   );
+
+  val = '';
 
   //   markdown = signal(`
   //   # Heading level 1
@@ -229,7 +231,43 @@ class CreatePostComponent {
   }
 
   submit() {
-    console.log(this.form.value, this.tags);
+    const builder = this.form.value.builder;
+    let res = '';
+    console.log(`builder`);
+
+    builder.forEach((elt: any) => {
+      switch (elt.type) {
+        case 'BlockQuote':
+          let value = '> ' + elt.content;
+          value = value.replaceAll('\n\n', '\n\n > ');
+          value = value.substring(0, value.length - 2);
+          res += value;
+          break;
+        case 'Paragraph':
+          res += '\n\n' + elt.content + '\n\n';
+          break;
+        case 'Heading':
+          res += '# ' + elt.content;
+          break;
+        case 'HorizontalRule':
+          res += '\n --- \n';
+          break;
+        case 'FencedCodeBlock':
+          res += '\n```\n' + elt.content + '\n ``` \n';
+          break;
+        case 'Table':
+          res += this.createTable(elt.rows, elt.columns, elt.items);
+          break;
+        case 'TaskList':
+          break;
+        case 'OrderedList':
+          break;
+        case 'UnorderedList':
+          break;
+      }
+    });
+
+    this.val = res;
   }
 
   searchTags(key: SearchEvent) {
@@ -262,14 +300,12 @@ class CreatePostComponent {
   }
 
   fieldEvent(event: any, index: number) {
-    switch(event.action) {
+    switch (event.action) {
       case 'delete':
         this.deleteField(index);
         break;
       default:
-
     }
-
   }
 
   deleteField(index: number) {
@@ -278,13 +314,23 @@ class CreatePostComponent {
     } else {
       this.builder.reset();
     }
-
   }
 
   get builder(): FormArray<FormGroup> {
     return this.form.controls['builder'] as FormArray;
   }
 
+  createTable(rows: number, columns: number, items: string[]): string {
+    let res = '';
+    for (let j = 0; j < rows; j++) {
+      // columns
+      for (let i = 0; i < columns; i++) {
+        res += '| ' + items[] + '        ';
+      }
+      res += '| \n ';
+    }
+    return res;
+  }
 }
 
 export default CreatePostComponent;

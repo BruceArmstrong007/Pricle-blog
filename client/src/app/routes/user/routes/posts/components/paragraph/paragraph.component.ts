@@ -41,7 +41,7 @@ export class ParagraphComponent<T> extends ControlValueAccessorDirective<T> {
   enterKey(event: KeyboardEvent) {
     if (event.key === 'Enter' || event.keyCode === 13 || event.which === 13) {
       event.preventDefault();
-      this.control.patchValue(this.control.value + "\n")
+      this.control.patchValue(this.control.value + "\n \n")
     }
   }
 
