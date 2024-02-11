@@ -27,7 +27,6 @@ export class PostCreaterOptionsService {
         break;
       case 'BlockQuote':
       case 'Heading':
-      case 'Image':
       case 'Paragraph':
       case 'FencedCodeBlock':
         form.addControl('content', this.getContent());
