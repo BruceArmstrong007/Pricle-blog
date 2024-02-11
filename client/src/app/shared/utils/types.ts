@@ -28,5 +28,4 @@ export type BlogPostFieldOptions =
   | 'Table'
   | 'FencedCodeBlock'
   | 'TaskList'
-  | 'Image'
   | 'Paragraph';
