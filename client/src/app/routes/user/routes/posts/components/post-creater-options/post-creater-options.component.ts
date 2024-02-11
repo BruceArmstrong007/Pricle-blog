@@ -52,18 +52,6 @@ import { BlogPostFieldOptions } from '../../../../../../shared/utils/types';
       </app-button>
 
       <app-button
-        data-tooltip="Image"
-        (click)="optionEvent.emit('Image')"
-        class="rounded bg-blue-600 text-white sm tooltip"
-      >
-        <ng-container ngProjectAs="btn-name">
-          <span class="text-sm"
-            ><i class="material-icons text-sm">image</i></span
-          >
-        </ng-container>
-      </app-button>
-
-      <app-button
         data-tooltip="Block Quote"
         (click)="optionEvent.emit('BlockQuote')"
         class="rounded bg-blue-600 text-white sm tooltip"
@@ -123,31 +111,6 @@ import { BlogPostFieldOptions } from '../../../../../../shared/utils/types';
           >
         </ng-container>
       </app-button>
-
-
-      <app-button
-        data-tooltip="Preview"
-        (click)="optionEvent.emit('Preview')"
-        class="rounded bg-orange-600 text-white sm tooltip"
-      >
-        <ng-container ngProjectAs="btn-name">
-          <span class="text-sm"
-            ><i class="material-icons text-sm">preview</i></span
-          >
-        </ng-container>
-      </app-button>
-
-      <app-button
-        data-tooltip="Publish"
-        (click)="optionEvent.emit('Publish')"
-        class="rounded bg-green-600 text-white sm tooltip"
-      >
-        <ng-container ngProjectAs="btn-name">
-          <span class="text-sm"
-            ><i class="material-icons text-sm">save</i></span
-          > </ng-container
-        >block_quote
-      </app-button>
     </div>
   `,
   styles: `
@@ -168,6 +131,7 @@ import { BlogPostFieldOptions } from '../../../../../../shared/utils/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class PostCreaterOptionsComponent {
-  @Output() optionEvent = new EventEmitter<BlogPostFieldOptions | 'Preview' | 'Publish'>();
+  @Output() optionEvent = new EventEmitter<BlogPostFieldOptions>();
 }
 export default PostCreaterOptionsComponent;
+'Enter'
