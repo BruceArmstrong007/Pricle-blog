@@ -322,14 +322,38 @@ class CreatePostComponent {
 
   createTable(rows: number, columns: number, items: string[]): string {
     let res = '';
-    for (let j = 0; j < rows; j++) {
-      // columns
-      for (let i = 0; i < columns; i++) {
-        res += '| ' + items[] + '        ';
+    let transformedArr = this.transform2dArray(rows, columns, items);
+
+    for (let i = 0; i < transformedArr.length; i++) {
+      res += '\n ';
+      if (i === 0) {
+        for (let j = 0; j < transformedArr[i].length; j++) {
+          res += '**' + transformedArr[i][j] + '** | ';
+        }
+        res += '\n ';
+        for (let j = 0; j < transformedArr[i].length; j++) {
+          res += '---' + ' | ';
+        }
+        res += '\n ';
+      } else {
+        for (let j = 0; j < transformedArr[i].length; j++) {
+          res += transformedArr[i][j] + ' | ';
+        }
       }
-      res += '| \n ';
     }
     return res;
+  }
+
+  transform2dArray(rows: number, columns: number, items: string[]) {
+    let gfg: any[] = [];
+    let h = 0;
+    for (let i = 0; i < rows; i++) {
+      gfg[i] = [];
+      for (let j = 0; j < columns; j++) {
+        gfg[i][j] = items[h++];
+      }
+    }
+    return gfg;
   }
 }
 
