@@ -30,7 +30,6 @@ import { NgFor, NgSwitch } from '@angular/common';
 import { PostCreaterOptionsService } from '../../services/post-creater-options.service';
 import { BlockQuoteComponent } from '../../components/block-quote/block-quote.component';
 import { CodeBlockComponent } from '../../components/code-block/code-block.component';
-import { ImageComponent } from '../../components/image/image.component';
 import { OrderedListComponent } from '../../components/ordered-list/ordered-list.component';
 import { ParagraphComponent } from '../../components/paragraph/paragraph.component';
 import { PreviewComponent } from '@ctrl/ngx-emoji-mart';
@@ -65,7 +64,6 @@ export interface fieldEvent {
 
     BlockQuoteComponent,
     CodeBlockComponent,
-    ImageComponent,
     OrderedListComponent,
     ParagraphComponent,
     PreviewComponent,
@@ -97,7 +95,7 @@ class CreatePostComponent {
       case 'edit':
         currentRoute = 'Edit Post';
         break;
-      default:
+      default:'Enter'
         currentRoute = 'Create Post';
         break;
     }
@@ -253,13 +251,7 @@ class CreatePostComponent {
     this.state.resetState();
   }
 
-  postOptionsEvent(event: BlogPostFieldOptions | 'Preview' | 'Publish') {
-    if (event === 'Preview') {
-      return;
-    }
-    if (event === 'Publish') {
-      return;
-    }
+  postOptionsEvent(event: BlogPostFieldOptions) {
     this.addField(event);
   }
 

@@ -1,16 +1,49 @@
 <div class="flex flex-col items-center w-full h-full gap-6 py-2">
   <app-card class="block w-8/12">
     <ng-container ngProjectAs="header">
-      <div class="w-full">
-        <h1 class="text-3xl text-center p-4 font-bold">{{ currentRoute() }}</h1>
-        <app-post-creater-options (optionEvent)="postOptionsEvent($event)" />
+      <div class="w-full flex justify-between items-center">
+        <app-button
+          btnType="button"
+          (click)="clear()"
+          class="rounded outline sm"
+        >
+          <ng-container ngProjectAs="btn-name"
+            ><span class="text-sm">Reset</span></ng-container
+          >
+        </app-button>
+        <h1 class="text-3xl p-4 font-bold">{{ currentRoute() }}</h1>
+        <div class="flex gap-4">
+          <app-button
+            btnType="button"
+            class="rounded bg-orange-600 text-white sm"
+          >
+            <ng-container ngProjectAs="btn-name">
+              <span class="text-sm">Preview</span>
+            </ng-container>
+          </app-button>
+          <app-button
+            btnType="button"
+            (click)="submit()"
+            [disabled]="state.loading()"
+            class="rounded bg-green-600 text-white sm"
+          >
+            <ng-container ngProjectAs="btn-name">
+              @if(state.loading()) {
+              <loader />
+              } @else {
+              <span class="text-sm">Publish</span>
+
+              }
+            </ng-container>
+          </app-button>
+        </div>
       </div>
+      <app-post-creater-options (optionEvent)="postOptionsEvent($event)" />
     </ng-container>
     <ng-container ngProjectAs="body">
       <div class="w-full height px-5 overflow-auto">
         <form
           [formGroup]="form"
-          (ngSubmit)="submit()"
           (keydown.enter)="$event.preventDefault()"
           class="w-full flex flex-col justify-center gap-4 px-6"
         >
@@ -56,36 +89,29 @@
           </app-textarea>
           @for(field of builder.controls; track field) {
           <div [formGroup]="field">
-            @switch(field.value.type) {
-              @case('Heading') {
+            @switch(field.value.type) { @case('Heading') {
             <app-heading
               [inputID]="'Heading-' + $index"
               formControlName="content"
-              (event)="fieldEvent($event,$index)"
+              (event)="fieldEvent($event, $index)"
             />
             } @case('BlockQuote') {
             <app-block-quote
               [inputID]="'BlockQuote-' + $index"
               formControlName="content"
-              (event)="fieldEvent($event,$index)"
+              (event)="fieldEvent($event, $index)"
             />
             } @case('FencedCodeBlock') {
             <app-code-block
               [inputID]="'FencedCodeBlock-' + $index"
               formControlName="content"
-              (event)="fieldEvent($event,$index)"
-            />
-            } @case('Image') {
-            <app-image
-              [inputID]="'Image-' + $index"
-              formControlName="content"
-              (event)="fieldEvent($event,$index)"
+              (event)="fieldEvent($event, $index)"
             />
             } @case('Paragraph') {
             <app-paragraph
               [inputID]="'Paragraph-' + $index"
               formControlName="content"
-              (event)="fieldEvent($event,$index)"
+              (event)="fieldEvent($event, $index)"
             />
             }@case('OrderedList') {
             <app-ordered-list />
@@ -113,32 +139,6 @@
             class="prose lg:prose-xl dark:prose-invert"
             [clipboardButtonTemplate]="buttonTemplate"
           ></markdown> -->
-
-          <div class="w-full flex justify-between items-center py-1">
-            <app-button
-              btnType="button"
-              (click)="clear()"
-              class="rounded outline sm"
-            >
-              <ng-container ngProjectAs="btn-name"
-                ><span class="text-sm">Clear</span></ng-container
-              >
-            </app-button>
-            <app-button
-              btnType="submit"
-              [disabled]="state.loading()"
-              class="rounded bg-green-600 text-white sm"
-            >
-              <ng-container ngProjectAs="btn-name">
-                @if(state.loading()) {
-                <loader />
-                } @else {
-                <span class="text-sm">Create Post</span>
-
-                }
-              </ng-container>
-            </app-button>
-          </div>
         </form>
       </div>
     </ng-container>
