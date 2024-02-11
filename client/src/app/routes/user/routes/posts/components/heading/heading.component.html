@@ -1,0 +1,20 @@
+<div class="flex flex-col gap-1">
+  <label [for]="inputID()">Heading</label>
+  <div class="flex justify-center items-center">
+    <input
+    #inputElt
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      type="text"
+      [required]="isRequired"
+      placeholder="Enter your Heading"
+      [id]="inputID()"
+      [formControl]="control"
+    />
+    <i (click)="event.emit({action: 'delete'})" class="material-icons px-2 cursor-pointer text-red-600 text-sm">delete</i>
+  </div>
+  <app-input-format-options [inputElt]="inputField" [control]="control" />
+  <app-validation-errors
+    [customErrorMessages]="customErrorMessages()"
+    [validationErrors]="control.errors"
+  />
+</div>

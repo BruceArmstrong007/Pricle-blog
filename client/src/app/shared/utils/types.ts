@@ -19,3 +19,14 @@ export interface ContactCardItems {
   icon: string;
   backgroundColor?: string;
 }
+
+export type BlogPostFieldOptions =
+  | 'Heading'
+  | 'BlockQuote'
+  | 'OrderedList'
+  | 'UnorderedList'
+  | 'Table'
+  | 'FencedCodeBlock'
+  | 'TaskList'
+  | 'HorizontalRule'
+  | 'Paragraph';

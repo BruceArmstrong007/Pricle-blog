@@ -1,0 +1,45 @@
+<div class="flex w-full items-center gap-1">
+  <div class="grow-1 w-full flex flex-col gap-1">
+    <label>Table</label>
+    <div [formGroup]="formGroup" class="flex gap-1">
+      <div>
+        <label>Rows</label>
+          <input
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            type="number"
+            formControlName="rows"
+            placeholder="Enter rows"
+          />
+        </div>
+        <div>
+          <label>Columns</label>
+          <input
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            type="number"
+            formControlName="columns"
+            placeholder="Enter columns"
+          />
+        </div>
+        <div>
+          <label>Total</label>
+          <div class="text-center">{{this.formGroup.controls['rows'].value * this.formGroup.controls['columns'].value}}</div>
+        </div>
+    </div>
+
+    <div>
+      <label>Items</label>
+      <input
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        type="text"
+        placeholder="Enter items"
+        (change)="setItems($event)"
+      />
+      <sub>Enter your table items in the order of rows seperated by comas ','</sub>
+    </div>
+  </div>
+    <i
+      (click)="event.emit({ action: 'delete' })"
+      class="material-icons px-2 cursor-pointer text-red-600 text-sm"
+      >delete</i
+    >
+</div>
