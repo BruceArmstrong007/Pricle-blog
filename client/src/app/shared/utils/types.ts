@@ -28,4 +28,5 @@ export type BlogPostFieldOptions =
   | 'Table'
   | 'FencedCodeBlock'
   | 'TaskList'
+  | 'HorizontalRule'
   | 'Paragraph';

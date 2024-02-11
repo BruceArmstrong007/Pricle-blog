@@ -38,6 +38,7 @@ import { TaskListComponent } from '../../components/task-list/task-list.componen
 import { UnorderedListComponent } from '../../components/unordered-list/unordered-list.component';
 import { BlogPostFieldOptions } from '../../../../../../shared/utils/types';
 import { HeadingComponent } from '../../components/heading/heading.component';
+import { HorizontalRuleComponent } from '../../components/horizontal-rule/horizontal-rule.component';
 
 export interface fieldEvent {
   action: string
@@ -70,6 +71,7 @@ export interface fieldEvent {
     TableComponent,
     TaskListComponent,
     HeadingComponent,
+    HorizontalRuleComponent,
     UnorderedListComponent,
   ],
   templateUrl: './create-post.component.html',

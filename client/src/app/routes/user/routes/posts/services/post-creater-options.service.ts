@@ -31,13 +31,16 @@ export class PostCreaterOptionsService {
       case 'FencedCodeBlock':
         form.addControl('content', this.getContent());
         break;
+      case 'HorizontalRule':
+        form.addControl('content', this.getContent(true));
+        break;
       default:
         break;
     }
     return form;
   }
 
-  getContent(value = '') {
+  getContent(value: any = '') {
     return new FormControl(value,[Validators.required]);
   }
 

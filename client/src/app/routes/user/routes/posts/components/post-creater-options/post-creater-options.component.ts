@@ -38,7 +38,17 @@ import { BlogPostFieldOptions } from '../../../../../../shared/utils/types';
           >
         </ng-container>
       </app-button>
-
+      <app-button
+        (click)="optionEvent.emit('HorizontalRule')"
+        data-tooltip="Horizontal Rule"
+        class="rounded bg-blue-600 text-white sm tooltip"
+      >
+        <ng-container ngProjectAs="btn-name">
+          <span class="text-sm"
+            ><i class="material-icons text-sm">horizontal_rule</i></span
+          >
+        </ng-container>
+      </app-button>
       <app-button
         data-tooltip="Code Block"
         (click)="optionEvent.emit('FencedCodeBlock')"
