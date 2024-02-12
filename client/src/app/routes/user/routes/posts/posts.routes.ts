@@ -12,6 +12,11 @@ const routes: Routes = [
           import('./routes/create-post/create-post.component'),
       },
       {
+        path: 'preview',
+        loadComponent: () =>
+          import('./routes/preview/preview.component'),
+      },
+      {
         path: '**',
         pathMatch: 'full',
         redirectTo: ClientRoutes.User.Posts.Create,
