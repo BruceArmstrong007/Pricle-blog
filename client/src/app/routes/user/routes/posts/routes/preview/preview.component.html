@@ -1,0 +1,39 @@
+<div class="flex flex-col items-center w-full h-full gap-6 py-2">
+  <app-card class="block w-8/12">
+    <ng-container ngProjectAs="header">
+      <div class="flex flex-col p-5 w-full gap-2">
+        <div class="flex justify-between items-center">
+          <div class="flex gap-2 justify-start items-center">
+            <avatar class="pointer xl" [url]="userDetails()?.profile?.url ?? null" />
+            <div class="flex flex-col gap-1">
+              <span>{{ userDetails()?.name }}</span>
+              <sub>{{ userDetails()?.username }}</sub>
+            </div>
+          </div>
+          <div>{{date() | timenow:currentDate()}}</div>
+        </div>
+        <h1 class="text-5xl">{{ title() }}</h1>
+        <div class="flex flex-wrap items-center gap-2">
+          <div>Tags: </div>
+          @for (tag of tags(); track tag['_id']) {
+          <sub class="text-xs bg-blue-500 rounded-xl p-1">{{tag['name']}}</sub>
+          }
+        </div>
+      </div>
+    </ng-container>
+    <ng-container ngProjectAs="body">
+      <div class="flex flex-col w-full p-5 height overflow-auto">
+        <markdown
+          clipboard
+          [data]="markdown()"
+          class="prose lg:prose-xl dark:prose-invert"
+          [clipboardButtonTemplate]="buttonTemplate"
+        ></markdown>
+      </div>
+    </ng-container>
+  </app-card>
+</div>
+
+<ng-template #buttonTemplate>
+  <button class="text-white">Copy</button>
+</ng-template>

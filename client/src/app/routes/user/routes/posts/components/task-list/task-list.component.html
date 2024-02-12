@@ -50,3 +50,9 @@
     >delete</i
   >
 </div>
+
+@if(items.value.length === 0) {
+  <ul class="2-red-600 dark:text-red-400 list-disc pl-4">
+    <li class="break-words text-xs">This field is required.</li>
+  </ul>
+  }

@@ -26,8 +26,8 @@ export class PostCreaterOptionsService {
         break;
       case 'Table':
         form.addControl('items', new FormControl([], [Validators.required]));
-        form.addControl('rows', new FormControl('', [Validators.required]));
-        form.addControl('columns', new FormControl('', [Validators.required]));
+        form.addControl('rows', new FormControl(0, [Validators.required]));
+        form.addControl('columns', new FormControl(0, [Validators.required]));
         break;
       case 'BlockQuote':
       case 'Heading':
