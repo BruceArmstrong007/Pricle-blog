@@ -26,8 +26,9 @@ export class TaskListComponent {
 
   addItem() {
     const value = this.addInput.nativeElement.value;
+    if (!value) return;
     this.formGroup.patchValue({
-      items: [...this.formGroup.value.items, {value: value, checked: false}],
+      items: [...this.formGroup.value.items, { value: value, checked: false }],
     });
     this.addInput.nativeElement.value = '';
   }
@@ -47,10 +48,8 @@ export class TaskListComponent {
     let value = this.formGroup.value.items;
     value[index].checked = target.checked ? true : false;
     this.formGroup.patchValue({
-      items: [
-        ...value
-      ]
-    })
+      items: [...value],
+    });
   }
 
   enterKey(event: KeyboardEvent) {
@@ -59,5 +58,4 @@ export class TaskListComponent {
       this.addItem();
     }
   }
-
 }
