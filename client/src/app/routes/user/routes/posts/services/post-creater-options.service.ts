@@ -1,5 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { BlogPostFieldOptions } from '../../../../../shared/utils/types';
 
 @Injectable({
@@ -10,20 +15,20 @@ export class PostCreaterOptionsService {
 
   generateField(options: BlogPostFieldOptions) {
     const form = this.fb.group({});
-    form.addControl('type', new FormControl(options,[Validators.required]));
+    form.addControl('type', new FormControl(options, [Validators.required]));
     switch (options) {
       case 'OrderedList':
       case 'UnorderedList':
-        form.addControl('items', this.getItems());
+        form.addControl('items', new FormControl([], [Validators.required]));
         break;
       case 'TaskList':
-        form.addControl('items', this.getItems());
-        form.addControl('selected', new FormControl('',[Validators.required]));
-      break;
+        form.addControl('items', new FormControl([], [Validators.required]));
+        form.addControl('selected', new FormControl('', [Validators.required]));
+        break;
       case 'Table':
-        form.addControl('items',  new FormControl([],[Validators.required]));
-        form.addControl('rows', new FormControl('',[Validators.required]));
-        form.addControl('columns', new FormControl('',[Validators.required]));
+        form.addControl('items', new FormControl([], [Validators.required]));
+        form.addControl('rows', new FormControl('', [Validators.required]));
+        form.addControl('columns', new FormControl('', [Validators.required]));
         break;
       case 'BlockQuote':
       case 'Heading':
@@ -41,11 +46,6 @@ export class PostCreaterOptionsService {
   }
 
   getContent(value: any = '') {
-    return new FormControl(value,[Validators.required]);
-  }
-
-
-  getItems() {
-    return new FormArray([this.getContent()]);
+    return new FormControl(value, [Validators.required]);
   }
 }
