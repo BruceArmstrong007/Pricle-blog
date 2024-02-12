@@ -2,13 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
-  Signal,
   inject,
   signal,
 } from '@angular/core';
-import { Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { MarkdownComponent } from 'ngx-markdown';
-import { selectQueryParams } from '../../../../../../shared/router-store/router-selector';
 import { Store } from '@ngrx/store';
 import CardComponent from '../../../../../../shared/components/card/card.component';
 import ImgAvatarComponent from '../../../../../../shared/components/img-avatar/img-avatar.component';
@@ -19,7 +17,13 @@ import { TimenowPipe } from '../../../../../../shared/pipes/timenow/timenow.pipe
 @Component({
   selector: 'app-preview',
   standalone: true,
-  imports: [MarkdownComponent, CardComponent, ImgAvatarComponent, NgFor, TimenowPipe],
+  imports: [
+    MarkdownComponent,
+    CardComponent,
+    ImgAvatarComponent,
+    NgFor,
+    TimenowPipe,
+  ],
   templateUrl: './preview.component.html',
   styles: `
 .height {
@@ -37,7 +41,8 @@ class PreviewComponent implements OnDestroy {
   currentDate = signal(new Date());
   intervalID: any;
   private readonly store = inject(Store);
-  readonly userDetails = this.store.selectSignal(userFeature.selectDetails)
+  private readonly router = inject(Router);
+  readonly userDetails = this.store.selectSignal(userFeature.selectDetails);
   //   markdown = signal(`
   //   # Heading level 1
 
@@ -124,27 +129,33 @@ class PreviewComponent implements OnDestroy {
 
   constructor() {
     // router Store selection
-    const param: Signal<Params> = this.store.selectSignal(selectQueryParams);
-    let content = param()['content'].trim();
-    let title = param()['title'],
-      description = param()['description'],
-      tags = param()['tags'] ? JSON.parse(param()['tags']) : [];
+    let local = localStorage.getItem('postPrevData');
+    localStorage.removeItem('postPrevData');
+    let data = local ? JSON.parse(local) : undefined;
+    if (!data) {
+      this.router.navigate(['/']);
+      return;
+    }
+    let content = data['content'].trim();
+    let title = data['title'],
+      description = data['description'],
+      tags = data['tags'] ? JSON.parse(data['tags']) : [];
     if (content) {
       this.markdown.set(atob(content));
     }
-    if(title) {
+    if (title) {
       this.title.set(title);
     }
-    if(description) {
+    if (description) {
       this.description.set(description);
     }
-    if(tags && tags.length > 0) {
+    if (tags && tags.length > 0) {
       this.tags.set(tags);
     }
 
-    this.intervalID = setInterval(()=> {
+    this.intervalID = setInterval(() => {
       this.currentDate.set(new Date());
-    }, 10000)
+    }, 10000);
   }
 
   ngOnDestroy(): void {
