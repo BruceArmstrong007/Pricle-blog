@@ -1,5 +1,13 @@
 import { NgFor } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import ButtonComponent from '../../../../../../shared/components/button/button.component';
 
@@ -9,7 +17,7 @@ import ButtonComponent from '../../../../../../shared/components/button/button.c
   imports: [ReactiveFormsModule, ButtonComponent, NgFor],
   templateUrl: './ordered-list.component.html',
   styles: ``,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderedListComponent {
   @Input() formGroup!: FormGroup;
@@ -18,8 +26,9 @@ export class OrderedListComponent {
 
   addItem() {
     const value = this.addInput.nativeElement.value;
+    if (!value) return;
     this.formGroup.patchValue({
-      items: [...this.formGroup.value.items, {value: value, checked: false}],
+      items: [...this.formGroup.value.items, { value: value, checked: false }],
     });
     this.addInput.nativeElement.value = '';
   }
