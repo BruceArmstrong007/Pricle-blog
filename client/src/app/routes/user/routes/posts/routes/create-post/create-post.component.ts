@@ -334,11 +334,12 @@ class CreatePostComponent {
         for (let j = 0; j < transformedArr[i].length; j++) {
           res += '---' + ' | ';
         }
-        res += '\n ';
+        res += '\n |';
       } else {
         for (let j = 0; j < transformedArr[i].length; j++) {
           res += transformedArr[i][j] + ' | ';
         }
+        res += '\n | 1';
       }
     }
     return res;
