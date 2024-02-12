@@ -16,8 +16,8 @@ import {
   setLoaded,
 } from '../../../../../../shared/component-store-features/api-call.feature';
 import { API } from '../../../../../../shared/utils/api.endpoints';
-import { ContactPayload } from '../../../../../../stores/contacts/contacts.model';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 interface SearchTag {
   key: string;
@@ -27,9 +27,21 @@ interface CreateTag {
   name: string;
 }
 
+type Tag = {
+  _id?: string,
+  name: string
+}
+
 interface CreatePostState {
   searchingTags: boolean;
   tags: Record<string, string>[];
+}
+
+interface CreatePosts {
+  title: string,
+  description: string,
+  tags: Tag[],
+  content: string
 }
 
 const initialState: CreatePostState = {
@@ -42,7 +54,7 @@ export const CreatePostsStore = signalStore(
   withCallState(),
   withMethods((state) => {
     const apiService = inject(ApiService);
-    const store = inject(Store);
+    const router = inject(Router);
     return {
       resetState: () => patchState(state, initialState),
       createTag: rxMethod<CreateTag>((c$) =>
@@ -108,7 +120,7 @@ export const CreatePostsStore = signalStore(
           patchState(state, { tags: [] });
         }),
       )),
-      createPosts: rxMethod<ContactPayload>((c$) =>
+      createPosts: rxMethod<CreatePosts>((c$) =>
         c$.pipe(
           tap(() => {
             patchState(state, setLoading());
@@ -122,7 +134,7 @@ export const CreatePostsStore = signalStore(
                   response?.message ?? 'Post created successfully.',
                   'SUCCESS'
                 );
-                // store.dispatch(contactsActions.contacts());
+                router.navigate(['/']);
               }),
               catchError((error) => {
                 let errorMsg =
