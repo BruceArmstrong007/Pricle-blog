@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-table',
   standalone: true,
@@ -25,5 +25,9 @@ export class TableComponent {
     this.formGroup.patchValue({
       items: [...(value.split(','))]
     })
+  }
+
+  get tableValues(): FormControl {
+    return this.formGroup.controls['items'] as FormControl
   }
 }

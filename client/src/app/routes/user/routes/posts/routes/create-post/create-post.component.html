@@ -14,6 +14,7 @@
         <h1 class="text-3xl p-4 font-bold">{{ currentRoute() }}</h1>
         <div class="flex flex-col sm:flex-row gap-4">
           <app-button
+            (click)="previewMarkdown()"
             btnType="button"
             class="rounded bg-orange-600 text-white sm"
           >
@@ -90,7 +91,12 @@
               </span>
             </ng-container>
           </app-textarea>
-          @for(field of builder.controls; track field) {
+          <label>Content</label>
+          @if(builder.value.length === 0) {
+          <ul class="text-red-600 dark:text-red-400 list-disc pl-4">
+            <li class="break-words text-xs">Content is required.</li>
+          </ul>
+          } @for(field of builder.controls; track field) {
           @switch(field.value.type) { @case('Heading') {
           <div [formGroup]="field">
             <app-heading
@@ -149,23 +155,8 @@
             <app-horizontal-rule (event)="fieldEvent($event, $index)" />
           </div>
           } } }
-          <markdown
-            emoji
-            [data]="val"
-            class="prose lg:prose-xl dark:prose-invert"
-          ></markdown>
-
-          <!--   <markdown
-            clipboard
-            [data]="markdown2()"
-            class="prose lg:prose-xl dark:prose-invert"
-            [clipboardButtonTemplate]="buttonTemplate"
-          ></markdown> -->
         </form>
       </div>
     </ng-container>
   </app-card>
 </div>
-<ng-template #buttonTemplate>
-  <button class="text-white">Copy</button>
-</ng-template>
