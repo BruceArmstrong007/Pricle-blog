@@ -43,6 +43,8 @@ class PreviewComponent implements OnDestroy {
   private readonly store = inject(Store);
   private readonly router = inject(Router);
   readonly userDetails = this.store.selectSignal(userFeature.selectDetails);
+
+  // future reference for adding flowcharts and stuff
   //   markdown = signal(`
   //   # Heading level 1
 
@@ -128,7 +130,6 @@ class PreviewComponent implements OnDestroy {
   //   `);
 
   constructor() {
-    // router Store selection
     let local = localStorage.getItem('postPrevData');
     localStorage.removeItem('postPrevData');
     let data = local ? JSON.parse(local) : undefined;

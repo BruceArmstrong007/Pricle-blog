@@ -1,12 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   inject,
 } from '@angular/core';
 import {
   FormArray,
-  FormControl,
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
@@ -85,23 +83,6 @@ export interface fieldEvent {
 class CreatePostComponent {
   private readonly store = inject(Store);
   readonly routePath = this.store.selectSignal(selectUrl);
-  readonly currentRoute = computed(() => {
-    let currentRoute;
-    let route = this.routePath().split('/').pop();
-    switch (route) {
-      case 'create':
-        currentRoute = 'Create Post';
-        break;
-      case 'edit':
-        currentRoute = 'Edit Post';
-        break;
-      default:
-        'Enter';
-        currentRoute = 'Create Post';
-        break;
-    }
-    return currentRoute;
-  });
   private readonly fb = inject(NonNullableFormBuilder);
   readonly state = inject(CreatePostsStore);
   readonly form: FormGroup = this.fb.group({
@@ -169,7 +150,7 @@ class CreatePostComponent {
       description: form.description,
       tags: JSON.stringify(form.tags),
     };
-    localStorage.setItem("postPrevData",JSON.stringify(res))
+    localStorage.setItem('postPrevData', JSON.stringify(res));
     window.open(`/user/posts/preview`, '_blank');
   }
 
@@ -241,12 +222,6 @@ class CreatePostComponent {
     }
   }
 
-  clear() {
-    this.builder.clear();
-    this.form.reset();
-    this.state.resetState();
-  }
-
   postOptionsEvent(event: BlogPostFieldOptions) {
     this.addField(event);
   }
@@ -274,6 +249,12 @@ class CreatePostComponent {
 
   get builder(): FormArray<FormGroup> {
     return this.form.controls['builder'] as FormArray;
+  }
+
+  clear() {
+    this.builder.clear();
+    this.form.reset();
+    this.state.resetState();
   }
 
   createTable(rows: number, columns: number, items: string[]): string {

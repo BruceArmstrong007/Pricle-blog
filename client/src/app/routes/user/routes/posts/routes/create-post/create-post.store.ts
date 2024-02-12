@@ -16,7 +16,6 @@ import {
   setLoaded,
 } from '../../../../../../shared/component-store-features/api-call.feature';
 import { API } from '../../../../../../shared/utils/api.endpoints';
-import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 
 interface SearchTag {
