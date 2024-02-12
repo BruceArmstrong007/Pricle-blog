@@ -9,18 +9,31 @@ import { Params } from '@angular/router';
 import { MarkdownComponent } from 'ngx-markdown';
 import { selectQueryParams } from '../../../../../../shared/router-store/router-selector';
 import { Store } from '@ngrx/store';
+import CardComponent from '../../../../../../shared/components/card/card.component';
+import ImgAvatarComponent from '../../../../../../shared/components/img-avatar/img-avatar.component';
+import { userFeature } from '../../../../../../stores/user/user.reducer';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-preview',
   standalone: true,
-  imports: [MarkdownComponent],
+  imports: [MarkdownComponent, CardComponent, ImgAvatarComponent, NgFor],
   templateUrl: './preview.component.html',
-  styles: ``,
+  styles: `
+.height {
+    height: calc(100dvh - 340px);
+  }
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 class PreviewComponent {
   markdown = signal('');
+  title = signal('');
+  description = signal('');
+  tags = signal([]);
+  date = signal(new Date())
   private readonly store = inject(Store);
+  readonly userDetails = this.store.selectSignal(userFeature.selectDetails)
   //   markdown = signal(`
   //   # Heading level 1
 
@@ -111,11 +124,19 @@ class PreviewComponent {
     let content = param()['content'].trim();
     let title = param()['title'],
       description = param()['description'],
-      tags = param()['tags'] ? JSON.parse(param()['tags']) : undefined;
-    // console.log(content, atob(content), title, description, tags);
-    // if (content) {
-    //   console.log(atob(content));
-    // }
+      tags = param()['tags'] ? JSON.parse(param()['tags']) : [];
+    if (content) {
+      this.markdown.set(atob(content));
+    }
+    if(title) {
+      this.title.set(title);
+    }
+    if(description) {
+      this.description.set(description);
+    }
+    if(tags && tags.length > 0) {
+      this.tags.set(tags);
+    }
   }
 }
 export default PreviewComponent;
