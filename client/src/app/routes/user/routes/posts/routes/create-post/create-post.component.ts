@@ -135,6 +135,7 @@ class CreatePostComponent {
     ],
     builder: new FormArray([]),
   });
+
   private readonly postCreaterOptionsService = inject(
     PostCreaterOptionsService
   );
@@ -234,6 +235,7 @@ class CreatePostComponent {
   }
 
   clear() {
+    this.builder.clear();
     this.form.reset();
     this.state.resetState();
   }
@@ -259,7 +261,7 @@ class CreatePostComponent {
     if (this.builder.length > 1) {
       this.builder.removeAt(index);
     } else {
-      this.builder.reset();
+      this.builder.clear();
     }
   }
 

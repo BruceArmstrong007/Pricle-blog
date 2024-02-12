@@ -89,7 +89,8 @@
               <span class="cursor-pointer pl-2">
                 <i class="material-icons text-sm">description</i>
               </span>
-            </ng-container>
+            </ng-container>Content
+
           </app-textarea>
           <label>Content</label>
           @if(builder.value.length === 0) {
@@ -144,12 +145,10 @@
           />
 
           } @case('UnorderedList') {
-
           <app-unordered-list
             [formGroup]="field"
             (event)="fieldEvent($event, $index)"
           />
-
           } @case('HorizontalRule') {
           <div [formGroup]="field">
             <app-horizontal-rule (event)="fieldEvent($event, $index)" />
