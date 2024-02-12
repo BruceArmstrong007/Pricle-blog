@@ -126,9 +126,10 @@
               (event)="fieldEvent($event, $index)"
             />
           } @case('TaskList') {
-          <div [formGroup]="field">
-            <app-task-list />
-          </div>
+            <app-task-list
+            [formGroup]="field"
+            (event)="fieldEvent($event, $index)"
+            />
           } @case('OrderedList') {
           <div [formGroup]="field">
             <app-ordered-list />

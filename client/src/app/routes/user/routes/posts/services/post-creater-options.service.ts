@@ -23,7 +23,6 @@ export class PostCreaterOptionsService {
         break;
       case 'TaskList':
         form.addControl('items', new FormControl([], [Validators.required]));
-        form.addControl('selected', new FormControl('', [Validators.required]));
         break;
       case 'Table':
         form.addControl('items', new FormControl([], [Validators.required]));
