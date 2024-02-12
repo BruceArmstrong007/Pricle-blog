@@ -146,11 +146,11 @@ class CreatePostComponent {
       this.formError();
       return;
     }
-    let result =  {
-      title : this.form.value.title,
+    let result = {
+      title: this.form.value.title,
       description: this.form.value.description,
       tags: this.form.value.tags.map((tags: any) => tags._id),
-      content: this.form.value.content
+      content: this.form.value.content,
     };
     this.state.createPosts(result);
   }
@@ -163,14 +163,14 @@ class CreatePostComponent {
     }
 
     const form = this.form.value;
-    let content = btoa(form.content),
-      title = form.title,
-      description = form.description,
-      tags = JSON.stringify(form.tags);
-    window.open(
-      `/user/posts/preview?title=${title}&description=${description}&tags=${tags}&content=${content}`,
-      '_blank'
-    );
+    let res = {
+      content: btoa(form.content),
+      title: form.title,
+      description: form.description,
+      tags: JSON.stringify(form.tags),
+    };
+    localStorage.setItem("postPrevData",JSON.stringify(res))
+    window.open(`/user/posts/preview`, '_blank');
   }
 
   generateMarkdown() {
