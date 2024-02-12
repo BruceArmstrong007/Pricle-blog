@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   Signal,
   inject,
   signal,
@@ -13,11 +14,12 @@ import CardComponent from '../../../../../../shared/components/card/card.compone
 import ImgAvatarComponent from '../../../../../../shared/components/img-avatar/img-avatar.component';
 import { userFeature } from '../../../../../../stores/user/user.reducer';
 import { NgFor } from '@angular/common';
+import { TimenowPipe } from '../../../../../../shared/pipes/timenow/timenow.pipe';
 
 @Component({
   selector: 'app-preview',
   standalone: true,
-  imports: [MarkdownComponent, CardComponent, ImgAvatarComponent, NgFor],
+  imports: [MarkdownComponent, CardComponent, ImgAvatarComponent, NgFor, TimenowPipe],
   templateUrl: './preview.component.html',
   styles: `
 .height {
@@ -26,12 +28,14 @@ import { NgFor } from '@angular/common';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-class PreviewComponent {
+class PreviewComponent implements OnDestroy {
   markdown = signal('');
   title = signal('');
   description = signal('');
   tags = signal([]);
-  date = signal(new Date())
+  date = signal(new Date());
+  currentDate = signal(new Date());
+  intervalID: any;
   private readonly store = inject(Store);
   readonly userDetails = this.store.selectSignal(userFeature.selectDetails)
   //   markdown = signal(`
@@ -137,6 +141,14 @@ class PreviewComponent {
     if(tags && tags.length > 0) {
       this.tags.set(tags);
     }
+
+    this.intervalID = setInterval(()=> {
+      this.currentDate.set(new Date());
+    }, 10000)
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.intervalID);
   }
 }
 export default PreviewComponent;

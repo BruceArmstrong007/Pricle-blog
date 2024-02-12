@@ -10,7 +10,7 @@
               <sub>{{ userDetails()?.username }}</sub>
             </div>
           </div>
-          <div>{{date()}}</div>
+          <div>{{date() | timenow:currentDate()}}</div>
         </div>
         <h1 class="text-5xl">{{ title() }}</h1>
         <div class="flex flex-wrap items-center gap-2">
