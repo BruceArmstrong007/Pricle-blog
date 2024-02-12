@@ -38,7 +38,10 @@
           </app-button>
         </div>
       </div>
-      <app-post-creater-options class="w-full" (optionEvent)="postOptionsEvent($event)" />
+      <app-post-creater-options
+        class="w-full"
+        (optionEvent)="postOptionsEvent($event)"
+      />
     </ng-container>
     <ng-container ngProjectAs="body">
       <div class="w-full height px-5 overflow-auto">
@@ -121,23 +124,20 @@
             />
           </div>
           } @case('Table') {
-            <app-table
-              [formGroup]="field"
-              (event)="fieldEvent($event, $index)"
-            />
+          <app-table [formGroup]="field" (event)="fieldEvent($event, $index)" />
           } @case('TaskList') {
-            <app-task-list
+          <app-task-list
             [formGroup]="field"
             (event)="fieldEvent($event, $index)"
-            />
+          />
           } @case('OrderedList') {
-          <div [formGroup]="field">
-            <app-ordered-list />
-          </div>
+
+          <app-ordered-list [formGroup]="field" />
+
           } @case('UnorderedList') {
-          <div [formGroup]="field">
-            <app-unordered-list />
-          </div>
+
+          <app-unordered-list [formGroup]="field" />
+
           } @case('HorizontalRule') {
           <div [formGroup]="field">
             <app-horizontal-rule (event)="fieldEvent($event, $index)" />

@@ -1,1 +1,48 @@
-<p>ordered-list works!</p>
+<div class="flex w-full items-center gap-1">
+  <div [formGroup]="formGroup" class="grow-1 w-full flex flex-col gap-2">
+    <label>Ordered List</label>
+    <div>
+      <label>Add items to your list</label>
+      <div class="flex gap-1 justify-start items-center">
+        <input
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          type="text"
+          #addInput
+          (keydown)="enterKey($event)"
+          placeholder="Enter items to your list"
+        />
+        <app-button
+          (click)="addItem()"
+          class="ml-2 rounded bg-green-500 text-white sm"
+        >
+          <ng-container ngProjectAs="btn-name">
+            <i class="material-icons text-sm">add</i>
+          </ng-container>
+        </app-button>
+      </div>
+    </div>
+
+    <table>
+      <tr>
+        <th>Items</th>
+        <th>delete</th>
+      </tr>
+
+    @for (item of items.value; track $index) {
+      <tr>
+        <td class="text-center">{{item.value}}</td>
+        <td class="text-center">
+          <span (click)="deleteItem($index)">
+            <i class="material-icons cursor-pointer text-sm text-red-500">delete</i>
+          </span>
+        </td>
+      </tr>
+    }
+    </table>
+  </div>
+  <i
+    (click)="event.emit({ action: 'delete' })"
+    class="material-icons px-2 cursor-pointer text-red-600 text-sm"
+    >delete</i
+  >
+</div>

@@ -259,10 +259,22 @@ class CreatePostComponent {
           res += this.createTable(elt.rows, elt.columns, elt.items);
           break;
         case 'TaskList':
+          elt.items.forEach((item: Record<string, string | boolean>) => {
+            res += '\n - ['+ (item['checked'] ? 'X' : ' ') +'] ' + item['value'];
+          });
+          res += ' \n ';
           break;
         case 'OrderedList':
+        elt.items.forEach((item: Record<string, string>, index: number) => {
+          res += '\n '+ `${(index+1)}. ` + item['value'];
+        });
+        res += ' \n ';
           break;
         case 'UnorderedList':
+        elt.items.forEach((item: Record<string, string>, index: number) => {
+          res += '\n - '+ item['value'];
+        });
+        res += ' \n ';
           break;
       }
     });
