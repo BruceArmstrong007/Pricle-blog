@@ -146,6 +146,13 @@ class CreatePostComponent {
       this.formError();
       return;
     }
+    let result =  {
+      title : this.form.value.title,
+      description: this.form.value.description,
+      tags: this.form.value.tags.map((tags: any) => tags._id),
+      content: this.form.value.content
+    };
+    this.state.createPosts(result);
   }
 
   previewMarkdown() {
@@ -169,8 +176,8 @@ class CreatePostComponent {
   generateMarkdown() {
     const builder = this.form.value.builder;
     let res = '';
-    builder.forEach((elt: any) => {
-      switch (elt.type) {
+    builder?.forEach((elt: any) => {
+      switch (elt?.type) {
         case 'BlockQuote':
           let value = '> ' + elt.content;
           value = value.replaceAll('\n\n', '\n\n > ');

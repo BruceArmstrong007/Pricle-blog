@@ -69,6 +69,7 @@ export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
   @ViewChild('targetElt', { static: true }) targetElt:
     | ElementRef<HTMLDivElement>
     | undefined;
+  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
   isOpen: WritableSignal<boolean> = signal(false);
 
   ngAfterViewInit() {
@@ -98,6 +99,9 @@ export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
     )
       return;
     this.control.patchValue([...prevValue, item]);
+    this.searchInput.nativeElement.value = '';
+    this.searchInput.nativeElement.focus();
+
   }
 
   removeItem(value: string) {
@@ -119,7 +123,7 @@ export class MultiSelectComponent<T> extends ControlValueAccessorDirective<T> {
   searchValues(event: any) {
     if (event.key === 'Enter' || event.keyCode === 13 || event.which === 13) {
       this.searchEvent.emit({ value: event?.target?.value, type: 'enter' });
-      event.target.value = '';
+      this.searchInput.nativeElement.value = '';
     } else if (
       event.keyCode === 27 ||
       event.which === 27 ||

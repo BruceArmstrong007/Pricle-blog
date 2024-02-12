@@ -1,6 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import {
+  Model,
+  Types,
+} from 'mongoose';
 import { Post } from '../schema/post.schema';
 import { SearchPosts } from 'src/posts/dto/post.request';
 
@@ -31,15 +34,14 @@ export class PostRepository {
     title: string,
     description: string,
     content: string,
-    tags: any[],
+    tags: string[],
   ) {
     const authorID = new Types.ObjectId(userID);
-    tags = tags.map((tag: string) => new Types.ObjectId(tag));
     const newTag = new this.postModel({
       title,
       description,
       content,
-      tags,
+      tags: tags.map((tag: string) => new Types.ObjectId(tag)),
       author: authorID,
     });
     return await newTag.save();

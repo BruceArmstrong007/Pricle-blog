@@ -6,7 +6,7 @@ export class Post extends Document {
   @Prop({
     required: true,
     type: [Types.ObjectId],
-    validate: [(value) => value.length > 5],
+    validate: [(value) => value.length <= 5],
     ref: 'Tag',
   })
   tags: Types.ObjectId[];
@@ -26,7 +26,6 @@ export class Post extends Document {
   @Prop({
     required: true,
     maxlength: 2000,
-
   })
   content: string;
 
