@@ -52,4 +52,12 @@ export class TaskListComponent {
       ]
     })
   }
+
+  enterKey(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.keyCode === 13 || event.which === 13) {
+      event.preventDefault();
+      this.addItem();
+    }
+  }
+
 }
