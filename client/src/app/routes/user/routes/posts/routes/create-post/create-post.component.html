@@ -132,11 +132,17 @@
           />
           } @case('OrderedList') {
 
-          <app-ordered-list [formGroup]="field" />
+          <app-ordered-list
+            [formGroup]="field"
+            (event)="fieldEvent($event, $index)"
+          />
 
           } @case('UnorderedList') {
 
-          <app-unordered-list [formGroup]="field" />
+          <app-unordered-list
+            [formGroup]="field"
+            (event)="fieldEvent($event, $index)"
+          />
 
           } @case('HorizontalRule') {
           <div [formGroup]="field">
