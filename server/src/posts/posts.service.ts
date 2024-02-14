@@ -1,13 +1,23 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePost, SearchPosts, UpdatePost } from './dto/post.request';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
+import {
+  CreatePost,
+  SearchPosts,
+  TimelinePosts,
+  UpdatePost,
+} from './dto/post.request';
 import { PostRepository } from './database/repository/post.repository';
+import { ContactService } from 'src/contact/contact.service';
 
 @Injectable()
 export class PostsService {
-  constructor(private readonly postRepository: PostRepository) {}
+  constructor(
+    private readonly postRepository: PostRepository,
+    @Inject(forwardRef(() => ContactService))
+    private readonly contactService: ContactService,
+  ) {}
 
-  create(authorID: string, createPost: CreatePost) {
-    return this.postRepository.create(
+  async create(authorID: string, createPost: CreatePost) {
+    return await this.postRepository.create(
       authorID,
       createPost.title,
       createPost.description,
@@ -16,16 +26,16 @@ export class PostsService {
     );
   }
 
-  findAll(authorID: string) {
-    return this.postRepository.findAll(authorID);
+  async findAll(authorID: string) {
+    return await this.postRepository.findAll(authorID);
   }
 
-  findOne(id: string) {
-    return this.postRepository.findOne(id);
+  async findOne(id: string) {
+    return await this.postRepository.findOne(id);
   }
 
-  update(id: string, updatePost: UpdatePost) {
-    return this.postRepository.create(
+  async update(id: string, updatePost: UpdatePost) {
+    return await this.postRepository.create(
       id,
       updatePost.title,
       updatePost.description,
@@ -34,11 +44,20 @@ export class PostsService {
     );
   }
 
-  delete(id: string) {
-    return this.postRepository.delete(id);
+  async delete(id: string) {
+    return await this.postRepository.delete(id);
   }
 
-  searchPosts(queryParams: SearchPosts) {
-    return this.postRepository.searchPosts(queryParams);
+  async searchPosts(queryParams: SearchPosts) {
+    return await this.postRepository.searchPosts(queryParams);
+  }
+
+  async timelinePosts(userID: string, queryParams: TimelinePosts) {
+    const friendIDs = (await this.contactService.getContacts(userID)).contacts;
+    return await this.postRepository.timelinePosts(
+      userID,
+      queryParams,
+      friendIDs,
+    );
   }
 }

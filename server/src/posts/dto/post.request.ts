@@ -3,6 +3,7 @@ import {
   ArrayMaxSize,
   IsArray,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   Length,
@@ -88,4 +89,17 @@ function ToArray() {
     }
     return value;
   });
+}
+
+export class TimelinePosts {
+  @IsNotEmpty()
+  pageSize: number;
+
+
+  @IsNotEmpty()
+  page: number;
+
+  constructor(private assign: Partial<SearchPosts>) {
+    Object.assign(this, assign);
+  }
 }

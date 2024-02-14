@@ -1,11 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import {
-  Model,
-  Types,
-} from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Post } from '../schema/post.schema';
-import { SearchPosts } from 'src/posts/dto/post.request';
+import { SearchPosts, TimelinePosts } from 'src/posts/dto/post.request';
 
 @Injectable()
 export class PostRepository {
@@ -86,6 +83,33 @@ export class PostRepository {
     return await this.postModel
       .find(filterQuery)
       .sort({ created_at: -1 })
+      .exec();
+  }
+
+  async timelinePosts(
+    userID: string,
+    queryParams: TimelinePosts,
+    friendIDs: string[],
+  ): Promise<Post[] | null> {
+    const skip = (queryParams.page - 1) * queryParams.pageSize;
+    const ids = [
+      ...friendIDs.map((id) => new Types.ObjectId(id)),
+      new Types.ObjectId(userID),
+    ];
+    return await this.postModel
+      .find({
+        author: { $in: ids },
+      })
+      .sort({
+        created_at: -1,
+      })
+      .skip(skip)
+      .limit(queryParams.pageSize)
+      .populate({
+        path: 'author',
+        select: '-password -verified', 
+      })
+      .populate('tags')
       .exec();
   }
 }

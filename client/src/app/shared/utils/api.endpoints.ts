@@ -39,8 +39,8 @@ export const API = {
   UPDATEPOST: { url: '/posts', method: 'PATCH' },
   GETPOSTS: { url: '/posts', method: 'GET' },
   SEARCHPOSTS: { url: '/posts/search', method: 'GET' },
-  SEARCHPOST: { url: '/posts', method: 'GET' },
   DELETEPOST: { url: '/posts', method: 'DELETE' },
+  TIMELINEPOST: { url: '/posts/timeline', method: 'GET' }
 };
 
 export type APIEndpoint = { url: string; method: string };

@@ -12,9 +12,14 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { CreatePost, SearchPosts, UpdatePost } from './dto/post.request';
 import { ApiExceptionFilter, CurrentUser, CurrentUserType } from '@app/common';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
+import {
+  CreatePost,
+  SearchPosts,
+  TimelinePosts,
+  UpdatePost,
+} from './dto/post.request';
 
 @Controller('posts')
 @UseGuards(JwtAuthGuard)
@@ -37,6 +42,21 @@ export class PostsController {
     return this.postsService.findAll(user.userID);
   }
 
+  @Get('search')
+  getPosts(
+    @Query(new ValidationPipe({ transform: true })) queryParams: SearchPosts,
+  ) {
+    return this.postsService.searchPosts(queryParams);
+  }
+
+  @Get('timeline')
+  timeLinePosts(
+    @Query(new ValidationPipe({ transform: true })) queryParams: TimelinePosts,
+    @CurrentUser() user: CurrentUserType,
+  ) {
+    return this.postsService.timelinePosts(user.userID, queryParams);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.postsService.findOne(id);
@@ -45,12 +65,5 @@ export class PostsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.postsService.delete(id);
-  }
-
-  @Get('search')
-  getPosts(
-    @Query(new ValidationPipe({ transform: true })) queryParams: SearchPosts,
-  ) {
-    return this.postsService.searchPosts(queryParams);
   }
 }
