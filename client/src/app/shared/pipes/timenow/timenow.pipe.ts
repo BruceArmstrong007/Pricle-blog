@@ -6,9 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TimenowPipe implements PipeTransform {
 
-  transform(inputDate: Date, currentDate: Date): unknown {
-    if (!inputDate) {
-      return '';
+  transform(inputDate: Date | string | undefined, currentDate: Date): unknown {
+    if(!inputDate) return;
+    if(typeof(inputDate) === 'string') {
+      inputDate = new Date(inputDate);
     }
 
     const timeDifference = currentDate.getTime() - inputDate.getTime();
