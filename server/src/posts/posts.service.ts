@@ -54,8 +54,6 @@ export class PostsService {
 
   async timelinePosts(userID: string, queryParams: TimelinePosts) {
     const friendIDs = (await this.contactService.getContacts(userID)).contacts;
-    console.log(friendIDs);
-
     return await this.postRepository.timelinePosts(
       userID,
       queryParams,

@@ -105,6 +105,11 @@ export class PostRepository {
       })
       .skip(skip)
       .limit(queryParams.pageSize)
+      .populate({
+        path: 'author',
+        select: '-password -verified', 
+      })
+      .populate('tags')
       .exec();
   }
 }
