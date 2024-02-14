@@ -1,5 +1,12 @@
 import { NgFor } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+  inject,
+  input,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import ButtonComponent from '../../../../../../../../shared/components/button/button.component';
 import CardComponent from '../../../../../../../../shared/components/card/card.component';
@@ -28,13 +35,13 @@ import { Post } from '../../../../../../../../stores/posts/posts.model';
   .height {
     height: calc(100vh - 130px);
   }
-  .loader-height {
-    height: 300px;
-  }
+  loader {
+    --loader-font-size: 3rem;
+    --loader-line-height: 1;
+    }
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class TimelinePostsComponent {
   posts = input.required<Post[]>();
   refresh = input.required<boolean>();
@@ -42,5 +49,4 @@ export class TimelinePostsComponent {
   clickedID = input<string>();
   @Output() selectEvent = new EventEmitter<string>();
   @Output() scrollEvent = new EventEmitter<Event>();
-
 }
